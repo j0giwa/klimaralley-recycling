@@ -10,7 +10,7 @@ function App() {
       </header>
      
       <body> 
-        <RecyclingApp></RecyclingApp>
+        <RecyclingApp></RecyclingApp> 
       </body>
     </div>
   );
