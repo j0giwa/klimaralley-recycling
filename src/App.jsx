@@ -1,8 +1,15 @@
+import RecyclingApp from "./components/Recycling/RecyclingApp"
+import './index.css'
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    
+    <div className="App">
+      <header>Header</header>
+
+      <body><RecyclingApp></RecyclingApp></body>
+      
+    </div>
   )
 }
 
