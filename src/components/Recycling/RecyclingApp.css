@@ -1,0 +1,54 @@
+
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+label, input, button {
+    margin: 10px;
+    padding: 5px;
+}
+
+.login-button {
+    background-color: #4CAF50; 
+    color: white; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    font-weight: 500;
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+  }
+  
+  .login-button:hover {
+    background-color: #45a049; 
+  }
+  
+  .login-button:active {
+    transform: scale(0.98); 
+    background-color: #388e3c; 
+  }
+
+  .logged-button {
+    background-color: white; 
+    color: #333; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    font-weight: 500; 
+    cursor: pointer; 
+    transition: all 0.3s ease; 
+  }
+
+  .logged-button:hover {
+    background-color: #f7f7f7; 
+    border-color: #bbb; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+  }
+  
+ 
+  .logged-button:active {
+    transform: scale(0.98); 
+    border-color: #aaa; 
+  }
