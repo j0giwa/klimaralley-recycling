@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import LoginComponent from './LoginComponent.jsx'
 import WelcomeComponent from './WelcomeComponent.jsx'
@@ -10,6 +10,7 @@ export default function RecyclingApp(){
     return(
         <div className="RecyclingApp">
             <BrowserRouter>
+            {/* <HeaderComponent></HeaderComponent> */}
                 <Routes>
                 <Route path='' element={<WelcomeComponent/>}></Route>
                     <Route path='/start' element={<WelcomeComponent />}></Route>
