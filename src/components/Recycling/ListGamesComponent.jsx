@@ -1,9 +1,17 @@
+import { Navigate, useNavigate } from "react-router-dom"
 
 
 
 export default function ListGamesComponent() {
 
+    const navigate = useNavigate()
 
+
+    function startGame() {
+        console.log("clicked")
+        navigate('/game')
+
+    }
 
     return (
         <div className="ListGamesComponent">
@@ -24,19 +32,19 @@ export default function ListGamesComponent() {
                         
                             <td>backend anbindung</td>
                             <td>backend</td>
-                            <td><button className='btn btn-success' >Spiel Starten</button></td>
+                            <td><button className='btn btn-success' onClick={ startGame} >Spiel Starten</button></td>
                         </tr>
                         <tr >
                         
                             <td>backend anbindung</td>
                             <td>backend</td>
-                            <td><button className='btn btn-success' >Spiel Starten</button></td>
+                            <td><button className='btn btn-success' onClick={startGame} >Spiel Starten</button></td>
                         </tr>
                         <tr >
                         
                             <td>backend anbindung</td>
                             <td>backend</td>
-                            <td><button className='btn btn-success' >Spiel Starten</button></td>
+                            <td><button className='btn btn-success' onClick={startGame} >Spiel Starten</button></td>
                         </tr>
 
 
