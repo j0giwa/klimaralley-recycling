@@ -17,7 +17,7 @@ export default function HeaderComponent() {
               
               <ul className="flex space-x-4">
                 <NavItem to="/start">Home</NavItem>
-                <NavItem to="/loggedIn">Spiele</NavItem>
+                <NavItem to="/games">Spiele</NavItem>
               </ul>
   
               <ul className="flex space-x-4">

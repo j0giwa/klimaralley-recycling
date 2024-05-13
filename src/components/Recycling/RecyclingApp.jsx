@@ -9,6 +9,7 @@ import '../../index.css'
 import FooterComponent from './FooterComponent.jsx'
 import LogoutComponent from './LogoutComponent.jsx'
 import ErrorComponent from './ErrorComponent.jsx'
+import ListGamesComponent from './ListGamesComponent.jsx'
 
 
 
@@ -28,6 +29,7 @@ export default function RecyclingApp(){
                     <Route path='/loggedin' element={<LoggedIn></LoggedIn>}></Route>
                     <Route path='/gameone' element={<GameOne></GameOne>}></Route>
                     <Route path='/logout' element={<LogoutComponent></LogoutComponent>}></Route>
+                    <Route path='/games' element={<ListGamesComponent></ListGamesComponent>}></Route>
                     <Route path='/*' element={<ErrorComponent></ErrorComponent>}></Route>
                     
                 

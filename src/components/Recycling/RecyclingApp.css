@@ -51,16 +51,16 @@ button {
 }
 
 
-.container {
+/* .container {
   max-width: 1280px;
   margin: 0 auto;
-}
+} */
 
-body {
+/* body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
+} */
 
 footer {
   margin-top: auto;
