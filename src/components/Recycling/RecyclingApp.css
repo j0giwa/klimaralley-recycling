@@ -1,8 +1,4 @@
 
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
-
 label, input, button {
     margin: 10px;
     padding: 5px;

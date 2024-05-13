@@ -1,5 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 import './RecyclingApp.css'
+import React from 'react'
 
 export default function WelcomeComponent() {
     const navigate = useNavigate();

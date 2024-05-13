@@ -5,10 +5,8 @@ function App() {
   return (
     
     <div className="App">
-      {/* <header>Header</header> */}
-
-      <body><RecyclingApp></RecyclingApp></body>
       
+      <RecyclingApp></RecyclingApp>   
     </div>
   )
 }

@@ -1,42 +1,42 @@
+import { Link } from 'react-router-dom';
+import React from 'react'
 
+export default function HeaderComponent() {
+    return (
+      <header className="bg-white border-b border-gray-200 shadow-md">
+        <div className="container mx-auto px-4 py-2">
+          <div className="flex justify-between items-center">
 
-// export default function HeaderComponent(){
-
-//     return (
-//         <header className="border-b border-light border-5 mb-5 p-2">
-//           <div className="container">
-//             <div className="flex items-center justify-between">
-//               <a className="text-black text-2xl font-bold" href="https://www.youtube.com/watch?v=END_WYdf8pw">Lemgo Rallye</a>
-//               <nav className="flex">
-//                 <ul className="flex space-x-4">
-                  
-//                     <>
-//                       <li className="text-lg">
-//                         <Link className="text-blue-500" to="/welcome/in28minutes">Home</Link>
-//                       </li>
-//                       <li className="text-lg">
-//                         <Link className="text-blue-500" to="/todos">Todos</Link>
-//                       </li>
-//                     </>
-                  
-//                 </ul>
-//                 <ul className="flex space-x-4">
-                  
-//                     <li className="text-lg">
-//                       <Link className="text-blue-500" to="/login">Login</Link>
-//                     </li>
-                  
-                  
-//                     <li className="text-lg">
-//                       <Link className="text-blue-500" to="/logout" onClick={logout}>Logout</Link>
-//                     </li>
-                  
-//                 </ul>
-//               </nav>
-//             </div>
-//           </div>
-//         </header>
-//       );
-      
-
-// }
+            {/* Logo */}
+            <div className="flex-shrink-0">
+              <Link to="/" className="text-lg font-semibold text-gray-800">Lemgo Rallye</Link>
+            </div>
+  
+            
+            <nav className="flex space-x-4">
+              
+              <ul className="flex space-x-4">
+                <NavItem to="/start">Home</NavItem>
+                <NavItem to="/loggedIn">Spiele</NavItem>
+              </ul>
+  
+              <ul className="flex space-x-4">
+                <NavItem to="/login">Login</NavItem>
+                <NavItem to="/logout">Logout</NavItem>
+              </ul>
+              
+            </nav>
+          </div>
+        </div>
+      </header>
+    );
+  }
+  
+  // Komponente für ein einzelnes Navigations-Item mit Link
+  function NavItem({ to, children }) {
+    return (
+      <li className="text-lg">
+        <Link to={to} className="text-blue-500 hover:text-blue-600">{children}</Link>
+      </li>
+    );
+  }
