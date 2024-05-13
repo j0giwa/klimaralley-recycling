@@ -7,6 +7,7 @@ import GameOne from '../GameOne/GameOne.jsx'
 import HeaderComponent from './HeaderComponent.jsx'
 import '../../index.css'
 import FooterComponent from './FooterComponent.jsx'
+import LogoutComponent from './LogoutComponent.jsx'
 
 
 
@@ -25,6 +26,8 @@ export default function RecyclingApp(){
                     <Route path='/login' element={<LoginComponent></LoginComponent>}></Route>
                     <Route path='/loggedin' element={<LoggedIn></LoggedIn>}></Route>
                     <Route path='/gameone' element={<GameOne></GameOne>}></Route>
+                    <Route path='/logout' element={<LogoutComponent></LogoutComponent>}></Route>
+                    
                 
                 </Routes>
                 </body>
