@@ -6,6 +6,7 @@ import LoggedIn from './LoggedIn.jsx'
 import GameOne from '../GameOne/GameOne.jsx'
 import HeaderComponent from './HeaderComponent.jsx'
 import '../../index.css'
+import FooterComponent from './FooterComponent.jsx'
 
 
 
@@ -14,15 +15,20 @@ export default function RecyclingApp(){
         <div className="RecyclingApp">
             <BrowserRouter>
               <HeaderComponent></HeaderComponent>
+                {/* body für die Ausrichten siehe RecyclingApp.css */}
+                <body>
                 <Routes>
+               
                 <Route path='' element={<WelcomeComponent/>}></Route>
                     
                     <Route path='/start' element={<WelcomeComponent />}></Route>
                     <Route path='/login' element={<LoginComponent></LoginComponent>}></Route>
                     <Route path='/loggedin' element={<LoggedIn></LoggedIn>}></Route>
                     <Route path='/gameone' element={<GameOne></GameOne>}></Route>
-
+                
                 </Routes>
+                </body>
+                <FooterComponent></FooterComponent>
             </BrowserRouter>
         </div>
     )
