@@ -9,7 +9,7 @@ export default function HeaderComponent() {
 
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link to="/" className="text-lg font-semibold text-gray-800">Lemgo Rallye</Link>
+              <Link to="https://www.youtube.com/watch?v=END_WYdf8pw" className="text-lg font-semibold text-gray-800">Lemgo Rallye</Link>
             </div>
   
             
@@ -24,7 +24,7 @@ export default function HeaderComponent() {
                 <NavItem to="/login">Login</NavItem>
                 <NavItem to="/logout">Logout</NavItem>
               </ul>
-              
+
             </nav>
           </div>
         </div>
