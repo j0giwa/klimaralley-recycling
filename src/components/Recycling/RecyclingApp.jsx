@@ -26,7 +26,7 @@ export default function RecyclingApp(){
                     
                     <Route path='/start' element={<WelcomeComponent />}></Route>
                     <Route path='/login' element={<LoginComponent></LoginComponent>}></Route>
-                    <Route path='/loggedin' element={<LoggedIn></LoggedIn>}></Route>
+                    {/* <Route path='/loggedin' element={<ListGamesComponent></ListGamesComponent>}></Route> */}
                     <Route path='/gameone' element={<GameOne></GameOne>}></Route>
                     <Route path='/logout' element={<LogoutComponent></LogoutComponent>}></Route>
                     <Route path='/games' element={<ListGamesComponent></ListGamesComponent>}></Route>

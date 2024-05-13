@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 
 export default function LoginComponent() {
 
-    const [username, setUsername] = useState('Benutzername')
+    const [username, setUsername] = useState('Admin')
     const [password, setPassword] = useState('Password')
     let [showSuccessMessage, setShowSuccessMessage] = useState(false)
     let [showErrorMessage, setShowErrorMessage] = useState(false)
@@ -24,7 +24,7 @@ export default function LoginComponent() {
             console.log('Success')
             setShowSuccessMessage(true)
             setShowErrorMessage(false)
-            navigate('/loggedIn')
+            navigate('/games')
         } else {
             console.log('failed')
             setShowSuccessMessage(false)
