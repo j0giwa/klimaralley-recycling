@@ -5,11 +5,11 @@
 // function App() {
 //   return (
 //     <div className="App" >   
-//      <body> 
+    
 //         <RecyclingApp></RecyclingApp>
-//       </body>
+      
 //     </div>
-//   );
+//   )
 // }
 
 // export default App;

@@ -1,9 +1,7 @@
 
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { BrowserRouter, Route, Routes,Navigate, useNavigate } from 'react-router-dom'
 import LoginComponent from './LoginComponent.jsx'
 import WelcomeComponent from './WelcomeComponent.jsx'
-import LoggedIn from './LoggedIn.jsx'
-import GameOne from '../GameOne/GameOne.jsx'
 import HeaderComponent from './HeaderComponent.jsx'
 import '../../index.css'
 import FooterComponent from './FooterComponent.jsx'
@@ -11,34 +9,60 @@ import LogoutComponent from './LogoutComponent.jsx'
 import ErrorComponent from './ErrorComponent.jsx'
 import ListGamesComponent from './ListGamesComponent.jsx'
 import GameComponent from './GameComponent.jsx'
+import AuthProvider, { useAuth } from './security/AuthContext.js'
+
+
+
+function AuthenticatedRoute({ children }) {
+
+    const authContext = useAuth()
+    if (authContext.isAuthenticated)
+        return children
+
+    return <Navigate to="/"></Navigate>
+
+}
 
 
 
 export default function RecyclingApp(){
     return(
         <div className="RecyclingApp">
+            <AuthProvider>
             <BrowserRouter>
               <HeaderComponent></HeaderComponent>
-                {/* body für die Ausrichten siehe RecyclingApp.css */}
-                <body>
+                
+                
                 <Routes>
                
-                <Route path='' element={<WelcomeComponent/>}></Route>
-                    
-                    <Route path='/start' element={<WelcomeComponent />}></Route>
+                    <Route path='' element={<LoginComponent/>}></Route>
+
                     <Route path='/login' element={<LoginComponent></LoginComponent>}></Route>
-                    {/* <Route path='/loggedin' element={<ListGamesComponent></ListGamesComponent>}></Route> */}
-                    <Route path='/gameone' element={<GameOne></GameOne>}></Route>
-                    <Route path='/logout' element={<LogoutComponent></LogoutComponent>}></Route>
-                    <Route path='/games' element={<ListGamesComponent></ListGamesComponent>}></Route>
-                    <Route path='/game' element={<GameComponent></GameComponent>}></Route>
+                    
+                    <Route path='/welcome/:username' element={ <AuthenticatedRoute><WelcomeComponent /></AuthenticatedRoute> }></Route>
+
+                    <Route path='/games' element={<AuthenticatedRoute><ListGamesComponent></ListGamesComponent></AuthenticatedRoute>}></Route>
+
+                    <Route path='/game/:id' element={<AuthenticatedRoute><GameComponent></GameComponent></AuthenticatedRoute>}></Route>
+
+                    
+
+                    {/* <Route path='/gameone' element={<GameOne></GameOne>}></Route> */}
+
+                    <Route path='/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>
+
+                    
+
+                    
+
                     <Route path='/*' element={<ErrorComponent></ErrorComponent>}></Route>
                     
                 
                 </Routes>
-                </body>
+                
                 <FooterComponent></FooterComponent>
             </BrowserRouter>
+            </AuthProvider>
         </div>
     )
 }

@@ -1,14 +1,15 @@
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { useAuth } from './security/AuthContext.js'
 
 
 export default function LoginComponent() {
 
     const [username, setUsername] = useState('Admin')
-    const [password, setPassword] = useState('Password')
-    let [showSuccessMessage, setShowSuccessMessage] = useState(false)
+    const [password, setPassword] = useState('1234')
     let [showErrorMessage, setShowErrorMessage] = useState(false)
     const navigate = useNavigate();
+    const authContext = useAuth();
 
     function handleBenutzernameChange(event) {
         setUsername(event.target.value)
@@ -20,14 +21,12 @@ export default function LoginComponent() {
 
     function handleSubmit() {
 
-        if (username === 'Admin' && password === '1234') {
-            console.log('Success')
-            setShowSuccessMessage(true)
-            setShowErrorMessage(false)
-            navigate('/games')
+        if (authContext.login(username, password)) {
+            navigate(`/welcome/${username}`)
+            console.log('success')
+
         } else {
             console.log('failed')
-            setShowSuccessMessage(false)
             setShowErrorMessage(true)
         }
     }
@@ -35,7 +34,7 @@ export default function LoginComponent() {
     return (
         <div className="Login">
             {showErrorMessage && <div className='errorMessage'>Anmeldung Fehlgeschlagen! Benutzername oder Passwort falsch.</div>}
-            {showSuccessMessage && <div className='successMessage'>Logged </div>}
+
             <div className="LoginForm">
                 <div>
                     <label>Benutzername</label>

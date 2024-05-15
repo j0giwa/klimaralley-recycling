@@ -1,28 +1,20 @@
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import {  Link, useParams} from 'react-router-dom'
 import './RecyclingApp.css'
 import React from 'react'
 
 export default function WelcomeComponent() {
-    const navigate = useNavigate();
+
+    const { username } = useParams()
+
+
    
     return (
         <div className="Welcome">
-            Bitte loggen Sie sich ein.
-            <div>
-                <button className='login-button' onClick={handle1}>Anmelden</button><button className='logged-button' onClick={handle2}>bereits angemeldet</button>
+            <h1>Willkommen {username}</h1>
+           <div >
+                Deine Spiele. <Link to='/games'>Klick hier</Link>
             </div>
         </div>
     )
 
-    function handle1() {
-
-       navigate('/login')
-      
-    }
-
-    function handle2() {
-
-        navigate('/loggedin')
-       
-     }
 }
