@@ -5,7 +5,7 @@ export default function GameOne() {
         <div className="GameOne">
             
             <div>
-            <h3>Spiel 1 gag</h3> 
+            <h3>Spiel 1 gags</h3> 
             </div>
 
             
