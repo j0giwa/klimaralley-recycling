@@ -1,4 +1,4 @@
-import { AuthContext } from "./security/AuthContext";
+import { AuthContext } from "./security/AuthContext.jsx";
 import { useContext } from 'react'
 
 

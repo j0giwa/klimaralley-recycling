@@ -9,25 +9,31 @@ import LogoutComponent from './LogoutComponent.jsx'
 import ErrorComponent from './ErrorComponent.jsx'
 import ListGamesComponent from './ListGamesComponent.jsx'
 import GameComponent from './GameComponent.jsx'
-import AuthProvider, { useAuth } from './security/AuthContext.js'
+import AuthProvider, { useAuth } from './security/AuthContext.jsx'
 
 
 
-function AuthenticatedRoute({ children }) {
+export  function AuthenticatedRoute({ children }) {
+    const authContext = useAuth();
 
-    const authContext = useAuth()
-    if (authContext.isAuthenticated)
-        return children
+    if (authContext.isAuthenticated) {
+        console.log('top');
+        return children;
+        
+    }
 
-    return <Navigate to="/"></Navigate>
-
+     
+    return <Navigate to="/login" />
 }
+
+
 
 
 
 export default function RecyclingApp(){
     return(
         <div className="RecyclingApp">
+            
             <AuthProvider>
             <BrowserRouter>
               <HeaderComponent></HeaderComponent>
@@ -45,15 +51,7 @@ export default function RecyclingApp(){
 
                     <Route path='/game/:id' element={<AuthenticatedRoute><GameComponent></GameComponent></AuthenticatedRoute>}></Route>
 
-                    
-
-                    {/* <Route path='/gameone' element={<GameOne></GameOne>}></Route> */}
-
-                    <Route path='/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>
-
-                    
-
-                    
+                    <Route path='/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>           
 
                     <Route path='/*' element={<ErrorComponent></ErrorComponent>}></Route>
                     

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
-import { useAuth } from './security/AuthContext.js'
+import { useAuth } from './security/AuthContext.jsx'
 
 
 export default function LoginComponent() {
@@ -24,6 +24,7 @@ export default function LoginComponent() {
         if (authContext.login(username, password)) {
             navigate(`/welcome/${username}`)
             console.log('success')
+            
 
         } else {
             console.log('failed')

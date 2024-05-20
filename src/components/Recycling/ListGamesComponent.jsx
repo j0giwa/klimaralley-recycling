@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { deleteGameApi, retrieveAllGamesForUserApi } from "./api/GameApiService"
 import { useEffect } from 'react';
-import { useAuth } from "./security/AuthContext"
+import { useAuth } from "./security/AuthContext.jsx"
 import {  useNavigate } from "react-router-dom"
 
 
@@ -47,7 +47,9 @@ export default function ListGamesComponent() {
 
     function startGame(id) {
         console.log("clicked")
-        navigate(`/game/${id}`)
+        
+        
+        navigate(`/game/${id}`)  
 
     }
 

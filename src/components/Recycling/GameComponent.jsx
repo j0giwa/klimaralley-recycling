@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { retrieveGameApi } from "./api/GameApiService"
-import { useAuth } from "./security/AuthContext"
+import { useAuth } from "./security/AuthContext.jsx"
 import { useEffect, useState } from "react"
 
 
@@ -33,9 +33,9 @@ export default function GameComponent(){
 
     return(
         <div className="container">
-            <h1>Start des Spiels</h1>
+            <h1>Start des Spiels:</h1>
             <div>
-                Beschreibung:{description}
+                {description}
             </div>
         </div>
     )
