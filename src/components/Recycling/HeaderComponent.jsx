@@ -28,7 +28,7 @@ export default function HeaderComponent() {
               
               <ul className="flex space-x-4">
                 
-                  <NavItem to="/welcome/:username">Home</NavItem>{/* {isAuthenticated &&} */}
+                  <NavItem to="/start">Home</NavItem>{/* {isAuthenticated &&} */}
                 
                  <NavItem to="/games">Spiele</NavItem>
               </ul>

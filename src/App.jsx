@@ -1,4 +1,4 @@
-import RecyclingApp from "./components/recycling/RecyclingApp.jsx"
+import RecyclingApp from "./components/Recycling/RecyclingApp.jsx"
 import './index.css'
 
 function App() {
@@ -7,6 +7,7 @@ function App() {
     <div className="App">
       
       <RecyclingApp></RecyclingApp>   
+
     </div>
   )
 }

@@ -62,11 +62,10 @@ export default function ListGamesComponent() {
                         <tr>
                             <th>Spielname</th>
                             <th>Zuende gespielt?</th>
-                            
                             {/* <th>Delete</th> */}
-                            <th>Spiel Starten</th>
-                            <th>Anzahl der Punkte</th>
                             <th>Erfolgreich</th>
+                            <th>Anzahl der Punkte</th>
+                            <th>Spiel Starten</th>
 
 
                         </tr>
@@ -80,7 +79,9 @@ export default function ListGamesComponent() {
                                         {/* <td>{game.id}</td> */}
                                         <td>{game.description}</td>
                                         <td>{game.done.toString()}</td>
-                                        {/* <td><button className='btn btn-warning' onClick={() => deleteGame(game.id)}>Delete</button></td> */}
+                                        {/* <td><button className='btn btn-warning' onClick={() => deleteGame(game.id)}>Delete</button></td> */}    
+                                        <td>{game.success.toString()}</td>
+                                        <td>{game.points}</td>
                                         <td><button className='btn btn-success' onClick={() => startGame(game.id)}>Start</button></td>
                                     </tr>
                                 )
