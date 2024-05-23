@@ -53,6 +53,16 @@ export default function ListGamesComponent() {
 
     }
 
+    function startQuiz() {
+        console.log("clicked")
+        
+        
+        navigate(`/quiz`)  
+
+    }
+
+    
+
     return (
         <div className="ListGamesComponent">
             <h1>Recycling Spiele</h1>
@@ -73,6 +83,8 @@ export default function ListGamesComponent() {
                         </tr>
                     </thead>
                     <tbody>
+
+                        <button className='btn btn-success' onClick={ startQuiz }>quiz</button>
 
                     {
                             games.map(

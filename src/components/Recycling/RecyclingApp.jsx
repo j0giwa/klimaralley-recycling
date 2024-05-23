@@ -10,6 +10,7 @@ import ErrorComponent from './ErrorComponent.jsx'
 import ListGamesComponent from './ListGamesComponent.jsx'
 import GameComponent from './GameComponent.jsx'
 import AuthProvider, { useAuth } from './security/AuthContext.jsx'
+import Karte from './Question/Karte.jsx'
 
 
 
@@ -54,6 +55,8 @@ export default function RecyclingApp(){
                     <Route path='/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>           
 
                     <Route path='/*' element={<ErrorComponent></ErrorComponent>}></Route>
+
+                    <Route path='/quiz' element={<Karte></Karte>}></Route>
                     
                 
                 </Routes>
