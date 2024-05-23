@@ -4,7 +4,7 @@ export const data =[
     {
         id:1,
         img:'https://www.oekotest.de/static_files/images/article/Elektroschrott-entsorgen-Grosser-Ratgeber_Shutterstock-Sergey-Mironov_11536_4x3.jpg',
-        frage:'Für Elektronikgeräte und Batterien gibt es eine eigene Mülltonne.',
+        frage:'Für Elektronikgeräte agufkfjafjoaffhaguhagu hasgiaund Batterien gibt es eine eigene Mülltonne.',
         buton1:'Ja',
         buton2:'Nein'
         
