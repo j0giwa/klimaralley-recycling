@@ -9,6 +9,8 @@ function Karte() {
   const [richtig, setRichtig] = useState(0);
   const [falsch, setFalsch] = useState(0);
   const [score, setScore] = useState(0);
+  const[isGameFinished,setIsGameFinished]=useState(false);
+  const[isWinner,setIsWinnwer]=useState(false);
   const totalQuestions = questionsData.length;
   const handleClick = (answerId, question) => {
     //Calculate ccore
@@ -23,6 +25,12 @@ function Karte() {
         return item.id !== question.id;// modifier 
       })
     );
+    if (questions.length === 1) {
+      setIsGameFinished(true);
+      if (score + 1 >= totalQuestions / 2) {
+        setIsWinner(true);
+      }
+    }
   };
 
   const handleStart = () => {
@@ -30,6 +38,8 @@ function Karte() {
     setScore(0);
     setRichtig(0);
     setFalsch(0);
+    setIsGameFinished(false); // Réinitialiser l'état du jeu
+    setIsWinner(false); // Réinitialiser l'état de victoire
   };
 
   return (
@@ -74,10 +84,13 @@ function Karte() {
               </div>
             );
           })}
-          {questions.length == 0 && (
+            {isGameFinished && (
             <div className="flex flex-col gap-5">
               <div className="text-xl">
-                Your score is : {score}/{totalQuestions}
+                Dein Ergebnis ist : {score}/{totalQuestions}
+              </div>
+              <div className="text-xl">
+                {isWinner ? "Glückwunsch, du hast gewonnen!" : "Tut mir leid, du hast verloren. Versuche es erneut!"}
               </div>
               <div className="flex justify-around mt-5">
                 <button className="bg-blue-500 text-white px-4 py-2 rounded">
