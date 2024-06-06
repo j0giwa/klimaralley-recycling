@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom"
-import { retrieveGameApi } from "./api/GameApiService"
+import { useNavigate, useParams } from "react-router-dom"
+import { retrieveGameApi, updateGameApi } from "./api/GameApiService"
 import { useAuth } from "./security/AuthContext.jsx"
 import { useEffect, useState } from "react"
 
@@ -10,25 +10,76 @@ export default function GameComponent(){
 
     const [description, setDescription] = useState('')
 
-    const authContext = useAuth 
+    const authContext = useAuth() 
+
+    const navigate = useNavigate()
 
 
     const username = authContext.username
 
+
+    const [game, setGame] = useState({
+        points: 0,
+        id: id,
+        username: username,
+        done: false,
+        success: false
+    });
+      
     useEffect(
         ()=> retrieveGames(),
         [id]
     )
 
     function retrieveGames(){
-        retrieveGameApi(username, id)
-        .then(response =>{
+        if (id != -1) {
+            retrieveGameApi(username, id)
+                .then(response => {
+                    setDescription(response.data.description)
+                    setGame(prevGame => ({
+                        ...prevGame,
+                        description: response.data.description,
+                        points: response.data.points,
+                        done: response.data.done,
+                        success: response.data.success
+                    }));
+                })
+                .catch(error => console.log(error))
+        }
+    } 
 
-           setDescription(response.data.description)
+    function changeZustand() {
+        const updatedGame = {
+            ...game,
+            done: true,
+            success: true
+        };
 
-        } )
-        .catch(error => console.log(error))
+        updateGameApi(username, id, updatedGame)
+            .then(() => {
+                navigate('/games');
+            })
+            .catch(error => console.log(error));
 
+        console.log(updatedGame);
+        console.log("clicked");
+    }
+
+    function changePoints() {
+        const updatedGame = {
+            ...game,
+            points: game.points + 10
+        };
+
+        setGame(updatedGame);
+
+        updateGameApi(username, id, updatedGame)
+            .then(() => {
+                navigate('/games');
+            })
+            .catch(error => console.log(error));
+
+        console.log(updatedGame);
     }
 
     return(
@@ -36,6 +87,8 @@ export default function GameComponent(){
             <h1>Start des Spiels:</h1>
             <div>
                 {description}
+                <button className='btn btn-success' onClick={changeZustand}>Finish</button>
+                <button className='btn btn-success' onClick={changePoints}>Punkte vergeben</button>
             </div>
         </div>
     )
