@@ -2,7 +2,7 @@
 import Picture from './Picture';
 import { useDrop } from 'react-dnd';
 import React, { useState } from 'react';
-import "../App.css";
+import "../muellTrennung.css";
 
 const PictureList = [
     {
