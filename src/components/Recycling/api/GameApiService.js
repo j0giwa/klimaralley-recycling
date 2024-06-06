@@ -1,13 +1,5 @@
+import { apiClient } from './ApiClient.js';
 
-import axios from "axios";
-
-
-
-const apiClient = axios.create(
-    {
-        baseURL: 'http://localhost:8080'
-    }
-)
 
 
 export function retrieveAllGamesForUserApi(username){
@@ -20,4 +12,8 @@ export function deleteGameApi(username,id){
 
 export function retrieveGameApi(username,id){
     return apiClient.get(`/users/${username}/games/${id}`)
+}
+
+export function updateGameApi(username,id,game){
+    return apiClient.put(`/users/${username}/games/${id}`,game)
 }
