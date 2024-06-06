@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
+import { Await, BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import { useAuth } from './security/AuthContext.jsx'
 
 
@@ -19,9 +19,9 @@ export default function LoginComponent() {
         setPassword(event.target.value)
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
 
-        if (authContext.login(username, password)) {
+        if (await authContext.login(username, password)) {
             navigate(`/welcome/${username}`)
             console.log('success')
             
