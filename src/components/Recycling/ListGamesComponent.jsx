@@ -25,6 +25,7 @@ export default function ListGamesComponent() {
             .then(
                 response => {
                     setGames(response.data)
+                    console.log(response.data)
                 }
             )
             .catch(error => console.log(error))
@@ -84,7 +85,7 @@ export default function ListGamesComponent() {
                     </thead>
                     <tbody>
 
-                        <button className='btn btn-success' onClick={ startQuiz }>quiz</button>
+                         <button className='btn btn-success' onClick={ startQuiz }>quiz</button> 
 
                     {
                             games.map(
