@@ -14,12 +14,12 @@ function Karte() {
     //Calculate ccore
     if (answerId === question.correctAnswerId) {
       setScore(score + 1);
-      setRichtig(richtig + 10);
+      setRichtig(richtig + 10);//si la question richtig sa fait 10pour cent 
     } else {
       setFalsch(falsch + 10);
     }
     setQuestions((current) =>
-      current.filter((item) => {
+      current.filter((item) => {// la question quon veut enlever de la liste 
         return item.id !== question.id;// modifier 
       })
     );
