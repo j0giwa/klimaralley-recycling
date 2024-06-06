@@ -14,13 +14,13 @@ function Karte() {
     //Calculate ccore
     if (answerId === question.correctAnswerId) {
       setScore(score + 1);
-      setRichtig(richtig + 10);//si la question richtig sa fait 10pour cent 
+      setRichtig(richtig + 10);     //si la question richtig sa fait 10pour cent 
     } else {
       setFalsch(falsch + 10);
     }
     setQuestions((current) =>
-      current.filter((item) => {// la question quon veut enlever de la liste 
-        return item.id !== question.id;// modifier 
+      current.filter((item) => {    // la question quon veut enlever de la liste 
+        return item.id !== question.id;   // modifier 
       })
     );
   };
@@ -59,7 +59,7 @@ function Karte() {
               <div key={item.id} className="w-full md:w-1/2 lg:w-1/3 p-2">
                 <div className="bg-white shadow-lg rounded-lg">
                   <Image image={item.image} />
-                  <Title index={item.id} title={item.title} />  //ich habe {i} mit {item.id }geändern 
+                 <Title index={item.id} title={item.title} />  {/*   ich habe {i} mit {item.id }geändern  */}
                   <div className="p-4 flex flex-col justify-between">
                     {item.answers.map((answer, index) => (
                       <Answer
