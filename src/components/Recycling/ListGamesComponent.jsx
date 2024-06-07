@@ -31,24 +31,9 @@ export default function ListGamesComponent() {
             .catch(error => console.log(error))
     }
 
-    //  löschen von spielen nicht notwendig.
-    // function deleteGame(id) {
-
-    //     deleteGameApi(username, id).then(
-
-    //         () => {
-    //             setMessage(`Delete of game with id: ${id} successful`)
-    //             refreshGames()
-    //         }
-
-    //     ).catch(error => console.log(error))
-
-
-    // }
-
     function startGame(id) {   
         if(id === 10001) {
-            startQuiz();
+            startQuiz(id);
         } else if(id === 10002) {
             startMüllSortieren();
         } else {
@@ -56,8 +41,8 @@ export default function ListGamesComponent() {
         } 
     }
 
-    function startQuiz() {       
-        navigate(`/quiz`)  
+    function startQuiz(id) {       
+        navigate(`/quiz/${id}`)  
     }
     
     function startMüllSortieren() {
