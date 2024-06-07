@@ -11,6 +11,9 @@ import ListGamesComponent from './ListGamesComponent.jsx'
 import GameComponent from './GameComponent.jsx'
 import AuthProvider, { useAuth } from './security/AuthContext.jsx'
 import Karte from './Question/Karte.jsx'
+import DragDrop from './MuellTennung/DragDrop.jsx'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 
 
@@ -57,6 +60,15 @@ export default function RecyclingApp(){
                     <Route path='/*' element={<ErrorComponent></ErrorComponent>}></Route>
 
                     <Route path='/quiz' element={<Karte></Karte>}></Route>
+
+                     {/* <DndProvider backend={HTML5Backend}><Route path='/muellSortieren' element={<DragDrop/>}></Route></DndProvider>  */}
+
+                     <Route path='/muellSortieren' element={
+                            <DndProvider backend={HTML5Backend}>
+                                <DragDrop />
+                            </DndProvider>
+                        } />
+
                     
                 
                 </Routes>
