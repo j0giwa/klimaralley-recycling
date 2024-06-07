@@ -61,8 +61,6 @@ export default function RecyclingApp(){
 
                     <Route path='/quiz' element={<Karte></Karte>}></Route>
 
-                     {/* <DndProvider backend={HTML5Backend}><Route path='/muellSortieren' element={<DragDrop/>}></Route></DndProvider>  */}
-
                      <Route path='/muellSortieren' element={
                             <DndProvider backend={HTML5Backend}>
                                 <DragDrop />
