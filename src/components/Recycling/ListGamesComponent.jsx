@@ -46,8 +46,14 @@ export default function ListGamesComponent() {
 
     // }
 
-    function startGame(id) {     
-        navigate(`/game/${id}`)  
+    function startGame(id) {   
+        if(id === 10001) {
+            startQuiz();
+        } else if(id === 10002) {
+            startMüllSortieren();
+        } else {
+            navigate(`/game/${id}`);
+        } 
     }
 
     function startQuiz() {       
