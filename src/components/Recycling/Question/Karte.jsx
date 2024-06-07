@@ -56,13 +56,13 @@ function Karte() {
             <div className="relative pt-1">
               <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200">
                 <div
-                  style={{ width: `${richtig}%` }}
+                  style={{ width: `${richtig}%` }} // progressbar grün
                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
                 ></div>
               </div>
               <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-red-200">
                 <div
-                  style={{ width: `${falsch}%` }}
+                  style={{ width: `${falsch}%` }} // progressbar rot
                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
                 ></div>
               </div>
@@ -99,15 +99,8 @@ function Karte() {
                 {isWinner ? "Glückwunsch, du hast gewonnen!" : "Tut mir leid, du hast verloren. Versuche es erneut!"}
               </div>
               <div className="flex justify-around mt-5">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                  Nächtes Spiel
-                </button>
-                <button
-                  onClick={handleStart}
-                  className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
-                  Wieder Spielen
-                </button>
+                <button className="bg-blue-500 text-white px-4 py-2 rounded">Nächtes Spiel </button>
+                <button onClick={handleStart} className="bg-blue-500 text-white px-4 py-2 rounded">Wieder Spielen</button>
               </div>
             </div>
           )}
