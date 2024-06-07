@@ -46,20 +46,17 @@ export default function ListGamesComponent() {
 
     // }
 
-    function startGame(id) {
-        console.log("clicked")
-        
-        
+    function startGame(id) {     
         navigate(`/game/${id}`)  
-
     }
 
-    function startQuiz() {
-        console.log("clicked")
-        
-        
+    function startQuiz() {       
         navigate(`/quiz`)  
-
+    }
+    
+    function startMüllSortieren() {
+        console.log("clicked")  
+        navigate(`/muellsortieren`)  
     }
 
     
@@ -86,6 +83,7 @@ export default function ListGamesComponent() {
                     <tbody>
 
                          <button className='btn btn-success' onClick={ startQuiz }>quiz</button> 
+                         <button className='btn btn-success' onClick={ startMüllSortieren }>Müll sortieren</button> 
 
                     {
                             games.map(
