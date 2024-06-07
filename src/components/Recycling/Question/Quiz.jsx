@@ -14,31 +14,30 @@ import { retrieveGameApi, updateGameApi } from "../api/GameApiService"
 
 function Quiz() {
 
-  const [questions, setQuestions] = useState(questionsData);//modifier 8 a 23
-
   const [richtig, setRichtig] = useState(0);
   const [falsch, setFalsch] = useState(0);
 
   const [score, setScore] = useState(0);
-
-  const [isGameFinished, setIsGameFinished] = useState(false);
-  const [isWinner, setIsWinner] = useState(false);
   const totalQuestions = questionsData.length;
 
+  const [questions, setQuestions] = useState(questionsData);//modifier 8 a 23
+   const [originalQuestions] = useState(questionsData);
 
-  const { id } = useParams();
+
+
+  // Ab hier ist der Code für die Backend-Integration
+  const { id } = useParams(); //id für die Authentifizierung
   
   const [description, setDescription] = useState('');
 
- 
 
-  const authContext = useAuth();
+  const authContext = useAuth(); //Authentifizierung
 
   const navigate = useNavigate();
 
   const username = authContext.username;
-  
-
+   
+  //Ein game wird initialisiert mit den Start Attributen
   const [game, setGame] = useState({
     points: 0,
     id: id,
@@ -46,12 +45,14 @@ function Quiz() {
     done: false,
     success: false
 });
-
+ 
+//Die Funktion retrieveGames() wird aufgerufen, wenn die Komponente gerendert wird
 useEffect(
   () => retrieveGames(),
   [id]
 )
 
+//Die Funktion retrieveGames() ruft die Daten des Spiels vom Backend ab
 function retrieveGames() {
   if (id != -1) {
       retrieveGameApi(username, id)
@@ -69,94 +70,114 @@ function retrieveGames() {
   }
 }
 
-function changeGameDone() {
+//Die Funktion changeGameDone() wird aufgerufen, wenn das Spiel beendet wurde
+function changeGameDone(isDone) {
   const updatedGame = {
-      ...game,
-      done: true
-  };
-
-  updateGameApi(username, id, updatedGame)
-      .then(() => {
-          navigate('/games');
-      })
-      .catch(error => console.log(error));
-
-  console.log(updatedGame);
-  console.log("clicked");
-}
-
-function changeGameSuccess() {
-  const updatedGame = {
-      ...game,
-      success: true
-  };
-
-  updateGameApi(username, id, updatedGame)
-      .then(() => {
-          navigate('/games');
-      })
-      .catch(error => console.log(error));
-
-  console.log(updatedGame);
-  console.log("clicked");
-}
-
-function changePoints() {
-  const updatedGame = {
-      ...game,
-      points: game.points + 1
+    ...game,
+    done: isDone
   };
 
   setGame(updatedGame);
 
   updateGameApi(username, id, updatedGame)
-      .then(() => {
-          navigate('/games');
-      })
-      .catch(error => console.log(error));
+    .then(() => {  
+      // navigate('/games');
+    })
+    .catch(error => console.log(error));
+
+ 
+  console.log(updatedGame);
+}
+
+
+//Die Funktion changeGameSuccess() wird aufgerufen, wenn das Spiel ERFOLGREICH beendet wurde
+function changeGameSuccess(isSuccess) {
+  const updatedGame = {
+    ...game,
+    success: isSuccess 
+  };
+  setGame(updatedGame);
+  
+  updateGameApi(username, id, updatedGame)
+    .then(() => {
+      // navigate('/games');
+    })
+    .catch(error => console.log(error));
+
 
   console.log(updatedGame);
 }
 
 
 
+//Die Funktion changePoints() wird aufgerufen, wenn eine Antwort beantwortet wurde
+function changePoints(setPoints) {
+  let updatedGame = { ...game }; 
+
+  
+    updatedGame.points += setPoints; 
+  
+
+  
+  setGame(updatedGame);
+
+  updateGameApi(username, id, updatedGame)
+    .then(() => {
+      
+    })
+    .catch(error => console.log(error));
+
  
+  console.log(updatedGame);
+}
 
 
 
+  // ab hier ist der Code für das Quiz welches man auf der Seite sieht
 
-
+   
 
   const handleClick = (answerId, question) => {
-    //Calculate ccore
     if (answerId === question.correctAnswerId) {
-      changePoints();
+      console.log("richtig");
       setScore(score + 1);
-      setRichtig(richtig + 10);//si la question richtig sa fait 10pour cent 
+      changePoints(1)
+      setRichtig(richtig + 10);
     } else {
+      console.log("Falsch");
       setFalsch(falsch + 10);
     }
-    setQuestions((current) =>
-      current.filter((item) => {// la question quon veut enlever de la liste 
-        return item.id !== question.id;// modifier 
-      })
-    );
+    
+    setQuestions(current => current.filter(item => item.id !== question.id));
+    console.log(questions.length);
+    console.log(game.done);
+
     if (questions.length === 1) {
-      setIsGameFinished(true);
-      //changeGameDone();
-      if (score + 1 >= totalQuestions / 2) {
-        setIsWinner(true);
-      }
+      changeGameDone(game.done = true);
+    }
+
+    if (game.points >= 5) {
+      changeGameSuccess(game.success = true);
+
+
     }
   };
 
-  const handleStart = () => {
-    setQuestions(questionsData);
+  function handleStart() {
+   
+    setQuestions(originalQuestions);
+    changeGameDone(game.done = false);
+    changeGameSuccess(game.success = false);
+    changePoints(- game.points);
+
     setScore(0);
     setRichtig(0);
     setFalsch(0);
-    setIsGameFinished(false); // Réinitialiser l'état du jeu
-    setIsWinner(false); // Réinitialiser l'état de victoire
+    
+  };
+
+  const startNextGame = () => {
+    navigate('/muellsortieren');
   };
 
   return (
@@ -201,24 +222,24 @@ function changePoints() {
               </div>
             );
           })}
-          {isGameFinished && (
+           { game.done &&  ( 
             <div className="flex flex-col gap-5">
               <div className="text-xl">
-                Dein Ergebnis ist : {score}/{totalQuestions}
+                Dein Ergebnis ist : {game.points}/{totalQuestions}
               </div>
               <div className="text-xl">
-                {isWinner ? "Glückwunsch, du hast gewonnen!" : "Tut mir leid, du hast verloren. Versuche es erneut!"}
+                {game.success ? "Glückwunsch, du hast gewonnen!" : "Tut mir leid, du hast verloren. Versuche es erneut oder starte das nächste Spiel !"}
               </div>
               <div className="flex justify-around mt-5">
-                <button className="bg-blue-500 text-white px-4 py-2 rounded">Nächtes Spiel </button>
+                <button onClick={startNextGame} className="bg-blue-500 text-white px-4 py-2 rounded">Nächtes Spiel </button>
                 <button onClick={handleStart} className="bg-blue-500 text-white px-4 py-2 rounded">Wieder Spielen</button>
               </div>
             </div>
-          )}
+           )} 
         </div>
       </div>
       <div>
-        <ProgressBar percentage={(score / totalQuestions) * 100} color="green" />
+        {/* <ProgressBar percentage={(game.points / (totalQuestions)) * 100} color="green" />  */}
       </div>
     </>
   );
