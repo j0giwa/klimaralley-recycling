@@ -3,15 +3,21 @@ import Title from "./components/Title";
 import Image from "./components/Image";
 import Answer from "./components/Answer";
 import { questionsData } from "./helper/question";
+import ProgressBar from "./ProgressBarGame";
 
 function Karte() {
+
   const [questions, setQuestions] = useState(questionsData);//modifier 8 a 23
+
   const [richtig, setRichtig] = useState(0);
   const [falsch, setFalsch] = useState(0);
+
   const [score, setScore] = useState(0);
-  const[isGameFinished,setIsGameFinished]=useState(false);
-  const[isWinner,setIsWinnwer]=useState(false);
+
+  const [isGameFinished, setIsGameFinished] = useState(false);
+  const [isWinner, setIsWinnwer] = useState(false);
   const totalQuestions = questionsData.length;
+
   const handleClick = (answerId, question) => {
     //Calculate ccore
     if (answerId === question.correctAnswerId) {
@@ -69,7 +75,7 @@ function Karte() {
               <div key={item.id} className="w-full md:w-1/2 lg:w-1/3 p-2">
                 <div className="bg-white shadow-lg rounded-lg">
                   <Image image={item.image} />
-                  <Title index={item.id} title={item.title} />  //ich habe {i} mit {item.id }geändern 
+                  <Title index={item.id} title={item.title} />  {/*ich habe {i} mit {item.id }geändern  */}
                   <div className="p-4 flex flex-col justify-between">
                     {item.answers.map((answer, index) => (
                       <Answer
@@ -84,7 +90,7 @@ function Karte() {
               </div>
             );
           })}
-            {isGameFinished && (
+          {isGameFinished && (
             <div className="flex flex-col gap-5">
               <div className="text-xl">
                 Dein Ergebnis ist : {score}/{totalQuestions}
@@ -106,6 +112,9 @@ function Karte() {
             </div>
           )}
         </div>
+      </div>
+      <div>
+        <ProgressBar percentage={(score / totalQuestions) * 100} color="green" />
       </div>
     </>
   );
