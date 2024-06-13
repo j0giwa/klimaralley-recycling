@@ -46,7 +46,7 @@ export const questionsData = [
         backgroundColor: "#349B19",
       },
     ],
-    correctAnswerId: 1,
+    correctAnswerId: 3,
   },
   {
     id: 2,
