@@ -1,7 +1,6 @@
-//import React from 'react'   
+import React, { useState } from 'react';
 import Picture from './Picture';
 import { useDrop } from 'react-dnd';
-import React, { useState } from 'react';
 import "./muellTrennung.css";
 
 const PictureList = [
@@ -35,34 +34,62 @@ const PictureList = [
     }] 
 
 function DragDrop() {
-    const [board, setBoard] = useState([]);
-  
-    const [{ isOver }, drop] = useDrop(() => ({
-      accept: "image",
-      drop: (item) => addImageToBoard(item.id),
-      collect: (monitor) => ({
-        isOver: !!monitor.isOver(),
-      }),
-    }));
-  
-    const addImageToBoard = (id) => {
-      const pictureList = PictureList.filter((picture) => id === picture.id);
-      setBoard((board) => [...board, pictureList[0]]);
+    const [blueBoard, setBlueBoard] = useState([]);
+    const [greenBoard, setGreenBoard] = useState([]);
+    const [yellowBoard, setYellowBoard] = useState([]);
+
+    const createDrop = (boardSetter) => {
+        return useDrop(() => ({
+            accept: "image",
+            drop: (item) => addImageToBoard(item.id, boardSetter),
+            collect: (monitor) => ({
+                isOver: !!monitor.isOver(),
+            }),
+        }))[1];
     };
+
+    const addImageToBoard = (id, boardSetter) => {
+        const pictureList = PictureList.filter((picture) => id === picture.id);
+        boardSetter((board) => [...board, pictureList[0]]);
+    };
+
+    const blueDrop = createDrop(setBlueBoard);
+    const greenDrop = createDrop(setGreenBoard);
+    const yellowDrop = createDrop(setYellowBoard);
+
     return (
       <>
+      
         <div className="Pictures">
           {PictureList.map((picture) => {
-            return <Picture url={picture.url} id={picture.id} />;
+            return <Picture url={picture.url} id={picture.id} key={picture.id} />;
           })}
-        </div>
-        <div className="Board" ref={drop}>
-          {board.map((picture) => {
-            return <Picture url={picture.url} id={picture.id} />;
-          })}
+        </div> 
+        <div className="Controls">
+                {/* <button className='resetButton' >Reset Boards</button> 
+                onClick={resetBoards} */}
+            </div>
+        
+
+        <div className="BoardsContainer">
+          <div className="BlueBoard" ref={blueDrop}>
+            {blueBoard.map((picture) => (
+              <Picture key={picture.id} url={picture.url} id={picture.id} />
+            ))} 
+          </div>
+          <div className="GreenBoard" ref={greenDrop}>
+            {greenBoard.map((picture) => (
+              <Picture key={picture.id} url={picture.url} id={picture.id} />
+            ))} 
+          </div>
+          <div className="YellowBoard" ref={yellowDrop}>
+            {yellowBoard.map((picture) => (
+              <Picture key={picture.id} url={picture.url} id={picture.id} />
+            ))}
+          </div>
         </div>
       </>
     );
-  }
-  
-  export default DragDrop;
+}
+
+export default DragDrop;
