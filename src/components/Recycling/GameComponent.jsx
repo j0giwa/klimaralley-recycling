@@ -4,13 +4,13 @@ import { useAuth } from "./security/AuthContext.jsx"
 import { useEffect, useState } from "react"
 
 
-export default function GameComponent(){
-    
+export default function GameComponent() {
+
     const { id } = useParams()
 
     const [description, setDescription] = useState('')
 
-    const authContext = useAuth() 
+    const authContext = useAuth()
 
     const navigate = useNavigate()
 
@@ -25,13 +25,13 @@ export default function GameComponent(){
         done: false,
         success: false
     });
-      
+
     useEffect(
-        ()=> retrieveGames(),
+        () => retrieveGames(),
         [id]
     )
 
-    function retrieveGames(){
+    function retrieveGames() {
         if (id != -1) {
             retrieveGameApi(username, id)
                 .then(response => {
@@ -46,12 +46,29 @@ export default function GameComponent(){
                 })
                 .catch(error => console.log(error))
         }
-    } 
+    }
 
-    function changeZustand() {
+
+    function changeGameDone() {
         const updatedGame = {
             ...game,
-            done: true,
+            done: true
+        };
+
+        updateGameApi(username, id, updatedGame)
+            .then(() => {
+                navigate('/games');
+            })
+            .catch(error => console.log(error));
+
+        console.log(updatedGame);
+        console.log("clicked");
+    }
+
+
+    function changeGameSuccess() {
+        const updatedGame = {
+            ...game,
             success: true
         };
 
@@ -65,10 +82,10 @@ export default function GameComponent(){
         console.log("clicked");
     }
 
-    function changePoints() {
+     function changePoints() {
         const updatedGame = {
             ...game,
-            points: game.points + 10
+            points: game.points + 1
         };
 
         setGame(updatedGame);
@@ -82,13 +99,14 @@ export default function GameComponent(){
         console.log(updatedGame);
     }
 
-    return(
+    return (
         <div className="container">
             <h1>Start des Spiels:</h1>
             <div>
                 {description}
-                <button className='btn btn-success' onClick={changeZustand}>Finish</button>
+                <button className='btn btn-success' onClick={changeGameDone}>Finish</button>
                 <button className='btn btn-success' onClick={changePoints}>Punkte vergeben</button>
+                <button className='btn btn-success' onClick={changeGameSuccess}>Erfolgreich?</button>
             </div>
         </div>
     )

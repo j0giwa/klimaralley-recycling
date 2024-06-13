@@ -1,0 +1,45 @@
+.App {
+    text-align: center;
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .Pictures {
+    display: flex;
+    margin: 10px;
+    gap: 20px;
+  }
+  img {
+    margin: 5px;
+  }
+  
+  .BoardsContainer {
+    display: flex;
+    gap: 20px;
+  }
+
+  .PicturesContainer {
+    display: flex;
+    gap: 20px;
+  }
+
+
+  .BlueBoard {
+    width: 300px;
+    height: 500px;
+    border: 2px solid rgb(5, 41, 247);
+  }
+  .GreenBoard {
+    
+    width: 300px;
+    height: 500px;
+    border: 2px solid rgb(16, 131, 16);
+  }
+
+  .YellowBoard {
+    
+    width: 300px;
+    height: 500px;
+    border: 2px solid rgb(252, 215, 6);
+  }
+  

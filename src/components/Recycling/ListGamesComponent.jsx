@@ -31,35 +31,23 @@ export default function ListGamesComponent() {
             .catch(error => console.log(error))
     }
 
-    //  löschen von spielen nicht notwendig.
-    // function deleteGame(id) {
-
-    //     deleteGameApi(username, id).then(
-
-    //         () => {
-    //             setMessage(`Delete of game with id: ${id} successful`)
-    //             refreshGames()
-    //         }
-
-    //     ).catch(error => console.log(error))
-
-
-    // }
-
-    function startGame(id) {
-        console.log("clicked")
-        
-        
-        navigate(`/game/${id}`)  
-
+    function startGame(id) {   
+        if(id === 10001) {
+            startQuiz(id);
+        } else if(id === 10002) {
+            startMüllSortieren();
+        } else {
+            navigate(`/game/${id}`);
+        } 
     }
 
-    function startQuiz() {
-        console.log("clicked")
-        
-        
-        navigate(`/quiz`)  
-
+    function startQuiz(id) {       
+        navigate(`/quiz/${id}`)  
+    }
+    
+    function startMüllSortieren() {
+        console.log("clicked")  
+        navigate(`/muellsortieren`)  
     }
 
     
@@ -86,6 +74,7 @@ export default function ListGamesComponent() {
                     <tbody>
 
                          <button className='btn btn-success' onClick={ startQuiz }>quiz</button> 
+                         <button className='btn btn-success' onClick={ startMüllSortieren }>Müll sortieren</button> 
 
                     {
                             games.map(

@@ -185,7 +185,7 @@ export const questionsData = [
       },
   ],
 
-  correctAnswerId: 0,
+  correctAnswerId: 1,
 },
 {
   id:7,

@@ -43,7 +43,7 @@ export default function AuthProvider({ children }) {
 
         apiClient.interceptors.request.use(
           (config) => {
-            console.log('intercepting and adding a token')
+            // console.log('intercepting and adding a token')
             config.headers.Authorization = jwtToken
             return config
           }
