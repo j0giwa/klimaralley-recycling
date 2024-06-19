@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 // TODO: viertes Board anlegen! als Graue Müllltonne!
 
 // Liste der "Items" die in die Boards gezogen werden können
-// boardId beschreibt welches Item das Board akzeptiert 1 = Blau, 2 = Grün, 3 = Gelb 4 
+// boardId beschreibt welches Item das Board akzeptiert 1 = Blau, 2 = Grün, 3 = Gelb GRAU MUSS HINZUGEFGÜGT WERDEN
 const PictureList = [
   {
     id: 1, //Fleisch
