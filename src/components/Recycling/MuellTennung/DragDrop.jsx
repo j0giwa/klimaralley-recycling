@@ -11,9 +11,9 @@ import { useNavigate } from 'react-router-dom';
 // boardId beschreibt welches Item das Board akzeptiert 1 = Blau, 2 = Grün, 3 = Gelb GRAU MUSS HINZUGEFGÜGT WERDEN
 const PictureList = [
   {
-    id: 1, //Fleisch
-    url: "https://img.freepik.com/free-vector/floating-beef-steak-cartoon-vector-icon-illustration-food-object-icon-concept-isolated-flat-cartoon_138676-4312.jpg",
-    boardId: 2
+    id: 1, //Zeitung
+    url: "https://cdn.pixabay.com/photo/2016/05/24/18/22/newspapers-1412940_1280.png",
+    boardId: 3
   },
   {
     id: 10, //Eier
