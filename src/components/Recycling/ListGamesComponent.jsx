@@ -73,8 +73,8 @@ export default function ListGamesComponent() {
                     </thead>
                     <tbody>
 
-                         <button className='btn btn-success' onClick={ startQuiz }>quiz</button> 
-                         <button className='btn btn-success' onClick={ startMüllSortieren }>Müll sortieren</button> 
+                         {/* <button className='btn btn-success' onClick={ startQuiz }>quiz</button> 
+                         <button className='btn btn-success' onClick={ startMüllSortieren }>Müll sortieren</button>  */}
 
                     {
                             games.map(
