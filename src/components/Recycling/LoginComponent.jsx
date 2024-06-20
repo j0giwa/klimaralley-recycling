@@ -34,7 +34,7 @@ export default function LoginComponent() {
         // Überprüfen, ob die Anmeldung erfolgreich ist
         if (await authContext.login(username, password)) {
             // Bei erfolgreicher Anmeldung: Navigieren zur Willkommensseite des Benutzers
-            navigate(`/welcome/${username}`);
+            navigate(`/play/recycling/welcome/${username}`);
             console.log('success');
         } else {
             // Bei fehlgeschlagener Anmeldung: Anzeigen einer Fehlermeldung

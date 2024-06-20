@@ -28,7 +28,7 @@ export  function AuthenticatedRoute({ children }) {
     }
 
      
-    return <Navigate to="/login" />
+    return <Navigate to="/play/recycling/login" />
 }
 
 

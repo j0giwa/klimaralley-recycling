@@ -10,7 +10,7 @@ export default function WelcomeComponent() {
         <div className="Welcome">
             <h1>Willkommen {username}</h1>
             <div >
-                Deine Spiele. <Link to='/games'>Klick hier</Link>
+                Deine Spiele. <Link to='/play/recycling/games'>Klick hier</Link>
             </div>
         </div>
     )

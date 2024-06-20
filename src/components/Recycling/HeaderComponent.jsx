@@ -85,12 +85,12 @@ export default function HeaderComponent() {
             <ul className="flex space-x-4">
               {isAuthenticated && (
                 <li className="text-lg">
-                  <Link to="/start" className="text-blue-500 hover:text-blue-600">Home</Link>
+                  <Link to="/play/recycling/start" className="text-blue-500 hover:text-blue-600">Home</Link>
                 </li>
               )}
               {isAuthenticated && (
                 <li className="text-lg">
-                  <Link to="/games" className="text-blue-500 hover:text-blue-600">Spiele</Link>
+                  <Link to="/play/recycling/games" className="text-blue-500 hover:text-blue-600">Spiele</Link>
                 </li>
               )}
             </ul>
@@ -98,12 +98,12 @@ export default function HeaderComponent() {
             <ul className="flex space-x-4">
               {!isAuthenticated && (
                 <li className="text-lg">
-                  <Link to="/login" className="text-blue-500 hover:text-blue-600">Login</Link>
+                  <Link to="/play/recycling/login" className="text-blue-500 hover:text-blue-600">Login</Link>
                 </li>
               )}
               {isAuthenticated && (
                 <li className="text-lg">
-                  <Link to="/logout" onClick={logout} className="text-blue-500 hover:text-blue-600">Logout</Link>
+                  <Link to="/play/recycling/logout" onClick={logout} className="text-blue-500 hover:text-blue-600">Logout</Link>
                 </li>
               )}
             </ul>

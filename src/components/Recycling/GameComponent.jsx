@@ -57,7 +57,7 @@ export default function GameComponent() {
 
         updateGameApi(username, id, updatedGame)
             .then(() => {
-                navigate('/games');
+                navigate('/play/recycling/games');
             })
             .catch(error => console.log(error));
 
@@ -74,7 +74,7 @@ export default function GameComponent() {
 
         updateGameApi(username, id, updatedGame)
             .then(() => {
-                navigate('/games');
+                navigate('/play/recycling/games');
             })
             .catch(error => console.log(error));
 
@@ -92,7 +92,7 @@ export default function GameComponent() {
 
         updateGameApi(username, id, updatedGame)
             .then(() => {
-                navigate('/games');
+                navigate('/play/recycling/games');
             })
             .catch(error => console.log(error));
 

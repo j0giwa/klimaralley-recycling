@@ -37,17 +37,17 @@ export default function ListGamesComponent() {
         } else if(id === 10002) {
             startMüllSortieren();
         } else {
-            navigate(`/game/${id}`);
+            navigate(`/play/recycling/game/${id}`);
         } 
     }
 
     function startQuiz(id) {       
-        navigate(`/quiz/${id}`)  
+        navigate(`/play/recycling/quiz/${id}`)  
     }
     
     function startMüllSortieren() {
         console.log("clicked")  
-        navigate(`/muellsortieren`)  
+        navigate(`/play/recycling/muellsortieren`)  
     }
 
     
