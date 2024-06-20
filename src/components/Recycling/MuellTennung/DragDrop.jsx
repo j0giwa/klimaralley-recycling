@@ -166,7 +166,7 @@ function DragDrop() {
     <>
 
       <div className="Pictures">
-        {/* die Items die noch in der Liste sind */} // 
+        {/* die Items die noch in der Liste sind */} 
         {pictures.map((picture) => {
           return <Picture url={picture.url} id={picture.id} key={picture.id} />;
         })}
