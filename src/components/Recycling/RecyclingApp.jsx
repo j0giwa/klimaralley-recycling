@@ -56,35 +56,26 @@ export default function RecyclingApp(){
             <AuthProvider>
             <BrowserRouter>
               <HeaderComponent></HeaderComponent>
-               
-               {/* Audio-Element für Musik */}
-          {/* <audio ref={audioRef} src="src\components\Recycling\vip\prince_itsGonnabeABeautifulNight.mp3" autoPlay controls /> */}
-          {/* {!isPlaying && (
-            <button onClick={handlePlayMusic}>Play Music</button>
-          )}
-          <audio ref={audioRef} src="src\components\Recycling\vip\prince_itsGonnabeABeautifulNight.mp3" /> */}
-          
-                
                 {/* <AuthenticatedRoute> ist die Kompenente welche regelt das nur User zugriff auf die entsprechenden Routes erhalten die die Befugniss haben */}
                 <Routes>
                
-                    <Route path='' element={<LoginComponent/>}></Route>
+                    <Route path='/play/recycling/' element={<LoginComponent/>}></Route>
 
-                    <Route path='/login' element={<LoginComponent></LoginComponent>}></Route>
+                    <Route path='/play/recycling/login' element={<LoginComponent></LoginComponent>}></Route>
                     
-                    <Route path='/welcome/:username' element={ <AuthenticatedRoute><WelcomeComponent /></AuthenticatedRoute> }></Route>
+                    <Route path='/play/recycling/welcome/:username' element={ <AuthenticatedRoute><WelcomeComponent /></AuthenticatedRoute> }></Route>
 
-                    <Route path='/games' element={<AuthenticatedRoute><ListGamesComponent></ListGamesComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/play/recycling/games' element={<AuthenticatedRoute><ListGamesComponent></ListGamesComponent></AuthenticatedRoute>}></Route>
 
-                    <Route path='/game/:id' element={<AuthenticatedRoute><GameComponent></GameComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/play/recycling/game/:id' element={<AuthenticatedRoute><GameComponent></GameComponent></AuthenticatedRoute>}></Route>
 
-                    <Route path='/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>           
+                    <Route path='/play/recycling/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>           
 
-                    <Route path='/*' element={<ErrorComponent></ErrorComponent>}></Route>
+                    <Route path='/play/recycling/*' element={<ErrorComponent></ErrorComponent>}></Route>
 
-                    <Route path='/quiz/:id' element={<AuthenticatedRoute><Quiz></Quiz></AuthenticatedRoute>}></Route>
+                    <Route path='/play/recycling/quiz/:id' element={<AuthenticatedRoute><Quiz></Quiz></AuthenticatedRoute>}></Route>
 
-                     <Route path='/muellSortieren' element={<AuthenticatedRoute>
+                     <Route path='/play/recycling/muellSortieren' element={<AuthenticatedRoute>
                             {/* Drag an Provider für das Spiel */}
                             <DndProvider backend={HTML5Backend}> 
                                 <DragDrop />
