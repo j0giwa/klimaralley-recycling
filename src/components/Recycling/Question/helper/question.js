@@ -12,12 +12,12 @@ export const questionsData = [
       {
         id: 1,
         title: "Wegen eines Gesetzes von UNO",
-        backgroundColor: "#BC2A6E",
+        backgroundColor: "#7F4877",
       },
       {
         id: 2,
         title: "Weil z.B Kompost in der Altpapiertonne stinken würde",
-        backgroundColor: "#BC2A6E",
+        backgroundColor: "#70BBFF",
       },
     ],
     correctAnswerId: 0,
@@ -82,17 +82,17 @@ export const questionsData = [
       {
         id: 0,
         title: "Nach ihren Farben",
-        backgroundColor: "#fcba03",
+        backgroundColor: "#BC2A6E",
       },
       {
         id: 1,
         title: "Nach ihren Gewicht",
-        backgroundColor: "#fcba03",
+        backgroundColor: "#7F4877",
       },
       {
         id: 2,
         title: "Nach ihren Formen",
-        backgroundColor: "#fcba03",
+        backgroundColor: "#70BBFF",
       },
     ],
     correctAnswerId: 0,
@@ -175,13 +175,13 @@ export const questionsData = [
       {
           id:1,
           title:"gelb",
-          backgroundColor:"#BC2A6E",
+          backgroundColor:"#7F4877",
 
       },
       {
           id:2,
           title:"grün",
-          backgroundColor:"#BC2A6E",
+          backgroundColor:"#349B19",
 
       },
   ],
@@ -198,19 +198,19 @@ export const questionsData = [
       {
           id:0,
           title:"Altpapier",
-          backgroundColor:"blue",
+          backgroundColor:"#7F4877",
 
       },
       {
           id:1,
           title:"Glas",
-          backgroundColor:"blue",
+          backgroundColor:"#BC2A6E",
 
       },
       {
           id:2,
           title:"Kompost",
-          backgroundColor:"blue",
+          backgroundColor:"#70BBFF",
 
       },
   ],
