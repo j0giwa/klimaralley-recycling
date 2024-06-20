@@ -5,75 +5,97 @@ import "./muellTrennung.css";
 import { useNavigate } from 'react-router-dom';
 
 
-// TODO: viertes Board anlegen! als Graue Müllltonne!
-
 // Liste der "Items" die in die Boards gezogen werden können
-// boardId beschreibt welches Item das Board akzeptiert 1 = Blau, 2 = Grün, 3 = Gelb GRAU MUSS HINZUGEFGÜGT WERDEN
+// boardId beschreibt welches Item das Board akzeptiert 1 = Blau, 2 = Grün, 3 = Gelb, 4 = GRAU 
 const PictureList = [
   {
     id: 1, //Zeitung
     url: "https://cdn.pixabay.com/photo/2016/05/24/18/22/newspapers-1412940_1280.png",
-    boardId: 3
+    boardId: 1
   },
   {
-    id: 10, //Eier
-    url: "https://cdn.pixabay.com/photo/2019/02/17/11/06/egg-4002016_1280.jpg",
+  id: 2, //Broat
+    url: "https://cdn.pixabay.com/photo/2019/05/06/14/24/bread-4183225_1280.jpg",
     boardId: 2
   },
   {
-    id: 11, //Muscheln
+    id: 3, //Windeln
+    url: "https://cdn.pixabay.com/photo/2018/03/17/19/57/diaper-3234992_640.png",
+    boardId: 4
+  },
+  {
+    id: 4, //Alu-Schalen
     url: "https://cdn.pixabay.com/photo/2017/01/16/15/13/shells-1984293_1280.png",
     boardId: 3
   },
   {
-    id: 12, //Verpackung
+    id: 5, //Kartofel
+    url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg",
+    boardId: 2
+  },
+  {
+    id: 6, //Umschläge
+    url: "https://cdn.pixabay.com/photo/2016/09/10/17/17/letters-1659715_1280.jpg",
+    boardId: 1
+  },
+  {
+    id: 7, //PET-Flasche
     url: "https://cdn.pixabay.com/photo/2024/04/29/14/47/packing-8728105_1280.jpg",
     boardId: 3
   },
   {
-    id: 13, //Joghurt-Becher
-    url: "https://cdn.pixabay.com/photo/2016/03/14/09/41/garbage-1255244_1280.jpg",
-    boardId: 3
-  },
-  {
-    id: 14, //Shampoo-Flasche
-    url: "https://cdn.pixabay.com/photo/2019/02/01/19/12/plastic-3969638_1280.jpg",
-    boardId: 3
-  },
-  {
-    id: 15, //Becher
-    url: "https://cdn.pixabay.com/photo/2018/07/15/21/04/recycle-3540561_1280.jpg",
-    boardId: 3
-  },
-  {
-    id: 16, //Toilette
-    url: "https://cdn.pixabay.com/photo/2012/02/22/20/05/bathroom-15565_1280.jpg",
-    boardId: 4
-  },
-  {
-    id: 17, //Teekanne
-    url: "https://cdn.pixabay.com/photo/2014/03/24/18/25/teapot-295570_1280.jpg",
-    boardId: 4
-  },
-  {
-    id: 18, //Tassen
+    id: 8, //Tassen
     url: "https://cdn.pixabay.com/photo/2020/01/29/13/47/connection-4802578_1280.jpg",
     boardId: 4
   },
   {
-    id: 19, //Virus
-    url: "https://cdn.pixabay.com/photo/2018/02/25/17/19/viruses-3181157_1280.jpg",
+    id: 9, //Joghurt-Becher
+    url: "https://cdn.pixabay.com/photo/2016/03/14/09/41/garbage-1255244_1280.jpg",
+    boardId: 3
+  },
+  {
+    id: 10, //Karton
+    url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg",
+    boardId: 1
+  },
+  {
+    id: 11, //Shampoo-Flasche
+    url: "https://cdn.pixabay.com/photo/2019/02/01/19/12/plastic-3969638_1280.jpg",
+    boardId: 3
+  },
+  {
+    id: 12, //Teekanne
+    url: "https://cdn.pixabay.com/photo/2014/03/24/18/25/teapot-295570_1280.jpg",
     boardId: 4
   },
   {
-    id: 20, //Kerzen
-    url: "https://cdn.pixabay.com/photo/2016/07/27/21/38/candles-1546499_1280.jpg",
+    id: 13, //Blätter
+    url: "https://cdn.pixabay.com/photo/2018/11/18/16/31/leaves-3823499_1280.jpg",
+    boardId: 2
+  },
+  {
+    id: 14, //Rollen
+    url: "https://cdn.pixabay.com/photo/2016/03/05/22/12/roll-1239215_1280.jpg",
+    boardId: 1
+  },
+  {
+    id: 15, //Kerzen
+    url: "https://cdn.pixabay.com/photo/2016/03/26/22/13/candlelights-1281563_640.jpg",
     boardId: 4
+  },
+  {
+    id: 16, //Eier
+    url: "https://cdn.pixabay.com/photo/2019/02/17/11/06/egg-4002016_1280.jpg",
+    boardId: 2
   },
   
 
 ]
+//Benutzer Anweisungen
+// function instructions(){
 
+// return(<div></div>);
+// }
 function DragDrop() {
 
   const navigate = useNavigate();
