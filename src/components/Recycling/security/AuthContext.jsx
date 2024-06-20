@@ -14,33 +14,21 @@ export default function AuthProvider({ children }) {
 
   const [token, setToken] = useState(null)
 
-  // function login(username, password) {
-
-  //   if (username === 'Admin' && password === '1234') {
-  //     console.log('logged')
-  //     setAuthenticated(true)
-  //     setUsername(username)
-  //     return true
-
-  //   } else {
-  //     setAuthenticated(false)
-  //     setUsername(null)
-  //     return false
-  //   }
-  // }
-
+  //Funktion zur Anmeldung
   async function login(username, password) {
 
     try {
-
+    // Ausführen der Authentifizierung und Erhalt des Tokens
       const response = await executeJWTAuthenticationService(username, password)
       const jwtToken = 'Bearer ' + response.data.token
       
+      // Erfolgreiche Anmeldung
       if (response.status == 200) {
         setAuthenticated(true)
         setUsername(username)
         setToken(jwtToken)
 
+        // Konfiguration des API-Clients mit JWT-Token
         apiClient.interceptors.request.use(
           (config) => {
             // console.log('intercepting and adding a token')
@@ -53,7 +41,7 @@ export default function AuthProvider({ children }) {
 
       } else {
         console.error('Es gab einen Fehler:', error.message);
-        logout()
+        logout()// Abmeldung des Benutzers
         return false
 
       }
@@ -66,7 +54,7 @@ export default function AuthProvider({ children }) {
   }
 
 
-
+   // Funktion zum Abmelden des Benutzers
   function logout() {
     setAuthenticated(false)
     setUsername(null)
