@@ -14,6 +14,7 @@ import Quiz from './Question/Quiz.jsx'
 import DragDrop from './MuellTennung/DragDrop.jsx'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import React, { useRef, useState } from 'react'
 
 
 
@@ -35,14 +36,36 @@ export  function AuthenticatedRoute({ children }) {
 
 
 export default function RecyclingApp(){
+
+//     const audioRef = useRef(null);
+//   const [isPlaying, setIsPlaying] = useState(false);
+
+//   const handlePlayMusic = () => {
+//     if (audioRef.current) {
+//       audioRef.current.play().catch(error => {
+//         console.log("Error playing audio:", error);
+//       });
+//       setIsPlaying(true);
+//     }
+//   };
+
     return(
+        
         <div className="RecyclingApp">
-            
+             {/* AuthProvider ist ein Context Provider, der den Authentifizierungszustand für alle untergeordneten Komponenten bereitstellt */}
             <AuthProvider>
             <BrowserRouter>
               <HeaderComponent></HeaderComponent>
+               
+               {/* Audio-Element für Musik */}
+          {/* <audio ref={audioRef} src="src\components\Recycling\vip\prince_itsGonnabeABeautifulNight.mp3" autoPlay controls /> */}
+          {/* {!isPlaying && (
+            <button onClick={handlePlayMusic}>Play Music</button>
+          )}
+          <audio ref={audioRef} src="src\components\Recycling\vip\prince_itsGonnabeABeautifulNight.mp3" /> */}
+          
                 
-                
+                {/* <AuthenticatedRoute> ist die Kompenente welche regelt das nur User zugriff auf die entsprechenden Routes erhalten die die Befugniss haben */}
                 <Routes>
                
                     <Route path='' element={<LoginComponent/>}></Route>
@@ -62,7 +85,8 @@ export default function RecyclingApp(){
                     <Route path='/quiz/:id' element={<AuthenticatedRoute><Quiz></Quiz></AuthenticatedRoute>}></Route>
 
                      <Route path='/muellSortieren' element={<AuthenticatedRoute>
-                            <DndProvider backend={HTML5Backend}>
+                            {/* Drag an Provider für das Spiel */}
+                            <DndProvider backend={HTML5Backend}> 
                                 <DragDrop />
                             </DndProvider>
                             </AuthenticatedRoute>} />

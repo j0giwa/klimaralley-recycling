@@ -79,6 +79,8 @@ export default function HeaderComponent() {
             <Link to="https://www.youtube.com/watch?v=3UFUyFg2-aI" className="text-lg font-semibold text-gray-800">Lemgo Rallye</Link>
           </div>
 
+
+        {/* isAuthenticated regelt dass das Menü nur angezeigt wird sobald man eingeloggt ist */}
           <nav className="flex space-x-4">
             <ul className="flex space-x-4">
               {isAuthenticated && (

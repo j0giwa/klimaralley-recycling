@@ -4,51 +4,15 @@ import { useDrop } from 'react-dnd';
 import "./muellTrennung.css";
 import { useNavigate } from 'react-router-dom';
 
+
+// TODO: viertes Board anlegen! als Graue Müllltonne!
+
+// Liste der "Items" die in die Boards gezogen werden können
+// boardId beschreibt welches Item das Board akzeptiert 1 = Blau, 2 = Grün, 3 = Gelb GRAU MUSS HINZUGEFGÜGT WERDEN
 const PictureList = [
   {
-    id: 1, //Zeitung
-    url: "https://cdn.pixabay.com/photo/2016/05/24/18/22/newspapers-1412940_1280.png",
-    boardId: 1
-  },
-  {
-    id: 2, //Karton
-    url: "https://cdn.pixabay.com/photo/2012/02/25/19/00/beige-16875_1280.jpg",
-    boardId: 1
-  },
-  {
-    id: 3, // Roll
-    url: "https://cdn.pixabay.com/photo/2016/03/05/22/12/roll-1239215_1280.jpg",
-    boardId: 1
-  },
-  {
-    id: 4,//Briefe 
-    url: "https://cdn.pixabay.com/photo/2016/09/10/17/17/letters-1659715_1280.jpg",
-    boardId: 1
-  },
-  {
-    id: 5, // Karton2 
-    url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg",
-    boardId: 1
-  },
-  
-  {
-    id: 6, //Apfel
-    url: "https://cdn.pixabay.com/photo/2022/09/18/20/57/apples-7464059_1280.jpg",
-    boardId: 2
-  },
-  {
-    id: 7, //Kartoffelschale
-    url: "https://cdn.pixabay.com/photo/2014/05/14/16/15/potato-skins-344185_1280.jpg",
-    boardId: 2
-  },
-  {
-    id: 8, //Brot
-    url: "https://cdn.pixabay.com/photo/2019/05/06/14/24/bread-4183225_1280.jpg",
-    boardId: 2
-  },
-  {
-    id: 9, //Blätter
-    url: "https://cdn.pixabay.com/photo/2018/11/18/16/31/leaves-3823499_1280.jpg",
+    id: 1, //Fleisch
+    url: "https://img.freepik.com/free-vector/floating-beef-steak-cartoon-vector-icon-illustration-food-object-icon-concept-isolated-flat-cartoon_138676-4312.jpg",
     boardId: 2
   },
   {
@@ -113,27 +77,36 @@ const PictureList = [
 function DragDrop() {
 
   const navigate = useNavigate();
+  
+  // die Boards in denen die Items abgelegt werden können
   const [blueBoard, setBlueBoard] = useState([]);
   const [greenBoard, setGreenBoard] = useState([]);
   const [yellowBoard, setYellowBoard] = useState([]);
   const [grayBoard, setGrayBoard] = useState([]);
 
+  //die Items die noch in der Liste sind
   const [pictures, setPictures] = useState(PictureList);
 
+  // für die abfrage ob das Spiel beendet ist
   const [isGameFinished, setIsGameFinished] = useState(false);
 
+
+  // Funktion um ein Drop zu erstellen 
+  // boardSetter ist die Funktion die das Board setzt
   const createDrop = (boardSetter) => {
     return useDrop(() => ({
       accept: "image",
-      drop: (item) => addImageToBoard(item.id, boardSetter),
+      drop: (item) => addImageToBoard(item.id, boardSetter), //wenn ein Item gedroppt wird wird es dem richtigen Board hinzugefügt. Ruft die Metode  addImageToBoard auf
       collect: (monitor) => ({
         isOver: !!monitor.isOver(),
       }),
     }))[1];
   };
 
+
+  // Logik wenn ein Item in ein Board gezogen wird
   const addImageToBoard = (id, boardSetter) => {
-    const picture = pictures.find((picture) => id === picture.id);
+    const picture = pictures.find((picture) => id === picture.id); //sucht das Bild in der Liste  
    
     if (!picture) {
       console.log("Picture not found in PictureList");
@@ -141,7 +114,8 @@ function DragDrop() {
     }
     const boardId = picture.boardId;
 
-    
+
+    //prüft ob das Bild in das richtige Board gezogen wird und wählt das entsprechende Board aus
     if (boardId === 1 && boardSetter === setBlueBoard) {
       setBlueBoard((board) => [...board, picture]);
     } else if (boardId === 2 && boardSetter === setGreenBoard) {
@@ -155,8 +129,9 @@ function DragDrop() {
       return;
     }
 
-    setPictures((prevPictures) => prevPictures.filter((p) => p.id !== id));
+    setPictures((prevPictures) => prevPictures.filter((p) => p.id !== id)); //entfernt das Bild aus der Liste der Items
 
+    //prüft ob das Spiel beendet ist, funktiioniert noch nicht!
     if (pictures.length === 1) {
       setIsGameFinished(true);
     }
@@ -166,11 +141,13 @@ function DragDrop() {
 
   };
 
+  //erstellt die Drop Bereiche
   const blueDrop = createDrop(setBlueBoard);
   const greenDrop = createDrop(setGreenBoard);
   const yellowDrop = createDrop(setYellowBoard);
   const grayDrop = createDrop(setGrayBoard);
 
+  //setzt die Boards zurück
   const resetBoards = () => {
     setBlueBoard([]);
     setYellowBoard([]);
@@ -179,16 +156,17 @@ function DragDrop() {
     setPictures(PictureList);
     setIsGameFinished(false);
   };
-
+ //navigiert zum nächsten Spiel, in dem zu der Liste der Games
   const nextGame = () => {
     navigate('/games');
     
   };
-
+  //Frontend ansicht
   return (
     <>
 
       <div className="Pictures">
+        {/* die Items die noch in der Liste sind */} // 
         {pictures.map((picture) => {
           return <Picture url={picture.url} id={picture.id} key={picture.id} />;
         })}
@@ -199,7 +177,7 @@ function DragDrop() {
          <button onClick={nextGame} className='btn btn-success'>Nächstes Spiel</button>
       </div>
 
-
+      {/* die Boards in denen die Items abgelegt werden können */}
       <div className="BoardsContainer">
         <div className="BlueBoard" ref={blueDrop}>
           {blueBoard.map((picture) => (
