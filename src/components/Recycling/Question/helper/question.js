@@ -1,91 +1,87 @@
 export const questionsData = [
   {
     id: 0,
-    title: "Für Elektronikgeräte und Batterien gibt es eine eigene Mülltonne.",
-    image:
-      "https://www.oekotest.de/static_files/images/article/Elektroschrott-entsorgen-Grosser-Ratgeber_Shutterstock-Sergey-Mironov_11536_4x3.jpg",
+    title: "Warum ist Mülltrennung wichtig?",
+    image: "https://media.istockphoto.com/id/1454818341/de/vektor/m%C3%BCll-sortieren-konzept.jpg?s=612x612&w=0&k=20&c=Al4t3XRRosIyXKV8m8vL-4ALuGkAROoqLE01OMWKpjY=",
     answers: [
       {
         id: 0,
-        title: "Ja",
+        title: "Damit der Müll wiederverwendet werden kann",
         backgroundColor: "#BC2A6E",
       },
       {
         id: 1,
-        title: "Nein",
+        title: "Wegen eines Gesetzes von UNO",
         backgroundColor: "#7F4877",
+      },
+      {
+        id: 2,
+        title: "Weil z.B Kompost in der Altpapiertonne stinken würde",
+        backgroundColor: "#70BBFF",
       },
     ],
     correctAnswerId: 0,
   },
+
+
   {
     id: 1,
-    title:
-      "Wie soll gebrauchte Kleidungen aus 100% Baumwolle nicht entsorgt werden?",
-    image:
-      "https://img.freepik.com/fotos-premium/gebrauchte-kleidung-in-einem-stapel-sortieren-und-reinigen-aus-zweiter-hand-vorbereitung-zum-waschen-kopieren-sie-platz-auf-weissem-hintergrund_235627-249.jpg",
+    title: "Welches System wird in Deutschland zur Mülltrennung verwendet?",
+    image: "https://ih1.redbubble.net/image.1072256202.5873/flat,750x1000,075,f.jpg",
     answers: [
       {
         id: 0,
-        title: "Spenden",
-        backgroundColor: "#BC2A6E",
+        title: "Das agile System",
+        backgroundColor: "#7F4877",
       },
       {
         id: 1,
-        title: "Weiterverkauf",
+        title: "Das duale System",
         backgroundColor: "#7F4877",
       },
       {
         id: 2,
-        title: "In Textilcontainer",
-        backgroundColor: "#70BBFF",
-      },
-      {
-        id: 3,
-        title: "In Biotonne",
-        backgroundColor: "#349B19",
+        title: "Das sporadische System",
+        backgroundColor: "#7F4877",
       },
     ],
-    correctAnswerId: 3,
+    correctAnswerId: 1,
   },
+
+
   {
     id: 2,
-    title: "In welche Mülltonne sollten Knochenabfälle entsorgt werden?",
-    image:
-      "https://media.istockphoto.com/id/1129331135/de/vektor/knochen-linie-symbole.jpg?s=612x612&w=0&k=20&c=lsZWEd_KuDLIU6ZFPEW-pYtKi6njPJeSdPNmB-ph1p8=",
+    title: "Welche Art von Müll gehört in den Sondermüll?",
+    image: "https://elements-cover-images-0.imgix.net/88754a41-fd73-4cae-802d-9ae760d9cbcf?auto=compress%2Cformat&w=900&fit=max&s=3b952e0c4d54132584d9cd8ea6b827dc",
     answers: [
       {
         id: 0,
-        title: "Biotonne",
-        backgroundColor: "#BC2A6E",
-      },
-      {
-        id: 1,
-        title: "Gelber Sack",
-        backgroundColor: "#7F4877",
-      },
-      {
-        id: 2,
-        title: "Restmüll",
+        title: "Müll, der zu groß für die normale Mülltonne sind.",
         backgroundColor: "#70BBFF",
       },
       {
-        id: 3,
-        title: "Wertstoffhof",
-        backgroundColor: "#349B19",
+        id: 1,
+        title: "Müll, der eine besondere Umweltgefahr darstellen.",
+        backgroundColor: "#70BBFF",
+      },
+      {
+        id: 2,
+        title: "Müll, bei dem man sich unsicher ist, in welche Tonne er gehört.",
+        backgroundColor: "#70BBFF",
       },
     ],
-    correctAnswerId: 2,
+    correctAnswerId: 1,
   },
+
+
   {
     id: 3,
     title: "Wie sollen Glasabfälle sortiert werden?",
-    image:
-      "https://img.freepik.com/vektoren-premium/sammlung-von-altglas-auf-weissem-hintergrund-flaschen-glaeser-vasen-und-anderer-muell-produkte-aus-glas-recycelbare-glasmuell-vektor-illustration_281155-388.jpg",
+    image: "https://img.freepik.com/vektoren-premium/sammlung-von-altglas-auf-weissem-hintergrund-flaschen-glaeser-vasen-und-anderer-muell-produkte-aus-glas-recycelbare-glasmuell-vektor-illustration_281155-388.jpg",
     answers: [
       {
         id: 0,
-        title: "Nach Farben",
+        title: "Nach ihren Farben",
         backgroundColor: "#BC2A6E",
       },
       {
@@ -102,116 +98,185 @@ export const questionsData = [
     correctAnswerId: 0,
   },
   
-   
-  
-  
  
   {
     id:4,
-    image:"https://images.cdn.sofatutor.net/content_images/images/12135/original/20466_muelltrennung_haushalt.svg?1648709784",
-    title:"Warum trennen wir Müll überhaupt?",
+    image:"https://img1.runnersworld.de/Nachhaltigkeitssiegel-badge-bigMobileWide-6d178443-106819.jpg",
+    title:"Welches Symbol kennzeichnet umweltfreundliche Produkte?",
     answers:[
         {
             id:0,
-            title:"Damit der Müll wiederverwendet werden kann",
+            title:"Blauer Engel",
             backgroundColor:"#32a852",
 
         },
         {
             id:1,
-            title:"Weil die UNO ein entsprechendes Gesetz verabschiedet, hat",
+            title:"Grüner Punkt",
             backgroundColor:"#32a852",
 
         },
         {
             id:2,
-            title:"Weil z.B Kompost im Altpapiercontainer stinken würde",
+            title:"Rotes Männchen",
             backgroundColor:"#32a852",
-
         },
+        {
+          id:2,
+          title:"Bio-Symbol",
+          backgroundColor:"#32a852",
+      },
     ],
 
     correctAnswerId: 0,
 },
+
+
 {
   id:5,
-  image:"https://i.ds.at/WzGm6A/rs:fill:1600:0/plain/2023/01/15/grafik-gelbe-tonne_1.jpg",
-  title:"Welche von diese 3 produkt daft mann nicht in den HausMüll werfen?",
+  image: "https://img.freepik.com/vektoren-premium/muellcontainer-mit-unsortiertem-muell-vor-dem-hintergrund-der-stadt-muellhaufen-beutel-voller-muell_168129-2644.jpg",
+  title: "Welche dieser drei Produkte daft mann im Hausmüll werfen?",
   answers:[
       {
           id:0,
-          title:"Altpapier",
-          backgroundColor:"#fcba03",
+          title:"Staubsaugerbeutel",
+          backgroundColor:"black",
 
       },
       {
           id:1,
           title:"Batterien",
-          backgroundColor:"#fcba03",
+          backgroundColor:"black",
 
       },
       {
           id:2,
-          title:"Kompost",
-          backgroundColor:"#fcba03",
+          title:"Gemüseschalen",
+          backgroundColor:"black",
 
       },
   ],
-  correctAnswerId: 1,
+  correctAnswerId: 0,
 
 }, 
+
+
 {
   id:6,
-  image:"https://www.verbraucherzentrale.nrw/sites/default/files/styles/article_full_image_desktop/public/2018-12/teaserbild2.jpg?h=d40193ab&itok=-ecTqt45",
-  title:"Welche Farbe hat die Tonne, wo man das Verpackungsmaterial entsorgt?",
+  image: "https://media.istockphoto.com/id/1131362780/de/foto/plastikm%C3%BCll-isoliert-auf-weiss.jpg?s=612x612&w=0&k=20&c=xrSFVGr28vdtU8SU1mtVfhdLeufS0-ueiDgKmtOoaW0=",
+  title: "Welche Farbe hat der Mülltonne, in der das Verpackungsmaterial entsorgt wird?",
   answers:[
       {
           id:0,
           title:"blau",
-          backgroundColor:"#32a852",
+          backgroundColor:"#BC2A6E",
 
       },
       {
           id:1,
           title:"gelb",
-          backgroundColor:"#32a852",
+          backgroundColor:"#7F4877",
 
       },
       {
           id:2,
           title:"grün",
-          backgroundColor:"#32a852",
+          backgroundColor:"#349B19",
 
       },
   ],
 
   correctAnswerId: 1,
 },
+
+
 {
   id:7,
-  image:"https://www.muelltrennung-wirkt.de/fileadmin/user_upload/Startseite/dS_Illu_S4_carousel_Muelltrennung_blau.svg",
-  title:"welcher Müll gehört in die blaue Tonne?",
+  image: "https://media.istockphoto.com/id/1185776329/de/vektor/bin-recycling-kunststoff-blau-wheelie-bin-f%C3%BCr-abf%C3%A4lle-isoliert-auf-wei%C3%9Fem-hintergrund-blauer.jpg?s=612x612&w=0&k=20&c=sIZhg3dmEEBReCd__xOY8DaNAAVCJxWqbRU_DDHz-nM=",
+  title: "welcher Müll gehört in die blaue Tonne?",
   answers:[
       {
           id:0,
           title:"Altpapier",
-          backgroundColor:"#32a852",
+          backgroundColor:"#7F4877",
 
       },
       {
           id:1,
           title:"Glas",
-          backgroundColor:"#32a852",
+          backgroundColor:"#BC2A6E",
 
       },
       {
           id:2,
           title:"Kompost",
-          backgroundColor:"#32a852",
+          backgroundColor:"#70BBFF",
 
       },
   ],
   correctAnswerId: 0,
+
+},
+
+
+{
+  id:8,
+  image: "https://media.istockphoto.com/id/537644889/de/vektor/vektor-recycling-von-abfall-und-m%C3%BCll-bin-f%C3%BCr-die-isoliert-auf-hintergrund.jpg?s=612x612&w=0&k=20&c=7IkzNNCbO6SD68VDwFoe81PtqtR_nQv1n4L3SKcJlBU=",
+  title: "Was darf nicht in die Gelbe Tonne",
+  answers:[
+      {
+          id:0,
+          title:"Plastikspielzeug",
+          backgroundColor:"#fcba07",
+
+      },
+      {
+          id:1,
+          title:"Kronkorken",
+          backgroundColor:"#fcba07",
+
+      },
+      {
+          id:2,
+          title:"Leere Zahnpastatuben",
+          backgroundColor:"#fcba07",
+
+      },
+  ],
+  correctAnswerId: 0,
+
+},
+
+
+{
+  id:9,
+  image: "https://s3.eu-central-1.amazonaws.com/images.bonavendi.de/landingpages/kleidung.jpg",
+  title: "Wie sollen gebrauchte Kleidungsstücke aus 100% Baumwolle nicht entsorgt werden?",
+  answers:[
+      {
+          id:0,
+          title:"Durch Weiterverkauf",
+          backgroundColor:"#7F4877",
+
+      },
+      {
+          id:1,
+          title:"Im Textilcontainer",
+          backgroundColor:"#7F4877",
+
+      },
+      {
+          id:2,
+          title:"Durch Spenden",
+          backgroundColor:"#7F4877",
+      },
+      {
+        id:3,
+        title:"Im Biomüll",
+        backgroundColor:"#7F4877",
+    },
+  ],
+  correctAnswerId: 3,
 
 },
  

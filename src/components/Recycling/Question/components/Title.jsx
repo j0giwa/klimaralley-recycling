@@ -7,5 +7,5 @@ const Title = ({ title, index }) => {
     );
   };
   
-  export default Title;
+  export default Title; 
   
