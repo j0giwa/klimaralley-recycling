@@ -25,21 +25,28 @@
 
 
   .BlueBoard {
+    background-color: blue;
     width: 300px;
-    height: 500px;
+    height: 400px;
     border: 2px solid rgb(5, 41, 247);
   }
   .GreenBoard {
-    
+    background-color: green;
     width: 300px;
-    height: 500px;
+    height: 400px;
     border: 2px solid rgb(16, 131, 16);
   }
 
   .YellowBoard {
-    
+    background-color: yellow;
     width: 300px;
-    height: 500px;
+    height: 400px;
     border: 2px solid rgb(252, 215, 6);
   }
-  
+
+  .GrayBoard {
+    background-color: gray;
+    width: 300px;
+    height: 400px;
+    border: 2px solid rgb(128,128,128);
+  }
