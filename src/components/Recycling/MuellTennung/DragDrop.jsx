@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Picture from './Picture';
+// import ProgressBar from "Question/components/ProgressBarGame.jsx";
 import { useDrop } from 'react-dnd';
 import "./muellTrennung.css";
 import { useNavigate } from 'react-router-dom';
