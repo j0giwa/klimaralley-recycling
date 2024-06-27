@@ -32,7 +32,7 @@ export const questionsData = [
       {
         id: 0,
         title: "Das agile System",
-        backgroundColor: "#7F4877",
+        backgroundColor: "#BC2A6E",
       },
       {
         id: 1,
@@ -42,7 +42,7 @@ export const questionsData = [
       {
         id: 2,
         title: "Das sporadische System",
-        backgroundColor: "#7F4877",
+        backgroundColor: "#70BBFF",
       },
     ],
     correctAnswerId: 1,
@@ -57,12 +57,12 @@ export const questionsData = [
       {
         id: 0,
         title: "Müll, der zu groß für die normale Mülltonne sind.",
-        backgroundColor: "#70BBFF",
+        backgroundColor: "#BC2A6E",
       },
       {
         id: 1,
         title: "Müll, der eine besondere Umweltgefahr darstellen.",
-        backgroundColor: "#70BBFF",
+        backgroundColor: "#7F4877",
       },
       {
         id: 2,
@@ -107,24 +107,24 @@ export const questionsData = [
         {
             id:0,
             title:"Blauer Engel",
-            backgroundColor:"#32a852",
+            backgroundColor:"#BC2A6E",
 
         },
         {
             id:1,
             title:"Grüner Punkt",
-            backgroundColor:"#32a852",
+            backgroundColor:"#7F4877",
 
         },
         {
             id:2,
             title:"Rotes Männchen",
-            backgroundColor:"#32a852",
+            backgroundColor:"#70BBFF",
         },
         {
-          id:2,
+          id:3,
           title:"Bio-Symbol",
-          backgroundColor:"#32a852",
+          backgroundColor:"#fcba07",
       },
     ],
 
@@ -135,24 +135,24 @@ export const questionsData = [
 {
   id:5,
   image: "https://img.freepik.com/vektoren-premium/muellcontainer-mit-unsortiertem-muell-vor-dem-hintergrund-der-stadt-muellhaufen-beutel-voller-muell_168129-2644.jpg",
-  title: "Welche dieser drei Produkte daft mann im Hausmüll werfen?",
+  title: "Welche dieser drei Produkte daft man in den Hausmüll werfen?",
   answers:[
       {
           id:0,
           title:"Staubsaugerbeutel",
-          backgroundColor:"black",
+          backgroundColor:"BC2A6E",
 
       },
       {
           id:1,
           title:"Batterien",
-          backgroundColor:"black",
+          backgroundColor:"7F4877",
 
       },
       {
           id:2,
           title:"Gemüseschalen",
-          backgroundColor:"black",
+          backgroundColor:"70BBFF",
 
       },
   ],
@@ -164,7 +164,7 @@ export const questionsData = [
 {
   id:6,
   image: "https://media.istockphoto.com/id/1131362780/de/foto/plastikm%C3%BCll-isoliert-auf-weiss.jpg?s=612x612&w=0&k=20&c=xrSFVGr28vdtU8SU1mtVfhdLeufS0-ueiDgKmtOoaW0=",
-  title: "Welche Farbe hat der Mülltonne, in der das Verpackungsmaterial entsorgt wird?",
+  title: "Welche Farbe hat die Mülltonne, in der das Verpackungsmaterial entsorgt wird?",
   answers:[
       {
           id:0,
@@ -181,7 +181,7 @@ export const questionsData = [
       {
           id:2,
           title:"grün",
-          backgroundColor:"#349B19",
+          backgroundColor:"#70BBFF",
 
       },
   ],
@@ -193,18 +193,18 @@ export const questionsData = [
 {
   id:7,
   image: "https://media.istockphoto.com/id/1185776329/de/vektor/bin-recycling-kunststoff-blau-wheelie-bin-f%C3%BCr-abf%C3%A4lle-isoliert-auf-wei%C3%9Fem-hintergrund-blauer.jpg?s=612x612&w=0&k=20&c=sIZhg3dmEEBReCd__xOY8DaNAAVCJxWqbRU_DDHz-nM=",
-  title: "welcher Müll gehört in die blaue Tonne?",
+  title: "Welcher Müll gehört in die blaue Tonne?",
   answers:[
       {
           id:0,
           title:"Altpapier",
-          backgroundColor:"#7F4877",
+          backgroundColor:"#BC2A6E",
 
       },
       {
           id:1,
           title:"Glas",
-          backgroundColor:"#BC2A6E",
+          backgroundColor:"#7F4877",
 
       },
       {
@@ -227,19 +227,19 @@ export const questionsData = [
       {
           id:0,
           title:"Plastikspielzeug",
-          backgroundColor:"#fcba07",
+          backgroundColor:"#BC2A6E",
 
       },
       {
           id:1,
           title:"Kronkorken",
-          backgroundColor:"#fcba07",
+          backgroundColor:"#7F4877",
 
       },
       {
           id:2,
           title:"Leere Zahnpastatuben",
-          backgroundColor:"#fcba07",
+          backgroundColor:"#70BBFF",
 
       },
   ],
@@ -256,7 +256,7 @@ export const questionsData = [
       {
           id:0,
           title:"Durch Weiterverkauf",
-          backgroundColor:"#7F4877",
+          backgroundColor:"#BC2A6E",
 
       },
       {
@@ -268,12 +268,12 @@ export const questionsData = [
       {
           id:2,
           title:"Durch Spenden",
-          backgroundColor:"#7F4877",
+          backgroundColor:"#70BBFF",
       },
       {
         id:3,
         title:"Im Biomüll",
-        backgroundColor:"#7F4877",
+        backgroundColor:"#fcba07",
     },
   ],
   correctAnswerId: 3,
