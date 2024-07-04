@@ -140,19 +140,19 @@ export const questionsData = [
       {
           id:0,
           title:"Staubsaugerbeutel",
-          backgroundColor:"BC2A6E",
+          backgroundColor:"#BC2A6E",
 
       },
       {
           id:1,
           title:"Batterien",
-          backgroundColor:"7F4877",
+          backgroundColor:"#7F4877",
 
       },
       {
           id:2,
           title:"Gemüseschalen",
-          backgroundColor:"70BBFF",
+          backgroundColor:"#70BBFF",
 
       },
   ],
