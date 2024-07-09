@@ -14,7 +14,7 @@ function Picture({ id, url }) {
     <img
       ref={drag}
       src={url}
-      width="50px" //Picture width.
+      width="100px" //Picture width.
       style={{ border: isDragging ? "5px solid pink" : "0px" }}
     />
   );

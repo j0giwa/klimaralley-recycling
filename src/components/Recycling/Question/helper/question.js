@@ -16,7 +16,7 @@ export const questionsData = [
       },
       {
         id: 2,
-        title: "Weil z.B Kompost in der Altpapiertonne stinken würde",
+        title: "Weil z. B. Kompost in der Altpapiertonne stinken würde",
         backgroundColor: "#70BBFF",
       },
     ],
@@ -56,12 +56,12 @@ export const questionsData = [
     answers: [
       {
         id: 0,
-        title: "Müll, der zu groß für die normale Mülltonne sind.",
+        title: "Müll, der zu groß für die normale Mülltonne ist.",
         backgroundColor: "#BC2A6E",
       },
       {
         id: 1,
-        title: "Müll, der eine besondere Umweltgefahr darstellen.",
+        title: "Müll, der eine besondere Umweltgefahr darstellt.",
         backgroundColor: "#7F4877",
       },
       {
@@ -86,7 +86,7 @@ export const questionsData = [
       },
       {
         id: 1,
-        title: "Nach ihren Gewicht",
+        title: "Nach ihrem Gewicht",
         backgroundColor: "#7F4877",
       },
       {
@@ -135,7 +135,7 @@ export const questionsData = [
 {
   id:5,
   image: "https://img.freepik.com/vektoren-premium/muellcontainer-mit-unsortiertem-muell-vor-dem-hintergrund-der-stadt-muellhaufen-beutel-voller-muell_168129-2644.jpg",
-  title: "Welche dieser drei Produkte daft man in den Hausmüll werfen?",
+  title: "Welches dieser drei Produkte daft man in den Hausmüll werfen?",
   answers:[
       {
           id:0,
@@ -222,7 +222,7 @@ export const questionsData = [
 {
   id:8,
   image: "https://media.istockphoto.com/id/537644889/de/vektor/vektor-recycling-von-abfall-und-m%C3%BCll-bin-f%C3%BCr-die-isoliert-auf-hintergrund.jpg?s=612x612&w=0&k=20&c=7IkzNNCbO6SD68VDwFoe81PtqtR_nQv1n4L3SKcJlBU=",
-  title: "Was darf nicht in die Gelbe Tonne",
+  title: "Was darf nicht in die Gelbe Tonne?",
   answers:[
       {
           id:0,
@@ -251,7 +251,7 @@ export const questionsData = [
 {
   id:9,
   image: "https://s3.eu-central-1.amazonaws.com/images.bonavendi.de/landingpages/kleidung.jpg",
-  title: "Wie sollen gebrauchte Kleidungsstücke aus 100% Baumwolle nicht entsorgt werden?",
+  title: "Wie sollen gebrauchte Kleidungsstücke aus 100 % Baumwolle nicht entsorgt werden?",
   answers:[
       {
           id:0,
