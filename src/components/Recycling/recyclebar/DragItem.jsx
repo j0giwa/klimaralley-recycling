@@ -17,7 +17,7 @@ const DragItem = ({ item }) => {
       ref={drag}
       style={{ opacity: isDragging ? 0.5 : 1 }}
     >
-      <img src={item.src} alt={item.type} />
+      <img src={item.url} alt={item.type} />
     </div>
   );
 };
