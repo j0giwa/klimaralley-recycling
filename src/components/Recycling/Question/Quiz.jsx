@@ -131,7 +131,7 @@ function Quiz() {
   }
 
   function nextGame() {
-    navigate('/play/recycling/muellSortieren');
+    navigate('/play/recycling/muellSortieren/:id');
     saveGame();  // daten auf Server speichern
   }
 

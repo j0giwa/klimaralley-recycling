@@ -181,7 +181,7 @@ function DragDrop() {
   };
  //navigiert zum nächsten Spiel, in dem zu der Liste der Games
   const nextGame = () => {
-    navigate('/play/recycling/games');
+    navigate('/play/recycling/recyclebar');
     
   };
   //Frontend ansicht

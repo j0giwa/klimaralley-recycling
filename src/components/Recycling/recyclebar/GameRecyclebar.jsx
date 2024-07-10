@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DragItem from './DragItem';
 import DropZone from './DropZone';
 import './GameRecyclebar.css';
+import { useNavigate } from 'react-router-dom';
 
 const initialItems = [
   { id: 1, type: 'Alu', url: "https://cdn.pixabay.com/photo/2017/01/16/15/13/shells-1984293_1280.png" , recyclable: true },
@@ -14,6 +15,8 @@ const initialItems = [
 
 const GameRecyclebar = () => {
     
+  const navigate = useNavigate();
+
     const [isGameFinished, setIsGameFinished] = useState(false);
     const [items, setItems] = useState(initialItems);
     const [score, setScore] = useState(0);
@@ -48,7 +51,7 @@ const GameRecyclebar = () => {
 
   const handleContinue = () => {
     // Logik zum Weiterspielen
-    console.log('Weiterspielen');
+    navigate('/play/recycling/memory/:id');
   };
 
   return (

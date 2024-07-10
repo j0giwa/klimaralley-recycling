@@ -16,6 +16,7 @@ import GameRecyclebar from './recyclebar/GameRecyclebar.jsx'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import React, { useRef, useState } from 'react'
+import MemoryGame from './memory/MemoryGame.jsx'
 
 
 
@@ -38,17 +39,6 @@ export  function AuthenticatedRoute({ children }) {
 
 export default function RecyclingApp(){
 
-//     const audioRef = useRef(null);
-//   const [isPlaying, setIsPlaying] = useState(false);
-
-//   const handlePlayMusic = () => {
-//     if (audioRef.current) {
-//       audioRef.current.play().catch(error => {
-//         console.log("Error playing audio:", error);
-//       });
-//       setIsPlaying(true);
-//     }
-//   };
 
     return(
         
@@ -76,17 +66,19 @@ export default function RecyclingApp(){
 
                     <Route path='/play/recycling/quiz/:id' element={<Quiz></Quiz>}></Route>
 
-                    <Route path='/play/recycling/muellSortieren' element={
+                    <Route path='/play/recycling/muellSortieren/:id' element={
                             <DndProvider backend={HTML5Backend}> 
                                 <DragDrop />
                             </DndProvider>
                             } />
 
-                    <Route path='/play/recycling/recyclebar' element={
+                    <Route path='/play/recycling/recyclebar/:id' element={
                             <DndProvider backend={HTML5Backend}> 
                                 <GameRecyclebar />
                             </DndProvider>
                             } />
+
+                    <Route path='/play/recycling/memory/:id' element={<MemoryGame></MemoryGame>}></Route>
                     
 
 
