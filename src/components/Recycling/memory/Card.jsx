@@ -10,7 +10,7 @@ const Card = ({ id, type, url, handleClick, isMatched, flipped }) => (
         <img src={url} alt={type} />
       </div>
       <div className="card-back">
-        <img src="src\components\Recycling\memory\memory.png" alt="Memory Logo" />
+        <img src="/memory/memory.png" alt="Memory Logo" />
       </div>
     </div>
   </div>
