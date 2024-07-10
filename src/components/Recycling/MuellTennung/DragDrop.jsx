@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Picture from './Picture';
+// import ProgressBar from "Question/components/ProgressBarGame.jsx";
 import { useDrop } from 'react-dnd';
 import "./muellTrennung.css";
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +15,7 @@ const PictureList = [
     boardId: 1
   },
   {
-  id: 2, //Broat
+  id: 2, //Brot
     url: "https://cdn.pixabay.com/photo/2019/05/06/14/24/bread-4183225_1280.jpg",
     boardId: 2
   },
@@ -29,8 +30,8 @@ const PictureList = [
     boardId: 3
   },
   {
-    id: 5, //Kartofel
-    url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg",
+    id: 5, //Kartoffelschalen
+    url: "https://cdn.pixabay.com/photo/2014/05/14/16/15/potato-skins-344185_1280.jpg",
     boardId: 2
   },
   {
@@ -80,7 +81,7 @@ const PictureList = [
   },
   {
     id: 15, //Kerzen
-    url: "https://cdn.pixabay.com/photo/2016/03/26/22/13/candlelights-1281563_640.jpg",
+    url: "https://cdn.pixabay.com/photo/2016/07/27/21/38/candles-1546499_1280.jpg",
     boardId: 4
   },
   {
@@ -180,7 +181,7 @@ function DragDrop() {
   };
  //navigiert zum nächsten Spiel, in dem zu der Liste der Games
   const nextGame = () => {
-    navigate('/games');
+    navigate('/play/recycling/games');
     
   };
   //Frontend ansicht

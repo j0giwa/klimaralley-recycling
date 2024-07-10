@@ -14,7 +14,7 @@ function Quiz() {
   const navigate = useNavigate();
   const username = authContext.username;
 
-  const [questions, setQuestions] = useState(questionsData);//modifier 8 a 23
+  const [questions, setQuestions] = useState(questionsData);   //modifier 8 a 23
   const [richtig, setRichtig] = useState(0);
   const [falsch, setFalsch] = useState(0);
   const [score, setScore] = useState(0);
@@ -106,33 +106,33 @@ function Quiz() {
       }
     }
 
-    if (answerId === question.correctAnswerId) {//calculate Score
+    if (answerId === question.correctAnswerId) {   //calculate Score
       setScore(score + 1);
-      setRichtig(richtig + 10);//si la question richtig sa fait 10 pour cent
+      setRichtig(richtig + 10);   //si la question richtig sa fait 10 pour cent
     } else {
-      setFalsch(falsch + 10);// Si la réponse est incorrecte, ajouter 10% à 'falsch'
+      setFalsch(falsch + 10);   // Si la réponse est incorrecte, ajouter 10% à 'falsch'
     }
     
     setQuestions(current =>
-      current.filter(item => item.id !== question.id)//suprimer la question repondue de la liste des questions restantes 
+      current.filter(item => item.id !== question.id)   //suprimer la question repondue de la liste des questions restantes 
     );
     console.log(game);
 }
 
   function handleStart() {
-    setScore(0);//reinitialiser le score
+    setScore(0);   //reinitialiser le score
     setIsGameFinished(false);
     setIsWinner(false);
     setQuestions(questionsData);
     setRichtig(0);
     setFalsch(0);
 
-    deleteGame(); // daten vom Server löschen
+    deleteGame();  // daten vom Server löschen
   }
 
   function nextGame() {
     navigate('/play/recycling/muellSortieren');
-    saveGame(); // daten auf Server speichern
+    saveGame();  // daten auf Server speichern
   }
 
   return (
@@ -162,7 +162,7 @@ function Quiz() {
               <div key={item.id} className="w-full md:w-1/2 lg:w-1/3 p-2">
                 <div className="bg-white shadow-lg rounded-lg">
                   <Image image={item.image} />
-                  <Title index={item.id} title={item.title} /> // ich habe {i} mit {item.id}geändern
+                  <Title index={item.id} title={item.title} /> 
                   <div className="p-4 flex flex-col justify-between">
                     {item.answers.map((answer, index) => (
                       <Answer
@@ -180,12 +180,12 @@ function Quiz() {
           {isGameFinished && (
             <div className="flex flex-col gap-5">
               <div className="text-xl">
-                Dein Ergebnis ist : {score}/{totalQuestions}
+                Dein Ergebnis ist: {score}/{totalQuestions}
               </div>
               <div className="text-xl">
                 {isWinner ? "Glückwunsch, du hast gewonnen!" : "Tut mir leid, du hast verloren. Versuche es erneut!"}</div>
               <div className="flex justify-around mt-5">
-                <button onClick={nextGame} className="bg-blue-500 text-white px-4 py-2 rounded">Nächtes Spiel</button>
+                <button onClick={nextGame} className="bg-blue-500 text-white px-4 py-2 rounded">Nächstes Spiel</button>
                 <button onClick={handleStart} className="bg-blue-500 text-white px-4 py-2 rounded">Wieder Spielen</button>
               </div>
             </div>
