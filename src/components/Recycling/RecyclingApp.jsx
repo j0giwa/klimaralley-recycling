@@ -58,29 +58,28 @@ export default function RecyclingApp(){
               <HeaderComponent></HeaderComponent>
                 {/* <AuthenticatedRoute> ist die Kompenente welche regelt das nur User zugriff auf die entsprechenden Routes erhalten die die Befugniss haben */}
                 <Routes>
-               
+                {/* <AuthenticatedRoute></AuthenticatedRoute> wird erstmal rausgenommen, SPÄTER WIEDER EINFÜGEN */}
                     <Route path='/play/recycling/' element={<LoginComponent/>}></Route>
 
                     <Route path='/play/recycling/login' element={<LoginComponent></LoginComponent>}></Route>
                     
-                    <Route path='/play/recycling/welcome/:username' element={ <AuthenticatedRoute><WelcomeComponent /></AuthenticatedRoute> }></Route>
+                    <Route path='/play/recycling/welcome/:username' element={ <WelcomeComponent /> }></Route>
 
-                    <Route path='/play/recycling/games' element={<AuthenticatedRoute><ListGamesComponent></ListGamesComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/play/recycling/games' element={<ListGamesComponent></ListGamesComponent>}></Route>
 
-                    <Route path='/play/recycling/game/:id' element={<AuthenticatedRoute><GameComponent></GameComponent></AuthenticatedRoute>}></Route>
+                    <Route path='/play/recycling/game/:id' element={<GameComponent></GameComponent>}></Route>
 
-                    <Route path='/play/recycling/logout' element={<AuthenticatedRoute><LogoutComponent></LogoutComponent></AuthenticatedRoute>}></Route>           
+                    <Route path='/play/recycling/logout' element={<LogoutComponent></LogoutComponent>}></Route>           
 
                     <Route path='/play/recycling/*' element={<ErrorComponent></ErrorComponent>}></Route>
 
-                    <Route path='/play/recycling/quiz/:id' element={<AuthenticatedRoute><Quiz></Quiz></AuthenticatedRoute>}></Route>
+                    <Route path='/play/recycling/quiz/:id' element={<Quiz></Quiz>}></Route>
 
-                     <Route path='/play/recycling/muellSortieren' element={<AuthenticatedRoute>
-                            {/* Drag an Provider für das Spiel */}
+                     <Route path='/play/recycling/muellSortieren' element={
                             <DndProvider backend={HTML5Backend}> 
                                 <DragDrop />
                             </DndProvider>
-                            </AuthenticatedRoute>} />
+                            } />
 
                     
                 
