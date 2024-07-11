@@ -31,7 +31,7 @@ const PictureList = [
   },
   {
     id: 5, //Kartofel
-    url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg",
+    url: "https://cdn.pixabay.com/photo/2018/05/29/23/18/potato-3440360_1280.jpg",
     boardId: 2
   },
   {
