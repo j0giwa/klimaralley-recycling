@@ -35,7 +35,11 @@ export default function ListGamesComponent() {
         if(id === 10001) {
             startQuiz(id);
         } else if(id === 10002) {
-            startMüllSortieren();
+            startMüllSortieren(id);
+        } else if(id === 10003) {
+            startRecyclebar(id);
+        } else if(id === 10004) {
+            startMemory(id);
         } else {
             navigate(`/play/recycling/game/${id}`);
         } 
@@ -45,9 +49,16 @@ export default function ListGamesComponent() {
         navigate(`/play/recycling/quiz/${id}`)  
     }
     
-    function startMüllSortieren() {
-        console.log("clicked")  
-        navigate(`/play/recycling/muellsortieren`)  
+    function startMüllSortieren(id) { 
+        navigate(`/play/recycling/muellsortieren/${id}`)  
+    }
+
+    function startRecyclebar(id) {  
+        navigate(`/play/recycling/recyclebar/${id}`)  
+    }
+
+    function startMemory(id) {  
+        navigate(`/play/recycling/memory/${id}`)  
     }
 
     

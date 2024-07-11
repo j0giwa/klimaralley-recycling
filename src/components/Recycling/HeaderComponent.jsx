@@ -76,7 +76,7 @@ export default function HeaderComponent() {
 
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="https://www.youtube.com/watch?v=3UFUyFg2-aI" className="text-lg font-semibold text-gray-800">Lemgo Rallye</Link>
+            <Link to="https://www.youtube.com/watch?v=3f2g4RMfhS0" className="text-lg font-semibold text-gray-800">Lemgo Rallye</Link>
           </div>
 
 

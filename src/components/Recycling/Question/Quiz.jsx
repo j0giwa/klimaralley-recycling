@@ -131,7 +131,7 @@ function Quiz() {
   }
 
   function nextGame() {
-    navigate('/play/recycling/muellSortieren');
+    navigate('/play/recycling/muellSortieren/:id');
     saveGame();  // daten auf Server speichern
   }
 
@@ -180,12 +180,12 @@ function Quiz() {
           {isGameFinished && (
             <div className="flex flex-col gap-5">
               <div className="text-xl">
-                Dein Ergebnis ist : {score}/{totalQuestions}
+                Dein Ergebnis ist: {score}/{totalQuestions}
               </div>
               <div className="text-xl">
                 {isWinner ? "Glückwunsch, du hast gewonnen!" : "Tut mir leid, du hast verloren. Versuche es erneut!"}</div>
               <div className="flex justify-around mt-5">
-                <button onClick={nextGame} className="bg-blue-500 text-white px-4 py-2 rounded">Nächtes Spiel</button>
+                <button onClick={nextGame} className="bg-blue-500 text-white px-4 py-2 rounded">Nächstes Spiel</button>
                 <button onClick={handleStart} className="bg-blue-500 text-white px-4 py-2 rounded">Wieder Spielen</button>
               </div>
             </div>
