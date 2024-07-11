@@ -89,14 +89,8 @@ const PictureList = [
     url: "https://cdn.pixabay.com/photo/2019/02/17/11/06/egg-4002016_1280.jpg",
     boardId: 2
   },
-  
+  ]
 
-]
-//Benutzer Anweisungen
-// function instructions(){
-
-// return(<div></div>);
-// }
 function DragDrop() {
 
   const navigate = useNavigate();
@@ -106,10 +100,16 @@ function DragDrop() {
   const [greenBoard, setGreenBoard] = useState([]);
   const [yellowBoard, setYellowBoard] = useState([]);
   const [grayBoard, setGrayBoard] = useState([]);
+  
 
   //die Items die noch in der Liste sind
   const [pictures, setPictures] = useState(PictureList);
+  const [score, setScore] = useState(0); //** */
+  const [hints, setHints] = useState([]); //** */
+  const [progress, setProgress] = useState(0);//*//
+  const [progressColor, setProgressColor] = useState('green');
 
+  //
   // für die abfrage ob das Spiel beendet ist
   const [isGameFinished, setIsGameFinished] = useState(false);
 
@@ -139,28 +139,58 @@ function DragDrop() {
 
 
     //prüft ob das Bild in das richtige Board gezogen wird und wählt das entsprechende Board aus
+    // if (boardId === 1 && boardSetter === setBlueBoard) {
+    //   setBlueBoard((board) => [...board, picture]);
+    // } else if (boardId === 2 && boardSetter === setGreenBoard) {
+    //   setGreenBoard((board) => [...board, picture]);
+    // } else if (boardId === 3 && boardSetter === setYellowBoard) {
+    //   setYellowBoard((board) => [...board, picture]);
+    // } else if (boardId === 4 && boardSetter === setGrayBoard) {
+    //   setGrayBoard((board) => [...board, picture]);
+    // } else {
+    //   console.log("This item can't be added to the board");
+    //   return;
+    // }
+
+   
+    // }
     if (boardId === 1 && boardSetter === setBlueBoard) {
       setBlueBoard((board) => [...board, picture]);
+      setScore(score + 1);
+      setHints((hints) => [...hints, `Correct! ${picture.id} belongs to Blue Board.`]);
     } else if (boardId === 2 && boardSetter === setGreenBoard) {
       setGreenBoard((board) => [...board, picture]);
+      setScore(score + 1);
+      setHints((hints) => [...hints, `Correct! ${picture.id} belongs to Green Board.`]);
+      setProgressColor('green');
     } else if (boardId === 3 && boardSetter === setYellowBoard) {
       setYellowBoard((board) => [...board, picture]);
+      setScore(score + 1);
+      setHints((hints) => [...hints, `Correct! ${picture.id} belongs to Yellow Board.`]);
+      setProgressColor('green');
+
     } else if (boardId === 4 && boardSetter === setGrayBoard) {
       setGrayBoard((board) => [...board, picture]);
+      setScore(score + 1);
+      setHints((hints) => [...hints, `Correct! ${picture.id} belongs to Gray Board.`]);
+      setProgressColor('green');
     } else {
-      console.log("This item can't be added to the board");
-      return;
+      setHints((hints) => [...hints, `Incorrect! ${picture.id} does not belong to this board.`]);
+      setProgressColor('red');
+
     }
+    //entfernt das Bild aus der Liste der Items
+    setPictures((prevPictures) => prevPictures.filter((p) => p.id!== id));
 
-    setPictures((prevPictures) => prevPictures.filter((p) => p.id !== id)); //entfernt das Bild aus der Liste der Items
+    const progressPercentage = (pictures.length / PictureList.length) * 100;
+    setProgress(progressPercentage);
 
-    //prüft ob das Spiel beendet ist, funktiioniert noch nicht!
-    if (pictures.length === 1) {
+    if (pictures.length === 0) {
       setIsGameFinished(true);
-    }
+    }//** */
 
-    console.log(isGameFinished);
-    console.log(pictures.length);
+    // console.log(isGameFinished);
+    // console.log(pictures.length);
 
   };
 
@@ -177,10 +207,13 @@ function DragDrop() {
     setGreenBoard([]);
     setGrayBoard([]);
     setPictures(PictureList);
+    setScore(0);//** */
+    setHints([]);//** */
     setIsGameFinished(false);
   };
  //navigiert zum nächsten Spiel, in dem zu der Liste der Games
-  const nextGame = () => {
+ 
+ const nextGame = () => {
     navigate('/play/recycling/recyclebar/:id');
     
   };
@@ -193,13 +226,21 @@ function DragDrop() {
         {pictures.map((picture) => {
           return <Picture url={picture.url} id={picture.id} key={picture.id} />;
         })}
+       </div>
+
+      <div className="ProgressBar">
+        <div style={{ width: `${progress}%` }} className="Progress"></div>
       </div>
 
       <div className="ResetButton">
         <button onClick={resetBoards} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' >Items zurücklegen</button>
          <button onClick={nextGame} className='btn btn-success'>Nächstes Spiel</button>
       </div>
-
+      {isGameFinished && (
+        <div className="ResultButton">
+          <button onClick={() => alert(`Your final score is ${score}!`)}>Show Result</button>
+        </div>
+      )}
       {/* die Boards in denen die Items abgelegt werden können */}
       <div className="BoardsContainer">
         <div className="BlueBoard" ref={blueDrop}>
