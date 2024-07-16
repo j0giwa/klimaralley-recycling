@@ -11,8 +11,11 @@ const initialItems = [
   { id: 4, type: 'Plastik', url: "https://cdn.pixabay.com/photo/2019/02/01/19/12/plastic-3969638_1280.jpg", recyclable: false },
   { id: 5, type: 'PlastikYoghurt', url: "https://cdn.pixabay.com/photo/2016/03/14/09/41/garbage-1255244_1280.jpg", recyclable: false },
   { id: 6, type: 'Briefe', url: "https://cdn.pixabay.com/photo/2016/09/10/17/17/letters-1659715_1280.jpg" , recyclable: false },
-];
-
+  { id:7,type:'Spritze',url:"https://th.bing.com/th/id/OIP.2dBLL7WrdvRFeTzxCJMnKwAAAA?rs=1&pid=ImgDetMain",recyclable:false},
+  { id:8,type:'Tapete',url:"https://images-eu.ssl-images-amazon.com/images/I/31-X%2BiBC4gL._SL500_AC_SS350_.jpg",recyclable:false},
+  { id: 9, type: 'Karton', url: "https://th.bing.com/th/id/OIP.tmkw-mO4bi_YNFykxzuLJQHaFW?pid=ImgDet&w=175&h=112.5&c=7&dpr=1,3" , recyclable: true },
+  { id: 10, type: 'Glas', url: "https://th.bing.com/th/id/OIP.GHZchj4Hgf2IPGFOdXhRtAHaE8?pid=ImgDet&w=175&h=147.58333333333334&c=7&dpr=1,3" , recyclable: true },
+]
 const GameRecyclebar = () => {
     
   const navigate = useNavigate();
