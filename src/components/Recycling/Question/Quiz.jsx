@@ -101,7 +101,7 @@ function Quiz() {
     if (questions.length === 1) {
       setIsGameFinished(true);
 
-      if (score >= totalQuestions / 2) {
+      if (score >= totalQuestions / 2) {//pour savoir si le joueur a gagner 
         setIsWinner(true);
       }
     }
@@ -143,7 +143,7 @@ function Quiz() {
             <div className="relative pt-1">
               <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200">
                 <div
-                  style={{ width: `${richtig}%` }}
+                  style={{ width: `${richtig}%` }}//
                   className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
                 ></div>
               </div>
