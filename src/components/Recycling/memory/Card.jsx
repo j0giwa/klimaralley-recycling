@@ -10,11 +10,10 @@ const Card = ({ id, type, url, handleClick, isMatched, flipped }) => (
         <img src={url} alt={type} />
       </div>
       <div className="card-back">
-        <img src="/memory/memory.png" alt="Memory Logo" />
+        <img src="https://cdn.pixabay.com/photo/2015/09/12/23/48/stripes-937568_1280.jpg" alt="Rueckseite der Karte" />
       </div>
     </div>
   </div>
 );
 
 export default Card;
-

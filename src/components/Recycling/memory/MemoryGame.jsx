@@ -5,10 +5,27 @@ import './MemoryGame.css';
 import {  useNavigate } from 'react-router-dom';
 
 const cardsData = [
-  { id: 1, type: 'papier', url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg", matchId: 2 },
-  { id: 2, type: 'baum', url: "https://cdn.pixabay.com/photo/2018/11/18/16/31/leaves-3823499_1280.jpg", matchId: 1 },
-  { id: 3, type: 'plastik', url: "https://cdn.pixabay.com/photo/2019/02/17/11/06/egg-4002016_1280.jpg", matchId: 4 },
-  { id: 4, type: 'flasche', url: "https://cdn.pixabay.com/photo/2019/05/06/14/24/bread-4183225_1280.jpg", matchId: 3 },
+  { id: 1, type: 'Papier', url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg", matchId: 2 },
+  { id: 2, type: 'Baeume', url: "https://cdn.pixabay.com/photo/2016/11/29/07/29/wood-1868104_1280.jpg", matchId: 1 },
+  { id: 3, type: 'Erdoel', url: "https://cdn.pixabay.com/photo/2021/02/11/12/51/petrol-6005165_1280.jpg", matchId: 4 },
+  { id: 4, type: 'Plastik', url: "https://cdn.pixabay.com/photo/2019/02/01/19/12/plastic-3969638_1280.jpg", matchId: 3 },
+  { id: 5, type: 'Quarzsand', url: "https://cdn.pixabay.com/photo/2016/05/05/23/19/grains-of-sand-1374989_1280.jpg", matchId: 6 },
+  { id: 6, type: 'Glas', url: "https://cdn.pixabay.com/photo/2014/09/13/15/38/bottles-444170_1280.jpg", matchId: 5 },
+  { id: 7, type: 'Brot', url: "https://cdn.pixabay.com/photo/2019/05/06/14/24/bread-4183225_1280.jpg", matchId: 8 },
+  { id: 8, type: 'Korn', url: "https://cdn.pixabay.com/photo/2015/07/17/10/12/naked-oats-848959_1280.jpg", matchId: 7 },
+  { id: 9, type: 'Brunnen', url: "https://cdn.pixabay.com/photo/2017/08/12/21/21/fountain-2635412_1280.png", matchId: 10 },
+  { id: 10, type: 'Wasser', url: "https://cdn.pixabay.com/photo/2017/02/02/15/15/bottle-2032980_1280.jpg", matchId: 9 },
+  { id: 11, type: 'Minze', url: "https://cdn.pixabay.com/photo/2020/04/04/01/34/mint-5000528_1280.png", matchId: 12 },
+  { id: 12, type: 'Teebeutel', url: "https://cdn.pixabay.com/photo/2014/11/29/18/02/teabag-550645_1280.jpg", matchId: 11 },
+  { id: 13, type: 'Erdbeerma.', url: "https://cdn.pixabay.com/photo/2015/06/24/10/09/strawberry-819690_1280.jpg", matchId: 14 },
+  { id: 14, type: 'Erdbeeren', url: "https://cdn.pixabay.com/photo/2019/07/11/07/29/strawberries-4330211_1280.jpg", matchId: 13 },
+  { id: 15, type: 'Kaese', url: "https://cdn.pixabay.com/photo/2020/05/17/04/33/cheese-5179968_1280.jpg", matchId: 16 },
+  { id: 16, type: 'Milch', url: "https://cdn.pixabay.com/photo/2022/01/01/23/18/milk-6909154_1280.png", matchId: 15 },
+  { id: 17, type: 'Schaf', url: "https://cdn.pixabay.com/photo/2019/03/05/17/11/sheep-4036611_1280.jpg", matchId: 18 },
+  { id: 18, type: 'Wolle', url: "https://cdn.pixabay.com/photo/2022/04/29/09/19/yarn-7162973_1280.jpg", matchId: 17 },
+  { id: 19, type: 'Hochofen', url: "https://cdn.pixabay.com/photo/2015/02/24/13/28/industry-647413_1280.jpg", matchId: 20 },
+  { id: 20, type: 'Schrauben', url: "https://cdn.pixabay.com/photo/2018/02/19/19/11/screw-3165934_1280.jpg", matchId: 19 },
+
   // Weitere Karten mit entsprechenden Match-IDs
 ];
 
@@ -103,7 +120,8 @@ const MemoryGame = () => {
 
   return (
     <div className="memoryGame">
-      <h1>Recycling Memory</h1>
+      <h1>Memory</h1>
+      <h2>Woraus besteht der Gegenstand?</h2>
       <p>Score: {score}</p>
       <div className="memoryBoard">
         {cards.map((card, index) => (
@@ -121,15 +139,12 @@ const MemoryGame = () => {
 
       {isGameFinished && (
           <div className='finish'>
-            <h2>Spiel beendet</h2>
-            <button onClick={handlePlayAgain}>Nochmal Spielen</button>
-            <button onClick={handleContinue}>Weiterspielen</button>
+            <h2>Spiel beendet!</h2>
+            <button onClick={handlePlayAgain}>Noch mal spielen</button>
+            <button onClick={handleContinue}>Nächstes Spiel</button>
           </div>)}
     </div>
   );
 };
 
 export default MemoryGame;
-
-
-

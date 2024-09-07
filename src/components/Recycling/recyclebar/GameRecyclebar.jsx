@@ -87,9 +87,9 @@ const GameRecyclebar = () => {
         
           {isGameFinished && (
           <div>
-            <h2>Spiel beendet</h2>
-            <button onClick={handlePlayAgain}>Nochmal Spielen</button>
-            <button onClick={handleContinue}>Weiterspielen</button>
+            <h2>Spiel beendet!</h2>
+            <button onClick={handlePlayAgain}>Noch mal spielen</button>
+            <button onClick={handleContinue}>Nächstes Spiel</button>
           </div>)}
       </div>
       

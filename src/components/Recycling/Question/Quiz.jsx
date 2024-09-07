@@ -186,7 +186,7 @@ function Quiz() {
                 {isWinner ? "Glückwunsch, du hast gewonnen!" : "Tut mir leid, du hast verloren. Versuche es erneut!"}</div>
               <div className="flex justify-around mt-5">
                 <button onClick={nextGame} className="bg-blue-500 text-white px-4 py-2 rounded">Nächstes Spiel</button>
-                <button onClick={handleStart} className="bg-blue-500 text-white px-4 py-2 rounded">Wieder Spielen</button>
+                <button onClick={handleStart} className="bg-blue-500 text-white px-4 py-2 rounded">Noch mal spielen</button>
               </div>
             </div>
           )}
