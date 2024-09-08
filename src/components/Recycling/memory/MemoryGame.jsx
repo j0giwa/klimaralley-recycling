@@ -17,7 +17,7 @@ const cardsData = [
   { id: 10, type: 'Wasser', url: "https://cdn.pixabay.com/photo/2017/02/02/15/15/bottle-2032980_1280.jpg", matchId: 9 },
   { id: 11, type: 'Minze', url: "https://cdn.pixabay.com/photo/2020/04/04/01/34/mint-5000528_1280.png", matchId: 12 },
   { id: 12, type: 'Teebeutel', url: "https://cdn.pixabay.com/photo/2014/11/29/18/02/teabag-550645_1280.jpg", matchId: 11 },
-  { id: 13, type: 'Erdbeerma.', url: "https://cdn.pixabay.com/photo/2015/06/24/10/09/strawberry-819690_1280.jpg", matchId: 14 },
+  { id: 13, type: 'Erdbeermarmelade', url: "https://cdn.pixabay.com/photo/2015/06/24/10/09/strawberry-819690_1280.jpg", matchId: 14 },
   { id: 14, type: 'Erdbeeren', url: "https://cdn.pixabay.com/photo/2019/07/11/07/29/strawberries-4330211_1280.jpg", matchId: 13 },
   { id: 15, type: 'Kaese', url: "https://cdn.pixabay.com/photo/2020/05/17/04/33/cheese-5179968_1280.jpg", matchId: 16 },
   { id: 16, type: 'Milch', url: "https://cdn.pixabay.com/photo/2022/01/01/23/18/milk-6909154_1280.png", matchId: 15 },
