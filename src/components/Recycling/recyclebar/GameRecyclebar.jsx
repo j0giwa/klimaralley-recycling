@@ -23,7 +23,9 @@ const GameRecyclebar = () => {
     const [isGameFinished, setIsGameFinished] = useState(false);
     const [items, setItems] = useState(initialItems);
     const [score, setScore] = useState(0);
-
+    const [gameWon, setGameWon] = useState(false); // Neuer Zustand für den Gewinnstatus
+    const totalItems = initialItems.length;
+    const winningScore = Math.ceil(totalItems / 2); // Die Punktzahl, die überschritten werden muss, um zu gewinnen
   const handleDrop = (item, recyclable) => {
     if (item.recyclable === recyclable) {
         setScore(prevScore => prevScore + 1);
@@ -31,9 +33,14 @@ const GameRecyclebar = () => {
         setItems(prevItems => {
           const updatedItems = prevItems.filter(i => i.id !== item.id);
           // Prüfen, ob alle Items abgelegt wurden
-          if (updatedItems.length === 0) {
-            setIsGameFinished(true);
+          if (updatedItems.length === 0){
+             // Spielende: Gewinn-Status prüfen
+          if(score + 1 >= winningScore)
+            setGameWon(true);
+          }else
+          {setGameWon(false);
           }
+          {setIsGameFinished(true);}
           return updatedItems;
         });
       } else {
@@ -41,13 +48,14 @@ const GameRecyclebar = () => {
       }
 
 
-    console.log(items.length);
+    //console.log(items.length);
   };
 
   const handlePlayAgain = () => {
     // Spiel zurücksetzen
     setIsGameFinished(false);
     setScore(0);
+    setGameWon(false); // Zurücksetzen des Gewinnstatus
     // Items wiederherstellen
     setItems(initialItems);
   };
@@ -87,7 +95,7 @@ const GameRecyclebar = () => {
         
           {isGameFinished && (
           <div>
-            <h2>Spiel beendet!</h2>
+             <h2>{gameWon ? 'Herzlichen Glückwunsch, Sie haben gewonnen!' : 'Leider verloren. Versuchen Sie es erneut!'}</h2>
             <button onClick={handlePlayAgain}>Noch mal spielen</button>
             <button onClick={handleContinue}>Nächstes Spiel</button>
           </div>)}
