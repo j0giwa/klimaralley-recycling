@@ -67,6 +67,8 @@ const GameRecyclebar = () => {
 
   return (
     <div className="game-board">
+      <h1>GameRecyclebar</h1>
+      <h2>welche Gegenstand ist recyclebar oder nicht recyclebar?</h2>
       
       {/* <div className="score">Punkte: {score}</div>
       <div className="drop-zones">
