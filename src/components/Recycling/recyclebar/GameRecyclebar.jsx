@@ -20,7 +20,7 @@ const GameRecyclebar = () => {
     
   const navigate = useNavigate();
 
-    const [isGameFinished, setIsGameFinished] = useState(false);
+  const [isGameFinished, setIsGameFinished] = useState(false);
     const [items, setItems] = useState(initialItems);
     const [score, setScore] = useState(0);
     const [gameWon, setGameWon] = useState(false); // Neuer Zustand für den Gewinnstatus
