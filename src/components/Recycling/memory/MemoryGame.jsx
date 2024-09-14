@@ -4,6 +4,7 @@ import Card from './Card';
 import './MemoryGame.css';
 import {  useNavigate } from 'react-router-dom';
 
+// Karten mit entsprechenden Match-IDs
 const cardsData = [
   { id: 1, type: 'Papier', url: "https://cdn.pixabay.com/photo/2023/08/26/08/56/ai-generated-8214465_1280.jpg", matchId: 2 },
   { id: 2, type: 'Baeume', url: "https://cdn.pixabay.com/photo/2016/11/29/07/29/wood-1868104_1280.jpg", matchId: 1 },
@@ -25,9 +26,7 @@ const cardsData = [
   { id: 18, type: 'Wolle', url: "https://cdn.pixabay.com/photo/2022/04/29/09/19/yarn-7162973_1280.jpg", matchId: 17 },
   { id: 19, type: 'Hochofen', url: "https://cdn.pixabay.com/photo/2015/02/24/13/28/industry-647413_1280.jpg", matchId: 20 },
   { id: 20, type: 'Schrauben', url: "https://cdn.pixabay.com/photo/2018/02/19/19/11/screw-3165934_1280.jpg", matchId: 19 },
-
-  // Weitere Karten mit entsprechenden Match-IDs
-];
+  ];
 
 const MemoryGame = () => {
 

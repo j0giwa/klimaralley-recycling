@@ -75,7 +75,7 @@ const PictureList = [
     boardId: 2
   },
   {
-    id: 14, //Rollen
+    id: 14, //Klopapierrollen
     url: "https://cdn.pixabay.com/photo/2016/03/05/22/12/roll-1239215_1280.jpg",
     boardId: 1
   },
@@ -233,7 +233,7 @@ function DragDrop() {
       </div>
 
       <div className="ResetButton">
-        <button onClick={resetBoards} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' >Items zurücklegen</button>
+        <button onClick={resetBoards} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' >Noch mal spielen</button>
          <button onClick={nextGame} className='btn btn-success'>Nächstes Spiel</button>
       </div>
       {isGameFinished && (
