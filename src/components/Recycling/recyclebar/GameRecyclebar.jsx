@@ -5,10 +5,10 @@ import './GameRecyclebar.css';
 import { useNavigate } from 'react-router-dom';
 
 const initialItems = [
-  { id: 1, type: 'Alu', url: "https://cdn.pixabay.com/photo/2017/01/16/15/13/shells-1984293_1280.png" , recyclable: true },
+  { id: 1, type: 'Windeln', url: "https://i.shgcdn.com/a97e6ea8-2b26-4c5a-b4cf-8da06aa9c428/-/format/auto/-/preview/3000x3000/-/quality/lighter/" , recyclable: false },
   { id: 2, type: 'Kerzen', url: "https://cdn.pixabay.com/photo/2016/07/27/21/38/candles-1546499_1280.jpg" , recyclable: false },
   { id: 3, type: 'Eier', url: "https://cdn.pixabay.com/photo/2019/02/17/11/06/egg-4002016_1280.jpg", recyclable: false },
-  { id: 4, type: 'Plastik', url: "https://cdn.pixabay.com/photo/2019/02/01/19/12/plastic-3969638_1280.jpg", recyclable: true },
+  { id: 4, type: 'Plastik', url: "https://weima.com/wp-content/uploads/2020/12/rigid_plastics_shredder_recycling_web-540x360.jpg", recyclable: true },
   { id: 5, type: 'PlastikYoghurt', url: "https://cdn.pixabay.com/photo/2016/03/14/09/41/garbage-1255244_1280.jpg", recyclable: true },
   { id: 6, type: 'Briefe', url: "https://cdn.pixabay.com/photo/2016/09/10/17/17/letters-1659715_1280.jpg" , recyclable: true },
   { id:7,type:'Spritze',url:"https://th.bing.com/th/id/OIP.2dBLL7WrdvRFeTzxCJMnKwAAAA?rs=1&pid=ImgDetMain",recyclable:false},
