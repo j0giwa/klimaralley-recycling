@@ -4,6 +4,8 @@
     gap: 10px;
     max-width: 600px; /* Beispiel: Maximale Breite des Spielfelds */
     margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
   
   .card {
@@ -16,8 +18,9 @@
   }
   
   .card img {
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
   }
   
   .card-inner {
@@ -41,11 +44,11 @@
   }
   
   .card-front {
-    background-color: #ddd; /*  Vorderseite der Karte */
+    background-color: #dddddd00; /*  Vorderseite der Karte */
   }
   
   .card-back {
-    background-color: #a8af4c; /* Rückseite der Karte */
+    background-color: #a8af4c00; /* Rückseite der Karte */
     transform: rotateY(180deg);
   }
   

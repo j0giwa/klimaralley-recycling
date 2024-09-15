@@ -6,17 +6,17 @@ export const questionsData = [
     answers: [
       {
         id: 0,
-        title: "Damit der Müll wiederverwendet werden kann",
+        title: "Damit der Müll wiederverwendet werden kann.",
         backgroundColor: "#BC2A6E",
       },
       {
         id: 1,
-        title: "Wegen eines Gesetzes von UNO",
+        title: "Wegen eines Gesetzes der UNO.",
         backgroundColor: "#7F4877",
       },
       {
         id: 2,
-        title: "Weil z. B. Kompost in der Altpapiertonne stinken würde",
+        title: "Weil z. B. Kompost in der Altpapiertonne stinken würde.",
         backgroundColor: "#70BBFF",
       },
     ],
