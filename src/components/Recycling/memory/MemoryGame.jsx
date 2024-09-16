@@ -119,9 +119,9 @@ const MemoryGame = () => {
 
   return (
     <div className="memoryGame">
-      <h1>Memory</h1>
-      <h2>Woraus besteht der Gegenstand?</h2>
-      <p>Score: {score}</p>
+      <h1 style={{ fontSize: '25px', fontWeight: 'bold', color: '#BC2A6E'  }}>Memory</h1>
+      <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>Woraus besteht der Gegenstand?</h2>
+      <p style={{ fontWeight: 'bold', color: '#70BBFF' }}>Score: {score}</p>
       <div className="memoryBoard">
         {cards.map((card, index) => (
           <Card
@@ -138,9 +138,13 @@ const MemoryGame = () => {
 
       {isGameFinished && (
           <div className='finish'>
-            <h2>Spiel beendet!</h2>
-            <button onClick={handlePlayAgain}>Noch mal spielen</button>
-            <button onClick={handleContinue}>Nächstes Spiel</button>
+            <h2 style={{ fontSize: '15px', fontWeight: 'bold'}}>Spiel beendet!</h2>
+            <button 
+            onClick={handlePlayAgain} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}>Noch mal spielen
+            </button>
+            <button
+            onClick={handleContinue} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}>Nächstes Spiel
+            </button>
           </div>)}
     </div>
   );
