@@ -203,20 +203,19 @@
 import Title from "./components/Title";
 import Image from "./components/Image";
 import Answer from "./components/Answer";
-import ProgressBar from "./components/ProgressBarGame";
 import { questionsData } from "./helper/question";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../security/AuthContext.jsx";
-import { retrieveGameApi, updateGameApi } from "../api/GameApiService";
+import { getPlayerGameByIdApi, getPlayerGameByIdApiDto, updateGameApi } from "../api/GameApiService";
 
 function Quiz() {
-  const { id } = useParams();
+  const { playerGameId, spieleId, playerId } = useParams(); // Holt die Parameter aus der URL
   const authContext = useAuth();
   const navigate = useNavigate();
   const username = authContext.username;
 
-  const [questions, setQuestions] = useState(questionsData);   //modifier 8 a 23
+  const [questions, setQuestions] = useState(questionsData); // Beispiel: Fragen-Daten
   const [richtig, setRichtig] = useState(0);
   const [falsch, setFalsch] = useState(0);
   const [score, setScore] = useState(0);
@@ -227,9 +226,12 @@ function Quiz() {
 
   //Daten vom server laden
 
+  // Spiel-Daten vom Server laden
   const [game, setGame] = useState({
     points: 0,
-    id: id,
+    playerGameId: playerGameId,
+    playerId: playerId,
+    spieleId: spieleId,
     username: username,
     done: false,
     success: false
@@ -237,22 +239,20 @@ function Quiz() {
 
   useEffect(() => {
     retrieveGames();
-  }, [id]);
+  }, [playerGameId]);
 
   function retrieveGames() {
-    if (id !== -1) {
-      retrieveGameApi(username, id)
+    if (playerGameId) {
+      getPlayerGameByIdApiDto(playerId, spieleId)
         .then(response => {
-          setDescription(response.data.description);
           setGame(prevGame => ({
             ...prevGame,
-            description: response.data.description,
             points: response.data.points,
-            done: response.data.done,
-            success: response.data.success
+            done: response.data.isCompleted,
+            success: response.data.isSuccessful
           }));
         })
-        .catch(error => console.log(error));
+        .catch(error => console.log("Error fetching game data: ", error));
     }
   }
 
@@ -266,9 +266,10 @@ function Quiz() {
 
     setGame(updatedGame);
 
-    updateGameApi(username, id, updatedGame)
+    updateGameApi(playerId, playerGameId, updatedGame)
       .then(() => {
-        // navigate('/games');
+        // Optional: Nach dem Speichern navigieren oder andere Aktionen durchführen
+        console.log("Game saved successfully");
       })
       .catch(error => console.log(error));
 
@@ -285,9 +286,10 @@ function Quiz() {
 
     setGame(updatedGame);
 
-    updateGameApi(username, id, updatedGame)
+    updateGameApi( playerId,playerGameId, updatedGame)
       .then(() => {
-        // navigate('/games');
+        // Optional: Nach dem Löschen navigieren oder andere Aktionen durchführen
+        console.log("Game deleted successfully");
       })
       .catch(error => console.log(error));
 
@@ -333,7 +335,7 @@ function Quiz() {
   }
 
   function nextGame() {
-    navigate('/play/recycling/muellSortieren/:id');
+    navigate('/play/recycling/games');
     saveGame();  // daten auf Server speichern
   }
 
