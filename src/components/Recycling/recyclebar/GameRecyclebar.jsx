@@ -25,17 +25,18 @@ const GameRecyclebar = () => {
     const [score, setScore] = useState(0);
     const [gameWon, setGameWon] = useState(false); // Neuer Zustand für den Gewinnstatus
     const totalItems = initialItems.length;
-    const winningScore = Math.ceil(totalItems / 2); // Die Punktzahl, die überschritten werden muss, um zu gewinnen
+    const winningScore = 5; //Math.ceil(totalItems / 2); // Die Punktzahl, die überschritten werden muss, um zu gewinnen
   const handleDrop = (item, recyclable) => {
     if (item.recyclable === recyclable) {
         setScore(prevScore => prevScore + 1);
         // Callback Funktion um items.length richtig abrufen zu könen! 
         setItems(prevItems => {
+          console.log(gameWon);
           const updatedItems = prevItems.filter(i => i.id !== item.id);
           // Prüfen, ob alle Items abgelegt wurden
           if (updatedItems.length === 0){
              // Spielende: Gewinn-Status prüfen
-          if(score + 1 >= winningScore)
+          if(score  > winningScore)
             setGameWon(true);
           }else
           {setGameWon(false);
