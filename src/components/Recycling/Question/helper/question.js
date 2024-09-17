@@ -1,3 +1,24 @@
+/**
+ * Autor: Josy
+ * Autor: Gizem
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * `questionsData` enthält eine Sammlung von Fragen für ein Quiz über Mülltrennung und Recycling.
+ * Jede Frage hat ein Bild, einen Titel, mehrere Antwortmöglichkeiten, und die ID der richtigen Antwort.
+ * 
+ * Struktur der Fragen:
+ * - `id` (number): Eindeutige Identifikationsnummer der Frage.
+ * - `title` (string): Der Text der Frage.
+ * - `image` (string): URL des Bildes, das die Frage visuell unterstützt.
+ * - `answers` (array): Eine Liste von Antwortmöglichkeiten. Jede Antwort enthält:
+ *   - `id` (number): Eindeutige Identifikationsnummer der Antwort.
+ *   - `title` (string): Der Text der Antwort.
+ *   - `backgroundColor` (string): Hintergrundfarbe der Antwort-Schaltfläche.
+ * - `correctAnswerId` (number): Die ID der richtigen Antwort.
+ */
+
+
 export const questionsData = [
   {
     id: 0,
