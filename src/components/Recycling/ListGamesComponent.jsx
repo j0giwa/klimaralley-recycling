@@ -7,6 +7,14 @@ import { useNavigate } from "react-router-dom"
 
 
 
+/**
+ * Autor: Jeffrey Böttcher
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * Die `ListGamesComponent`-Komponente zeigt eine Tabelle mit den Recycling-Spielen des aktuellen Benutzers an. 
+ * Sie ruft die Player-ID und die zugehörigen Spiele-Daten ab, zeigt diese in einer Tabelle an und ermöglicht es dem Benutzer, ein Spiel zu starten.
+ */
 export default function ListGamesComponent() {
     const authContext = useAuth();
     const username = authContext.username;
@@ -17,6 +25,10 @@ export default function ListGamesComponent() {
     const [spiele, setSpiele] = useState([]);
     const [playerId, setPlayerId] = useState(null);
     const [playerGameId, setPlayerGameId] = useState(null);
+
+    //playerGameId = Die ID die Explizit auf das Spielende Spiel verweißt, einmalig und zugehörig zu einem Spieler!  
+    //spieleId = Die id des Spiels, die sich auf das Spiel bezieht sprich, Quiz, Müllsortieren, Recyclebar, Memory. Bei jeden Spieler Gleich    
+    //playerId = Die ID des Spielers, die sich auf den Spieler bezieht, der das Spiel spielt. Bei jeden Spieler Unterschiedlich.
 
     // Erstes useEffect: Ruft die PlayerId basierend auf dem Benutzernamen ab
     useEffect(() => {
@@ -89,9 +101,7 @@ export default function ListGamesComponent() {
                 break;
         }
     }
-    //playerGameId = Die ID die Explizit auf das Spielende Spiel verweißt, einmalig und zugehörig zu einem Spieler!  
-    //spieleId = Die id des Spiels, die sich auf das Spiel bezieht sprich, Quiz, Müllsortieren, Recyclebar, Memory. Bei jeden Spieler Gleich    
-    //playerId = Die ID des Spielers, die sich auf den Spieler bezieht, der das Spiel spielt. Bei jeden Spieler Unterschiedlich.
+    
     function startQuiz(spieleId,playerGameId, playerId) {
         navigate(`/play/recycling/quiz/${playerGameId}/${spieleId}/${playerId}`);
     }

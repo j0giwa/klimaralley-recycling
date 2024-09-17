@@ -2,6 +2,15 @@ import { AuthContext } from "./security/AuthContext.jsx";
 import { useContext } from 'react'
 
 
+/**
+ * Autor: Jeffrey Böttcher
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * Die `FooterComponent`-Komponente zeigt den Fußbereich der Anwendung an. Sie enthält Informationen zum Copyright, 
+ * Links zu Impressum, Datenschutz und Kontakt. Der Footer verwendet Tailwind CSS für die Gestaltung.
+ */
+
 export default function FooterComponent() {
     const authContext = useContext(AuthContext)
 

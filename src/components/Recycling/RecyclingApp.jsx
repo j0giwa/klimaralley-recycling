@@ -19,7 +19,14 @@ import React, { useRef, useState } from 'react'
 import MemoryGame from './memory/MemoryGame.jsx'
 
 
-
+/**
+ * Autor: Jeffrey Böötcher
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * Die `AuthenticatedRoute`-Komponente schützt bestimmte Routen, indem sie überprüft, ob der Benutzer authentifiziert ist.
+ * Wenn der Benutzer authentifiziert ist, wird der Inhalt angezeigt, andernfalls wird der Benutzer zur Login-Seite weitergeleitet.
+ */
 export  function AuthenticatedRoute({ children }) {
     const authContext = useAuth();
 
@@ -36,7 +43,15 @@ export  function AuthenticatedRoute({ children }) {
 
 
 
-
+/**
+ * Autor: Jeffrey Böttcher
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * Die `RecyclingApp`-Komponente ist die Hauptkomponente der Anwendung und enthält die Router-Logik und das Layout.
+ * Sie verwendet den `AuthProvider` zum Bereitstellen des Authentifizierungsstatus und den `BrowserRouter` für die 
+ * Routing-Funktionalität. Die verschiedenen Routen der Anwendung werden hier definiert.
+ */
 export default function RecyclingApp(){
 
 
