@@ -3,6 +3,17 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { useAuth } from './security/AuthContext.jsx';
 
+
+/**
+ * Autor: Jeffrey Böttcher
+ * Version: 1.0
+ * 
+ * Beschreibung: 
+ * Diese Komponente stellt die Kopfzeile (Header) einer Webanwendung dar, die Links zu verschiedenen Seiten wie 
+ * "Home", "Spiele", "Login" und "Logout" anzeigt. Je nach Authentifizierungsstatus (über `AuthContext`) 
+ * werden bestimmte Links angezeigt. Die Komponente nutzt `react-router-dom` für die Navigation und `useAuth` 
+ * aus dem AuthContext für die Authentifizierungslogik.
+ */
 export default function HeaderComponent() {
   const authContext = useAuth();
   const isAuthenticated = authContext.isAuthenticated;

@@ -2,69 +2,83 @@ import React, { createContext, useContext, useState } from "react";
 import {  executeJWTAuthenticationService } from "../api/AuthenticationApiService";
 import { apiClient } from "../api/ApiClient";
 
-export const AuthContext = createContext()
+/**
+ * Autor: Jeffrey Böttcher
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * Der `AuthContext` stellt den Authentifizierungszustand und Authentifizierungsoperationen 
+ * für die gesamte Anwendung zur Verfügung. Die `AuthProvider`-Komponente verwaltet 
+ * die Authentifizierung und gibt den Status sowie Funktionen zur Anmeldung und Abmeldung 
+ * an untergeordnete Komponenten weiter.
+ */
 
-export const useAuth = () => useContext(AuthContext)
+// Erstellen des Authentifizierungs-Kontexts
+export const AuthContext = createContext();
 
+// Hook zum Zugriff auf den Authentifizierungs-Kontext
+export const useAuth = () => useContext(AuthContext);
+
+/**
+ * Jeffrey Böttcher
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * Der `AuthProvider`-Komponente bietet den Authentifizierungs-Kontext für die untergeordneten Komponenten. 
+ * Sie verwaltet den Anmeldestatus, das Benutzername und das Token. Sie enthält Funktionen zur 
+ * Anmeldung (`login`) und Abmeldung (`logout`).
+ */
 export default function AuthProvider({ children }) {
 
-  const [isAuthenticated, setAuthenticated] = useState(false)
+  // State-Variablen zur Verwaltung des Authentifizierungsstatus
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [username, setUsername] = useState(null);
+  const [token, setToken] = useState(null);
 
-  const [username, setUsername] = useState(null)
-
-  const [token, setToken] = useState(null)
-
-  //Funktion zur Anmeldung
+  // Funktion zur Anmeldung
   async function login(username, password) {
-
     try {
-    // Ausführen der Authentifizierung und Erhalt des Tokens
-      const response = await executeJWTAuthenticationService(username, password)
-      const jwtToken = 'Bearer ' + response.data.token
+      // Authentifizierung durchführen und Token erhalten
+      const response = await executeJWTAuthenticationService(username, password);
+      const jwtToken = 'Bearer ' + response.data.token;
       
       // Erfolgreiche Anmeldung
-      if (response.status == 200) {
-        setAuthenticated(true)
-        setUsername(username)
-        setToken(jwtToken)
+      if (response.status === 200) {
+        setAuthenticated(true);
+        setUsername(username);
+        setToken(jwtToken);
 
-        // Konfiguration des API-Clients mit JWT-Token
+        // API-Client mit JWT-Token konfigurieren
         apiClient.interceptors.request.use(
           (config) => {
-            // console.log('intercepting and adding a token')
-            config.headers.Authorization = jwtToken
-            return config
+            config.headers.Authorization = jwtToken;
+            return config;
           }
-        )
+        );
 
-        return true
-
+        return true;
       } else {
-        console.error('Es gab einen Fehler:', error.message);
-        logout()// Abmeldung des Benutzers
-        return false
-
+        console.error('Es gab einen Fehler:', response.statusText);
+        logout(); // Abmelden des Benutzers bei Fehler
+        return false;
       }
     } catch (error) {
       console.error('Es gab einen Fehler:', error.message);
-      console.error('Fehlerdetails:', error);
-      logout()
-      return false
+      logout(); // Abmelden des Benutzers bei Fehler
+      return false;
     }
   }
 
-
-   // Funktion zum Abmelden des Benutzers
+  // Funktion zum Abmelden des Benutzers
   function logout() {
-    setAuthenticated(false)
-    setUsername(null)
-    setToken(null)
+    setAuthenticated(false);
+    setUsername(null);
+    setToken(null);
   }
 
   return (
-
     <AuthContext.Provider value={{ isAuthenticated, login, logout, username, token }}>
       {children}
     </AuthContext.Provider>
-  )
+  );
 }

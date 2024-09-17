@@ -7,6 +7,14 @@ import { useNavigate } from "react-router-dom"
 
 
 
+/**
+ * Autor: Jeffrey Böttcher
+ * Version: 1.0
+ * 
+ * Beschreibung:
+ * Die `ListGamesComponent`-Komponente zeigt eine Tabelle mit den Recycling-Spielen des aktuellen Benutzers an. 
+ * Sie ruft die Player-ID und die zugehörigen Spiele-Daten ab, zeigt diese in einer Tabelle an und ermöglicht es dem Benutzer, ein Spiel zu starten.
+ */
 export default function ListGamesComponent() {
     const authContext = useAuth();
     const username = authContext.username;
@@ -16,6 +24,11 @@ export default function ListGamesComponent() {
     const [message, setMessage] = useState(null);
     const [spiele, setSpiele] = useState([]);
     const [playerId, setPlayerId] = useState(null);
+    const [playerGameId, setPlayerGameId] = useState(null);
+
+    //playerGameId = Die ID die Explizit auf das Spielende Spiel verweißt, einmalig und zugehörig zu einem Spieler!  
+    //spieleId = Die id des Spiels, die sich auf das Spiel bezieht sprich, Quiz, Müllsortieren, Recyclebar, Memory. Bei jeden Spieler Gleich    
+    //playerId = Die ID des Spielers, die sich auf den Spieler bezieht, der das Spiel spielt. Bei jeden Spieler Unterschiedlich.
 
     // Erstes useEffect: Ruft die PlayerId basierend auf dem Benutzernamen ab
     useEffect(() => {
@@ -47,10 +60,13 @@ export default function ListGamesComponent() {
 
             try {
                 const gamesResponse = await getPlayerGameApiDto(playerId);
+                setPlayerGameId(gamesResponse.data.id);
                 setSpiele(gamesResponse.data);
 
                 if (gamesResponse.data.length > 0) {
                     console.log('Spiele:', gamesResponse.data);
+                    console.log('PlayerGameId:', gamesResponse.data.id);
+                    
                 }
             } catch (error) {
                 console.error('Fehler beim Abrufen der Spiele-Daten:', error);
@@ -66,45 +82,45 @@ export default function ListGamesComponent() {
     }, [playerId]);
 
     // Startet das spezifische Spiel basierend auf der übergebenen ID
-    function startGame(spieleId) {
+    function startGame(spieleId,playerGameId,playerId) {
         switch (spieleId) {
             case 1:
-                startQuiz(spieleId);
+                startQuiz(spieleId,playerGameId,playerId);
                 break;
             case 2:
-                startMüllSortieren(spieleId);
+                startMüllSortieren(spieleId,playerGameId,playerId);
                 break;
             case 3:
-                startRecyclebar(spieleId);
+                startRecyclebar(spieleId,playerGameId,playerId);
                 break;
             case 4:
-                startMemory(spieleId);
+                startMemory(playerGameId,playerId,spieleId);
                 break;
             default:
                 navigate(`/play/recycling/games`);
                 break;
         }
     }
-
-    function startQuiz(id) {
-        navigate(`/play/recycling/quiz/${id}`);
+    
+    function startQuiz(spieleId,playerGameId, playerId) {
+        navigate(`/play/recycling/quiz/${playerGameId}/${spieleId}/${playerId}`);
     }
 
-    function startMüllSortieren(id) {
-        navigate(`/play/recycling/muellsortieren/${id}`);
+    function startMüllSortieren(spieleId,playerGameId, playerId) {
+        navigate(`/play/recycling/muellsortieren/${playerGameId}/${spieleId}/${playerId}`);
     }
 
-    function startRecyclebar(id) {
-        navigate(`/play/recycling/recyclebar/${id}`);
+    function startRecyclebar(spieleId,playerGameId, playerId) {
+        navigate(`/play/recycling/recyclebar/${playerGameId}/${spieleId}/${playerId}`);
     }
 
-    function startMemory(id) {
-        navigate(`/play/recycling/memory/${id}`);
-    }
+    function startMemory(spieleId,playerGameId, playerId) {
+        navigate(`/play/recycling/memory/${playerGameId}/${spieleId}/${playerId}`);
+    }                                       
 
     return (
         <div className="ListGamesComponent">
-            <h1>Recycling Spiele</h1>
+            <h1>Recycling Spiele </h1>
             {message && <div className='alert alert-warning'>{message}</div>}
 
             <div>
@@ -126,7 +142,8 @@ export default function ListGamesComponent() {
                                 <td>{spiel.isSuccessful.toString()}</td>
                                 <td>{spiel.points}</td>
                                 <td>
-                                    <button className='btn btn-success' onClick={() => startGame(spiel.gameId)}>
+                                    <button className='btn btn-success' onClick={() => startGame(spiel.gameId, spiel.id, spiel.playerId)}> 
+                                    {/* spiel.id, spiel.playerId, spiel.gameId */}
                                         Start
                                     </button>
                                 </td>
