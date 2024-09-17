@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const initialItems = [
   { id: 1, type: 'Windeln', url: "https://i.shgcdn.com/a97e6ea8-2b26-4c5a-b4cf-8da06aa9c428/-/format/auto/-/preview/3000x3000/-/quality/lighter/" , recyclable: false },
   { id: 2, type: 'Kerzen', url: "https://entsorgen.org/wp-content/uploads/2019/07/kerzen.jpg" , recyclable: false },
-  { id: 3, type: 'Eier', url: "https://cdn.pixabay.com/photo/2019/02/17/11/06/egg-4002016_1280.jpg", recyclable: false },
+  { id: 3, type: 'Farbe und lacke', url: "https://grinding.netzsch.com/_Resources/Persistent/c/a/c/3/cac3968c94b675ea4a1dc4c15e0cbfe2c36b744a/Fillers-400x400.webp", recyclable: false },
   { id: 4, type: 'Plastik', url: "https://weima.com/wp-content/uploads/2020/12/rigid_plastics_shredder_recycling_web-540x360.jpg", recyclable: true },
   { id: 5, type: 'PlastikYoghurt', url: "https://cdn.pixabay.com/photo/2016/03/14/09/41/garbage-1255244_1280.jpg", recyclable: true },
   { id: 6, type: 'zeitungen', url: "https://www.shutterstock.com/image-photo/pile-newspapers-isolated-on-white-260nw-570240970.jpg" , recyclable: true },
@@ -68,8 +68,8 @@ const GameRecyclebar = () => {
 
   return (
     <div className="game-board">
-      <h1>GameRecyclebar</h1>
-      <h2>welche Gegenstand ist recyclebar oder nicht recyclebar?</h2>
+      <h1 style={{ fontSize: '25px', fontWeight: 'bold'  }}>GameRecyclebar</h1>
+      <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>welche Gegenstand ist recyclebar oder nicht recyclebar?</h2>
       
       {/* <div className="score">Punkte: {score}</div>
       <div className="drop-zones">
@@ -84,7 +84,7 @@ const GameRecyclebar = () => {
 
      
           <div>
-            <div className="score">Score: {score}</div>
+            <div className="score" >Score: {score}</div>
             <div className="drop-zones">
               <DropZone recyclable={true} onDrop={(item) => handleDrop(item, true)}>Recyclebar</DropZone>
               <div className="items">
@@ -99,8 +99,8 @@ const GameRecyclebar = () => {
           {isGameFinished && (
           <div>
              <h2>{gameWon ? 'Herzlichen Glückwunsch, Sie haben gewonnen!' : 'Leider verloren. Versuchen Sie es erneut!'}</h2>
-            <button onClick={handlePlayAgain}>Noch mal spielen</button>
-            <button onClick={handleContinue}>Nächstes Spiel</button>
+            <button onClick={handlePlayAgain}style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}>Noch mal spielen</button>
+            <button onClick={handleContinue}style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}>Nächstes Spiel</button>
           </div>)}
       </div>
       
