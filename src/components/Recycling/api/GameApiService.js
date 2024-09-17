@@ -40,5 +40,6 @@ export function getPlayerGameByIdApiDto(playerId,gameId){
 
 //zum Updaten des Spiels, SEHR WICHTIG; EIN SPIEL EINES SPIELERS
 export function updateGameApi(playerId,gameId,game){
-    return apiClient.put(`/recyclingapi/player-games/dto/update/${playerId}/${gameId}`,game) 
+    console.log(`Updating game for playerId: ${playerId}, gameId: ${gameId}`);
+    return apiClient.put(`/recyclingapi/player-games/dto/update/${playerId}/${gameId}`, game) 
 }
