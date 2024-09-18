@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import DragItem from './DragItem';
 import DropZone from './DropZone';
 import './GameRecyclebar.css';
-import { useNavigate } from 'react-router-dom';
+import { getPlayerGameByIdApiDto, updateGameApi } from "../api/GameApiService";
+import { useAuth } from "../security/AuthContext.jsx";
 
 const initialItems = [
   { id: 1, type: 'Windeln', url: "https://i.shgcdn.com/a97e6ea8-2b26-4c5a-b4cf-8da06aa9c428/-/format/auto/-/preview/3000x3000/-/quality/lighter/" , recyclable: false },
@@ -17,93 +19,162 @@ const initialItems = [
   { id: 10, type: 'Glas', url: "https://th.bing.com/th/id/OIP.GHZchj4Hgf2IPGFOdXhRtAHaE8?pid=ImgDet&w=175&h=147.58333333333334&c=7&dpr=1,3" , recyclable: true },
 ]
 const GameRecyclebar = () => {
-    
+  const { playerGameId, playerId, spieleId } = useParams(); // Holt die Parameter aus der URL
+  const authContext = useAuth();
+  const username = authContext.username;
   const navigate = useNavigate();
-
+    
   const [isGameFinished, setIsGameFinished] = useState(false);
     const [items, setItems] = useState(initialItems);
     const [score, setScore] = useState(0);
     const [gameWon, setGameWon] = useState(false); // Neuer Zustand für den Gewinnstatus
     const totalItems = initialItems.length;
     const winningScore = 5; //Math.ceil(totalItems / 2); // Die Punktzahl, die überschritten werden muss, um zu gewinnen
+  
+ // Spiel-Daten vom Server laden
+  const [game, setGame] = useState({
+    points: 0,
+    playerGameId: playerGameId,
+    playerId: playerId,
+    spieleId: spieleId,
+    username: username,
+    isCompleted: false,
+    isSuccessful: false
+  });
+
+  useEffect(() => {
+    retrieveGames(); // Spiel-Daten beim Laden des Components abrufen
+  }, [playerGameId]);
+
+  // Holt die Spieldaten vom Server
+  const retrieveGames = () => {
+    if (playerGameId) {
+      getPlayerGameByIdApiDto(playerId, spieleId)
+        .then(response => {
+          setGame(prevGame => ({
+            ...prevGame,
+            points: response.data.points,
+            isCompleted: response.data.isCompleted,
+            isSuccessful: response.data.isSuccessful
+          }));
+        })
+        .catch(error => console.log("Error fetching game data: ", error));
+    }
+  };
+
+  // Speichert die Spieldaten auf dem Server
+  const saveGame = () => {
+    const updatedGame = {
+      ...game,
+      points: score,
+      isCompleted: isGameFinished,
+      isSuccessful: gameWon
+    };
+
+    setGame(updatedGame);
+
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game saved successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  };
+
+  // Löscht die Spieldaten auf dem Server
+  const deleteGame = () => {
+    const updatedGame = {
+      ...game,
+      points: 0,
+      isCompleted: false,
+      isSuccessful: false
+    };
+
+    setGame(updatedGame);
+
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game deleted successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  };
+
+  // Funktion für das Ablegen der Items in die Drop-Zones
   const handleDrop = (item, recyclable) => {
     if (item.recyclable === recyclable) {
-        setScore(prevScore => prevScore + 1);
-        // Callback Funktion um items.length richtig abrufen zu könen! 
-        setItems(prevItems => {
-          console.log(gameWon);
-          const updatedItems = prevItems.filter(i => i.id !== item.id);
-          // Prüfen, ob alle Items abgelegt wurden
-          if (updatedItems.length === 0){
-             // Spielende: Gewinn-Status prüfen
-          if(score  > winningScore)
-            setGameWon(true);
-          }else
-          {setGameWon(false);
-          }
-          {setIsGameFinished(true);}
-          return updatedItems;
-        });
-      } else {
-        setScore(prevScore => prevScore - 1);
-      }
+      setScore(prevScore => {
+        const newScore = prevScore + 1;
+        // Spiel gewonnen, wenn Punktzahl größer ist als der Gewinnwert
+        if (newScore > winningScore) {
+          setGameWon(true);
+        }
+        return newScore;
+      });
 
+      setItems(prevItems => {
+        const updatedItems = prevItems.filter(i => i.id !== item.id);
 
-    //console.log(items.length);
+        // Prüfen, ob alle Items abgelegt wurden
+        if (updatedItems.length === 0) {
+          setIsGameFinished(true);
+        }
+
+        return updatedItems;
+      });
+    } else {
+      setScore(prevScore => prevScore - 1); // Punktabzug bei falscher Zuordnung
+    }
   };
 
   const handlePlayAgain = () => {
+    deleteGame(); // Spiel-Daten auf dem Server zurücksetzen
     // Spiel zurücksetzen
     setIsGameFinished(false);
     setScore(0);
-    setGameWon(false); // Zurücksetzen des Gewinnstatus
-    // Items wiederherstellen
-    setItems(initialItems);
+    setGameWon(false); // Gewinnstatus zurücksetzen
+    setItems(initialItems); // Items wiederherstellen
   };
 
   const handleContinue = () => {
-    // Logik zum Weiterspielen
-    navigate('/play/recycling/memory/:id');
+    saveGame(); // Spiel speichern
+    navigate('/play/recycling/games'); // Navigiere zum nächsten Spiel
   };
 
   return (
     <div className="game-board">
-      <h1 style={{ fontSize: '25px', fontWeight: 'bold'  }}>GameRecyclebar</h1>
+      <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>GameRecyclebar</h1>
       <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>Welcher Gegenstand ist recyclebar oder nicht recyclebar?</h2>
-      
-      {/* <div className="score">Punkte: {score}</div>
-      <div className="drop-zones">
-        <DropZone recyclable={true} onDrop={handleDrop}>Recyclebar</DropZone>
-        <div className="items">
-        {items.map(item => (
-          <DragItem key={item.id} item={item} />
-        ))}
-      </div>
-        <DropZone recyclable={false} onDrop={handleDrop}>Nicht Recyclebar</DropZone>
-      </div> */}
 
-     
-          <div>
-            <div className="score" >Score: {score}</div>
-            <div className="drop-zones">
-              <DropZone recyclable={true} onDrop={(item) => handleDrop(item, true)}>Recyclebar</DropZone>
-              <div className="items">
-                {items.map(item => (
-                  <DragItem key={item.id} item={item} />
-                ))}
-              </div>
-              <DropZone recyclable={false} onDrop={(item) => handleDrop(item, false)}>Nicht recyclebar</DropZone>
-            </div>
+      <div>
+        <div className="score">Score: {score}</div>
+        <div className="drop-zones">
+          <DropZone recyclable={true} onDrop={(item) => handleDrop(item, true)}>Recyclebar</DropZone>
+          <div className="items">
+            {items.map(item => (
+              <DragItem key={item.id} item={item} />
+            ))}
           </div>
-        
-          {isGameFinished && (
-          <div>
-             <h2>{gameWon ? 'Herzlichen Glückwunsch, Sie haben gewonnen!' : 'Leider verloren. Versuchen Sie es erneut!'}</h2>
-            <button onClick={handlePlayAgain}style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}>Noch mal spielen</button>
-            <button onClick={handleContinue}style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}>Nächstes Spiel</button>
-          </div>)}
+          <DropZone recyclable={false} onDrop={(item) => handleDrop(item, false)}>Nicht recyclebar</DropZone>
+        </div>
       </div>
-      
+
+      {isGameFinished && (
+        <div>
+          <h2>{gameWon ? 'Herzlichen Glückwunsch, Sie haben gewonnen!' : 'Leider verloren. Versuchen Sie es erneut!'}</h2>
+          <button
+            onClick={handlePlayAgain}
+            style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}
+          >
+            Noch mal spielen
+          </button>
+          <button
+            onClick={handleContinue}
+            style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}
+          >
+            Nächstes Spiel
+          </button>
+        </div>
+      )}
+    </div>
   );
 };
 
