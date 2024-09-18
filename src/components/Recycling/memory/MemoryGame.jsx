@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import './MemoryGame.css';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
+import { getPlayerGameByIdApiDto, updateGameApi } from "../api/GameApiService";
+import { useAuth } from "../security/AuthContext.jsx";
 
 // Karten mit entsprechenden Match-IDs
 const cardsData = [
@@ -26,11 +28,29 @@ const cardsData = [
   { id: 18, type: 'Wolle', url: "https://cdn.pixabay.com/photo/2022/04/29/09/19/yarn-7162973_1280.jpg", matchId: 17 },
   { id: 19, type: 'Hochofen', url: "https://cdn.pixabay.com/photo/2015/02/24/13/28/industry-647413_1280.jpg", matchId: 20 },
   { id: 20, type: 'Schrauben', url: "https://cdn.pixabay.com/photo/2018/02/19/19/11/screw-3165934_1280.jpg", matchId: 19 },
-  ];
+];
 
+/**
+ * MemoryGame.jsx
+ * 
+ * Version: 1.0.0
+ * Author: Philip
+ * Author: Gizem
+ * Author: Jeffrey Böttcher
+ * 
+ * 
+ * Beschreibung:
+ * Dieses Spiel ist ein "klassisches" Memory-Spiel, bei dem die Spieler Kartenpaare finden müssen. Die Karten werden zufällig gemischt, und der Spieler muss zwei Karten umdrehen, um zu prüfen, ob sie ein Paar bilden. 
+ * Jedoch mit der schwierigkeit das die Karten nicht gleich sind, sondern aus verschiedenen Materialien bestehen. Rohmaterialen und Produkte sind jeweils ein paar.
+ * Ziel ist es, alle Paare zu finden. Der Fortschritt des Spiels wird in einer Datenbank gespeichert, sodass das Spiel nach einem Neustart fortgesetzt werden kann. 
+ * Funktionen zur Speicherung, Wiederherstellung und Löschung von Spielständen sind implementiert.
+ */
 const MemoryGame = () => {
 
-    const navigate = useNavigate();
+  const { playerGameId, spieleId, playerId } = useParams(); // Holt die Parameter aus der URL
+  const authContext = useAuth(); // Authentifizierungskontext für den Benutzernamen
+  const username = authContext.username;
+  const navigate = useNavigate();
 
 
   const [cards, setCards] = useState([]);
@@ -38,15 +58,85 @@ const MemoryGame = () => {
   const [matched, setMatched] = useState([]);
   const [score, setScore] = useState(0);
   const [isChecking, setIsChecking] = useState(false); // Zustand für den laufenden Vergleich
-  
+
   // für die abfrage ob das Spiel beendet ist
   const [isGameFinished, setIsGameFinished] = useState(false);
+
+  // Spiel-Daten vom Server laden
+  const [game, setGame] = useState({
+    points: 0,
+    playerGameId: playerGameId,
+    playerId: playerId,
+    spieleId: spieleId,
+    username: username,
+    isCompleted: false,
+    isSuccessful: false
+  });
+
+  useEffect(() => {
+    retrieveGames(); // Spiel-Daten beim Laden des Components abrufen
+  }, [playerGameId]);
+
+  // Holt die Spieldaten vom Server
+  function retrieveGames() {
+    if (playerGameId) {
+      getPlayerGameByIdApiDto(playerId, spieleId)
+        .then(response => {
+          setGame(prevGame => ({
+            ...prevGame,
+            points: response.data.points,
+            isCompleted: response.data.isCompleted,
+            isSuccessful: response.data.isSuccessful
+          }));
+        })
+        .catch(error => console.log("Error fetching game data: ", error));
+    }
+  }
+
+  // Speichert die Spieldaten auf dem Server
+  function saveGame() {
+    const updatedGame = {
+      ...game,
+      points: score,
+      isCompleted: isGameFinished,
+      isSuccessful: isGameFinished
+    };
+
+    setGame(updatedGame);
+
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game saved successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  }
+
+   // Löscht die Spieldaten auf dem Server
+   function deleteGame() {
+    const updatedGame = {
+      ...game,
+      points: 0,
+      isCompleted: false,
+      isSuccessful: false
+    };
+
+    setGame(updatedGame);
+
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game deleted successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  }
+
+
 
 
   useEffect(() => {
     initializeGame();
   }, []);
 
+  // Überprüft nach jedem Zug, ob zwei Karten übereinstimmen
   useEffect(() => {
     const checkForMatch = () => {
       if (flipped.length === 2 && !isChecking) {
@@ -54,6 +144,7 @@ const MemoryGame = () => {
         const firstCard = cards[firstIndex];
         const secondCard = cards[secondIndex];
 
+        // Prüft, ob die beiden Karten ein Paar bilden
         if (secondCard && firstCard.matchId === secondCard.id) {
           setIsChecking(true);
           setMatched([...matched, firstIndex, secondIndex]);
@@ -61,16 +152,15 @@ const MemoryGame = () => {
           setTimeout(() => {
             setFlipped([]);
             setIsChecking(false);
-            setScore(score + 1); // Score erhöhen, wenn ein Paar gefunden wird
+            setScore(score + 1); // Erhöht den Punktestand bei einem Treffer
 
-            // Überprüfen, ob alle Paare gefunden wurden
-            if (matched.length === cards.length - 2) { // -2 da jedes Paar zwei Karten umfasst
-            //   alert('Herzlichen Glückwunsch! Sie haben alle Karten gefunden!');
+            // Überprüft, ob alle Paare gefunden wurden und das Spiel beendet ist
+            if (matched.length === cards.length - 2) { 
               setIsGameFinished(true);
             }
           }, 1000);
         } else {
-          setTimeout(() => setFlipped([]), 1000);
+          setTimeout(() => setFlipped([]), 1000); // Kehrt die Karten wieder um, wenn kein Paar gefunden wurde
         }
       }
     };
@@ -78,8 +168,9 @@ const MemoryGame = () => {
     checkForMatch();
   }, [flipped, cards, matched, score, isChecking]);
 
+  // Initialisiert das Spiel, mischt die Karten und setzt alle Zustände zurück
   const initializeGame = () => {
-    const initialCards = [...cardsData];
+    const initialCards = [...cardsData]; 
     shuffleCards(initialCards);
     setCards(initialCards);
     setFlipped([]);
@@ -88,40 +179,48 @@ const MemoryGame = () => {
     setIsGameFinished(false);
   };
 
+  // Funktion zum Mischen der Karten
   const shuffleCards = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
+      [array[i], array[j]] = [array[j], array[i]]; // Tauscht zwei Karten zufällig
     }
   };
 
+  // Behandelt das Umdrehen einer Karte
   const handleClick = (id) => {
-    if (flipped.length === 2 || isChecking) {
-      return;
-    }
+    if (flipped.length === 2 || isChecking) return; // Stoppt, wenn zwei Karten bereits umgedreht oder ein Vergleich läuft
     if (flipped.length === 0 || (flipped.length === 1 && !flipped.includes(id))) {
-      setFlipped([...flipped, id]);
+      setFlipped([...flipped, id]); // Fügt die Karte in die "umgedreht"-Liste ein
     }
   };
 
-  const isMatched = (id) => matched.includes(id);
+  // Überprüft, ob eine Karte bereits Teil eines gefundenen Paares ist
+  const isMatched = (id) => matched.includes(id); 
 
+  // Setzt das Spiel zurück, wenn der Spieler erneut spielen möchte
   const handlePlayAgain = () => {
-    // Spiel zurücksetzen
     initializeGame();
     setIsGameFinished(false);
     setScore(0);
+    deleteGame();  // Löscht die Spiel-Daten vom Server
   };
 
+  // Speichert das aktuelle Spiel und navigiert zu einem neuen Spiel
   const handleContinue = () => {
-    navigate('/play/recycling/games');
+    console.log(game);
+    saveGame();  // Speichert den aktuellen Spielstand auf dem Server
+    navigate('/play/recycling/games'); // Navigiert zur nächsten Spielseite
   };
 
   return (
     <div className="memoryGame">
-      <h1 style={{ fontSize: '25px', fontWeight: 'bold', color: '#BC2A6E'  }}>Memory</h1>
+      {/* Titel und Punktestand */}
+      <h1 style={{ fontSize: '25px', fontWeight: 'bold', color: '#BC2A6E' }}>Memory</h1>
       <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>Woraus besteht der Gegenstand?</h2>
       <p style={{ fontWeight: 'bold', color: '#70BBFF' }}>Score: {score}</p>
+      
+      {/* Das Spielfeld mit den Karten */}
       <div className="memoryBoard">
         {cards.map((card, index) => (
           <Card
@@ -136,16 +235,17 @@ const MemoryGame = () => {
         ))}
       </div>
 
+      {/* Zeigt Buttons zum erneuten Spielen oder Fortfahren an, wenn das Spiel beendet ist */}
       {isGameFinished && (
-          <div className='finish'>
-            <h2 style={{ fontSize: '15px', fontWeight: 'bold'}}>Spiel beendet!</h2>
-            <button 
+        <div className='finish'>
+          <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>Spiel beendet!</h2>
+          <button
             onClick={handlePlayAgain} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}>Noch mal spielen
-            </button>
-            <button
+          </button>
+          <button
             onClick={handleContinue} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}>Nächstes Spiel
-            </button>
-          </div>)}
+          </button>
+        </div>)}
     </div>
   );
 };
