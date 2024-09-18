@@ -68,8 +68,8 @@ const GameRecyclebar = () => {
 
   return (
     <div className="game-board">
-      <h1 style={{ fontSize: '25px', fontWeight: 'bold'  }}>GameRecyclebar</h1>
-      <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>welche Gegenstand ist recyclebar oder nicht recyclebar?</h2>
+      <h1 style={{ fontSize: '25px', fontWeight: 'bold' }}>GameRecyclebar</h1>
+      <h2 style={{ fontSize: '15px', fontWeight: 'bold'}}>welche Gegenstand ist recyclebar oder nicht recyclebar?</h2>
       
       {/* <div className="score">Punkte: {score}</div>
       <div className="drop-zones">
