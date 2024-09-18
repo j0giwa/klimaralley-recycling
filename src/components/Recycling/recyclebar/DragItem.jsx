@@ -5,7 +5,7 @@ import './GameRecyclebar.css';
 /**
  * DragItem Component
  * 
- * @author Josy
+ * @author Josiane tanga 
  * @author Jeffrey Böttcher
  * @version 1.0.0
  * 

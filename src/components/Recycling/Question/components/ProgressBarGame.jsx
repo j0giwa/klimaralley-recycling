@@ -2,7 +2,7 @@ import React from "react";
 
 
 /**
- * Autor: Josy
+ * Autor: Josiane Tanga 
  * Autor: Josy
  * Version: 1.0
  * 
