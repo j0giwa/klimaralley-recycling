@@ -22,9 +22,6 @@ import './GameRecyclebar.css';
  *   - `type` (string): Der Typ des Items, der für das Alt-Attribut des Bildes verwendet wird.
  */
 
-import React from 'react';
-import { useDrag } from 'react-dnd';
-
 const DragItem = ({ item }) => {
   // useDrag Hook von react-dnd, um Drag-and-Drop-Funktionalität zu ermöglichen
   const [{ isDragging }, drag] = useDrag(() => ({
