@@ -1,41 +1,5 @@
  
-.instructions {
-  background-color: #f7f7f7;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-/* Progress Bar  */
-.ProgressBar {
-  width: 100%;
-  height: 20px;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 20px;
-  }
-  .Progress {
-    width: 0%;
-    height: 100%;
-    background-color: #4CAF50;
-    border-radius: 10px;
-    transition: width 0.5s ease-in-out;
-  }
-  /* Result Button  */
-.ResultButton {
-  margin-top: 20px;
-  text-align: center;
-  }
-  .ResultButton button {
-    background-color: #4CAF50;
-    color: #ffffff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-  }
+
 .App {
     text-align: center;
     width: 100vw;
@@ -44,8 +8,8 @@
   
   .Pictures {
     display: flex;
-    margin: 10px;
-    gap: 20px;
+    margin: auto;
+    gap: auto;
   }
   img {
     margin: 5px;
@@ -56,13 +20,15 @@
     display: flex;
     gap: 20px;
     margin-bottom: 10px;
-    margin-left: 10px;
+    margin-left: 300px;
+    
+
   }
 
   .PicturesContainer {
     display: flex;
     gap: 20px;
-    border: 2px solid rgb(5, 41, 247);
+   
 
   }
 
