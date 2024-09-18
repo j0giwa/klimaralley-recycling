@@ -96,7 +96,7 @@ const PictureList = [
 function DragDrop() {
 
  
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   
   // die Boards in denen die Items abgelegt werden können
@@ -104,8 +104,8 @@ function DragDrop() {
   const [greenBoard, setGreenBoard] = useState([]);
   const [yellowBoard, setYellowBoard] = useState([]);
   const [grayBoard, setGrayBoard] = useState([]);
-  const [score, setScore] = useState(0); // Track the score
-  const [evaluation, setEvaluation] = useState(""); // Track the evaluation at the end
+  const [score, setScore] = useState(0); // Verfolgen den Punktestand
+  const [evaluation, setEvaluation] = useState(""); // Verfolgen die Bewertung am Ende
 
   //die Items die noch in der Liste sind
   const [pictures, setPictures] = useState(PictureList);
@@ -145,7 +145,7 @@ function DragDrop() {
     //prüft ob das Bild in das richtige Board gezogen wird und wählt das entsprechende Board aus
     if (boardId === 1 && boardSetter === setBlueBoard) {
       setBlueBoard((board) => [...board, picture]);
-      setScore((prevScore) => prevScore + 10); // Increase score for correct drop
+      setScore((prevScore) => prevScore + 10); // Erhöhen Sie die Punktzahl für den richtigen Drop
     } else if (boardId === 2 && boardSetter === setGreenBoard) {
       setGreenBoard((board) => [...board, picture]);
       setScore((prevScore) => prevScore + 10); 
@@ -157,14 +157,15 @@ function DragDrop() {
       setScore((prevScore) => prevScore + 10);
     } else {
       console.log("This item can't be added to the board");
-      setScore((prevScore) => prevScore - 5); // Incorrect drop
+      setScore((prevScore) => prevScore - 5); // Punkteabzug bei Falschen Drop
       return;
     }
 
     setPictures((prevPictures) => prevPictures.filter((p) => p.id !== id)); //entfernt das Bild aus der Liste der Items
 
+    
     //prüft ob das Spiel beendet ist, funktiioniert noch nicht!
-    if (pictures.length === 1) {
+    if (pictures.length === 0) {
       setIsGameFinished(true);
       handleGameEnd();
 
@@ -180,6 +181,8 @@ function DragDrop() {
       finalEvaluation = "You can do better! Try again to improve your score.";
     }
     setEvaluation(finalEvaluation);
+    console.log("Game has ended. Final score:", score);
+    alert(`Game finished! Your final score is: ${score}`);
   };
 
     console.log(isGameFinished);
@@ -201,8 +204,8 @@ function DragDrop() {
     setGrayBoard([]);
     setPictures(PictureList);
     setIsGameFinished(false);
-    setScore(0); // Reset score
-    setEvaluation(""); // Reset evaluation
+    setScore(0); // Punktzahl zurücksetzen
+    setEvaluation(""); // Auswertung zurücksetzen
   };
  //navigiert zum nächsten Spiel, in dem zu der Liste der Games
   const nextGame = () => {
@@ -213,21 +216,31 @@ function DragDrop() {
   return (
     
     <>
-     <div className="Score">
-        <h2>Score: {score}</h2> {/* Display the score */}
-      </div>
+    <div className="Müll Sortieren Spiel">
+      <h1 style={{ fontSize: '25px', fontWeight: 'bold', color: '#BC2A6E'  }}>Müll Sortieren Spiel</h1>
+      <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>was gehört in welche Tonne?</h2>
+      
+    </div>
+      
+     <div className="Score"> {/*Anzeige des Punktestands */}
+      <p style={{ fontWeight: 'bold', color: '#70BBFF' }}>Score: {score}</p>
+    </div>
 
-      <div className="Pictures">
+    <div className="Pictures">
         {/* die Items die noch in der Liste sind */} 
         {pictures.map((picture) => {
           return <Picture url={picture.url} id={picture.id} key={picture.id} />;
         })}
-      </div>
+    </div>
 
-      <div className="ResetButton">
-        <button onClick={resetBoards} className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' >Noch mal spielen</button>
-         <button onClick={nextGame} className='btn btn-success'>Nächstes Spiel</button>
-      </div>
+    <div className="ResetButton">
+         <button 
+            onClick={resetBoards} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}>Noch mal spielen
+            </button>
+            <button
+            onClick={nextGame} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}>Nächstes Spiel
+          </button>
+    </div>
 
       {/* die Boards in denen die Items abgelegt werden können */}
       <div className="BoardsContainer">

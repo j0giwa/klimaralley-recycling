@@ -94,7 +94,7 @@ export default function ListGamesComponent() {
                 startRecyclebar(spieleId,playerGameId,playerId);
                 break;
             case 4:
-                startMemory(playerGameId,playerId,spieleId);
+                startMemory(spieleId,playerGameId,playerId);
                 break;
             default:
                 navigate(`/play/recycling/games`);
