@@ -20,9 +20,6 @@ import './GameRecyclebar.css';
  * - `children` (node): Die Elemente, die innerhalb der Drop-Zone angezeigt werden (z.B. Text oder Labels).
  */
 
-import React from 'react';
-import { useDrop } from 'react-dnd';
-
 const DropZone = ({ recyclable, onDrop, children }) => {
   // useDrop Hook von react-dnd, um Drag-and-Drop-Funktionalität zu ermöglichen
   const [{ isOver }, drop] = useDrop(() => ({

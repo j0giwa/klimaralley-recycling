@@ -2,16 +2,6 @@ import React, { createContext, useContext, useState } from "react";
 import {  executeJWTAuthenticationService } from "../api/AuthenticationApiService";
 import { apiClient } from "../api/ApiClient";
 
-/**
- * Autor: Jeffrey Böttcher
- * Version: 1.0
- * 
- * Beschreibung:
- * Der `AuthContext` stellt den Authentifizierungszustand und Authentifizierungsoperationen 
- * für die gesamte Anwendung zur Verfügung. Die `AuthProvider`-Komponente verwaltet 
- * die Authentifizierung und gibt den Status sowie Funktionen zur Anmeldung und Abmeldung 
- * an untergeordnete Komponenten weiter.
- */
 
 // Erstellen des Authentifizierungs-Kontexts
 export const AuthContext = createContext();

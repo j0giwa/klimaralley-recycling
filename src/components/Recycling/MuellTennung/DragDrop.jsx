@@ -1,11 +1,12 @@
 import Picture from './Picture';
 import { useDrop } from 'react-dnd';
-import React, { useState } from 'react';
-//import "../App.css";
+import React, { useState,useEffect, useCallback } from 'react';
 import "./muellTrennung.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
+import { getPlayerGameByIdApiDto, updateGameApi } from "../api/GameApiService";
+import { useAuth } from "../security/AuthContext.jsx";
 
-//import { BrowserRouter } from 'react-router-dom';
+
 
 
 const PictureList = [
@@ -93,156 +94,253 @@ const PictureList = [
 
 ];
 
+
+/**
+ * DragDrop-Komponente
+ * 
+ * Autor: Mohammed
+ * Autor: Jeffrey Böttcher
+ * 
+ * Beschreibung:
+ * Diese Komponente implementiert ein Drag-and-Drop-Spiel, bei dem Benutzer Bilder in verschiedene Mülltonnen ziehen müssen, um Punkte zu sammeln. 
+ * Die Bilder repräsentieren Abfälle, die korrekt sortiert werden müssen. Das Spiel enthält vier verschiedene Boards für jede Mülltonne: Blau, Grün, Gelb und Grau.
+ * 
+ * Funktionen:
+ * - `retrieveGames`: Lädt die aktuellen Spieldaten vom Server, einschließlich Punktestand, Status des Spiels (abgeschlossen oder nicht) und Erfolg.
+ * - `saveGame`: Speichert den aktuellen Punktestand und den Status des Spiels auf dem Server.
+ * - `deleteGame`: Setzt die Spieldaten auf die Ausgangswerte zurück und löscht sie vom Server.
+ * - `useCreateDrop`: Ein Hook für die Erstellung von Drop-Bereichen, die Drag-and-Drop-Funktionalität ermöglichen.
+ * - `addImageToBoard`: Fügt ein Bild zu einem bestimmten Board hinzu, aktualisiert den Punktestand und überprüft, ob das Spiel beendet ist.
+ * - `handleGameEnd`: Bewertet das Spiel am Ende und setzt die entsprechende Bewertung auf Basis des Punktestands.
+ * - `resetBoards`: Setzt alle Boards und den Punktestand zurück und löscht die Spieldaten.
+ * - `nextGame`: Speichert die aktuellen Spieldaten und navigiert zu einer Übersicht aller Spiele.
+ * 
+ * Die Komponente verwendet React Hooks (`useState`, `useEffect`, `useCallback`) zur Verwaltung des Zustands und der Seiteneffekte.
+ * Sie implementiert Drag-and-Drop-Funktionalität mittels `react-dnd` und kommuniziert mit einem Backend-Server über API-Funktionen.
+ * 
+ * Die Benutzeroberfläche zeigt die Punktzahl, die verfügbaren Bilder und die vier Boards an. 
+ * Nach dem Ende des Spiels wird eine Bewertung angezeigt und der Benutzer hat die Möglichkeit, das Spiel zurückzusetzen oder zum nächsten Spiel zu wechseln.
+*/
+
 function DragDrop() {
 
- 
+  // Hole die Parameter aus der URL
+  const { playerGameId, spieleId, playerId } = useParams();
+  const authContext = useAuth(); // Hole den Authentifizierungskontext
+  const username = authContext.username;
   const navigate = useNavigate();
 
-  
-  // die Boards in denen die Items abgelegt werden können
+  // Zustand für die Boards, Punktestand, Bewertung und Spieldaten
   const [blueBoard, setBlueBoard] = useState([]);
   const [greenBoard, setGreenBoard] = useState([]);
   const [yellowBoard, setYellowBoard] = useState([]);
   const [grayBoard, setGrayBoard] = useState([]);
-  const [score, setScore] = useState(0); // Verfolgen den Punktestand
-  const [evaluation, setEvaluation] = useState(""); // Verfolgen die Bewertung am Ende
-
-  //die Items die noch in der Liste sind
+  const [score, setScore] = useState(0);
+  const [evaluation, setEvaluation] = useState("");
   const [pictures, setPictures] = useState(PictureList);
-
-  // für die abfrage ob das Spiel beendet ist
   const [isGameFinished, setIsGameFinished] = useState(false);
 
+  // Zustand für die Spiel-Daten
+  const [game, setGame] = useState({
+    points: 0,
+    playerGameId: playerGameId,
+    playerId: playerId,
+    spieleId: spieleId,
+    username: username,
+    isCompleted: false,
+    isSuccessful: false
+  });
 
-  
-    // Funktion um ein Drop zu erstellen 
-    // boardSetter ist die Funktion die das Board setzt
-    function useCreateDrop(boardSetter) {
-     
-      const [{ isOver }, dropRef] = useDrop(() => ({
-        accept: 'image', 
-        drop: (item) => addImageToBoard(item.id, boardSetter), 
-        collect: (monitor) => ({
-          isOver: !!monitor.isOver(), 
-        }),
-      }), [boardSetter]);  
-    
-      return [dropRef, isOver];  
+  // Lade die Spieldaten beim Laden des Components
+  useEffect(() => {
+    retrieveGames();
+  }, [playerGameId]);
+
+  // Funktion zum Abrufen der Spieldaten vom Server
+  function retrieveGames() {
+    if (playerGameId) {
+      getPlayerGameByIdApiDto(playerId, spieleId)
+        .then(response => {
+          setGame(prevGame => ({
+            ...prevGame,
+            points: response.data.points,
+            isCompleted: response.data.isCompleted,
+            isSuccessful: response.data.isSuccessful
+          }));
+        })
+        .catch(error => console.log("Error fetching game data: ", error));
     }
+  }
 
+  // Funktion zum Speichern der Spieldaten auf dem Server
+  function saveGame() {
+    const updatedGame = {
+      ...game,
+      points: score,
+      isCompleted: isGameFinished,
+      isSuccessful: isGameFinished
+    };
 
-  // Logik wenn ein Item in ein Board gezogen wird
+    setGame(updatedGame);
+
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game saved successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  }
+
+  // Funktion zum Löschen der Spieldaten auf dem Server
+  function deleteGame() {
+    const updatedGame = {
+      ...game,
+      points: 0,
+      isCompleted: false,
+      isSuccessful: false
+    };
+
+    setGame(updatedGame);
+
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game deleted successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  }
+
+  // Funktion zum Erstellen eines Drop-Bereichs für das Drag-and-Drop
+  const useCreateDrop = useCallback((boardSetter) => {
+    const [{ isOver }, dropRef] = useDrop(() => ({
+      accept: 'image',
+      drop: (item) => addImageToBoard(item.id, boardSetter),
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    }), [boardSetter]);
+
+    return [dropRef, isOver];
+  }, []);
+
+  // Funktion zum Hinzufügen eines Bildes zu einem Board und Punktestand aktualisieren
   const addImageToBoard = (id, boardSetter) => {
-  const picture = pictures.find((picture) => id === picture.id); //sucht das Bild in der Liste  
-   
+    const picture = pictures.find((picture) => id === picture.id);
+
     if (!picture) {
-      console.log("Picture not found in PictureList");
+      console.error("Bild nicht gefunden in PictureList");
       return;
     }
+
     const boardId = picture.boardId;
 
+    // Funktion zum Aktualisieren des Punktestands
+    const updateScore = (increment) => {
+      setScore(prevScore => prevScore + increment);
+    };
 
-    //prüft ob das Bild in das richtige Board gezogen wird und wählt das entsprechende Board aus
-    if (boardId === 1 && boardSetter === setBlueBoard) {
-      setBlueBoard((board) => [...board, picture]);
-      setScore((prevScore) => prevScore + 10); // Erhöhen Sie die Punktzahl für den richtigen Drop
-    } else if (boardId === 2 && boardSetter === setGreenBoard) {
-      setGreenBoard((board) => [...board, picture]);
-      setScore((prevScore) => prevScore + 10); 
-    } else if (boardId === 3 && boardSetter === setYellowBoard) {
-      setYellowBoard((board) => [...board, picture]);
-      setScore((prevScore) => prevScore + 10);
-    } else if (boardId === 4 && boardSetter === setGrayBoard) {
-      setGrayBoard((board) => [...board, picture]);
-      setScore((prevScore) => prevScore + 10);
-    } else {
-      console.log("This item can't be added to the board");
-      setScore((prevScore) => prevScore - 5); // Punkteabzug bei Falschen Drop
-      return;
+    switch (boardId) {
+      case 1:
+        if (boardSetter === setBlueBoard) {
+          setBlueBoard(board => [...board, picture]);
+          updateScore(10);
+        }
+        break;
+      case 2:
+        if (boardSetter === setGreenBoard) {
+          setGreenBoard(board => [...board, picture]);
+          updateScore(10);
+        }
+        break;
+      case 3:
+        if (boardSetter === setYellowBoard) {
+          setYellowBoard(board => [...board, picture]);
+          updateScore(10);
+        }
+        break;
+      case 4:
+        if (boardSetter === setGrayBoard) {
+          setGrayBoard(board => [...board, picture]);
+          updateScore(10);
+        }
+        break;
+      default:
+        console.error("Das Bild hat keine gültige boardId");
+        updateScore(-5);
+        return;
     }
 
-    setPictures((prevPictures) => prevPictures.filter((p) => p.id !== id)); //entfernt das Bild aus der Liste der Items
+    // Aktualisiere die Liste der Bilder und überprüfe, ob das Spiel beendet ist
+    setPictures(prevPictures => {
+      const updatedPictures = prevPictures.filter(p => p.id !== id);
+      if (updatedPictures.length === 0) {
+        setIsGameFinished(true);
+      }
+      return updatedPictures;
+    });
+  };
 
-    
-    //prüft ob das Spiel beendet ist, funktiioniert noch nicht!
-    if (pictures.length === 0) {
-      setIsGameFinished(true);
+  // Wenn das Spiel beendet ist, führe die End-Spiel-Logik aus
+  useEffect(() => {
+    if (isGameFinished) {
       handleGameEnd();
-
     }
-  
+  }, [isGameFinished]);
+
+  // Funktion zur Bewertung am Ende des Spiels
   const handleGameEnd = () => {
     let finalEvaluation = "";
     if (score >= 130) {
-      finalEvaluation = "Excellent! You sorted everything correctly!";
+      finalEvaluation = "Herausragend! Du hast ALLES korrekt sortiert!";
     } else if (score >= 100) {
-      finalEvaluation = "Good job! You got most items right.";
+      finalEvaluation = "Gut gemacht! Du hast das meiste richtig zugeordnet!";
     } else {
-      finalEvaluation = "You can do better! Try again to improve your score.";
+      finalEvaluation = "Das kannst du besser! Versuche es nochmal.";
     }
     setEvaluation(finalEvaluation);
-    console.log("Game has ended. Final score:", score);
-    alert(`Game finished! Your final score is: ${score}`);
+    //console.log("Final score:", score);
   };
 
-    console.log(isGameFinished);
-    console.log(pictures.length);
+  // Erstelle die Drop-Bereiche für jedes Board
+  const [blueDrop] = useCreateDrop(setBlueBoard);
+  const [greenDrop] = useCreateDrop(setGreenBoard);
+  const [yellowDrop] = useCreateDrop(setYellowBoard);
+  const [grayDrop] = useCreateDrop(setGrayBoard);
 
-  };
-
-  //erstellt die Drop Bereiche
-  const [blueDrop,blueIsOver] = useCreateDrop (setBlueBoard);
-  const [greenDrop,greenIsOver] = useCreateDrop (setGreenBoard);
-  const [yellowDrop,yellowIsOver] = useCreateDrop (setYellowBoard);
-  const [grayDrop,grayIsOver] = useCreateDrop (setGrayBoard);
-
-  //setzt die Boards zurück
+  // Setzt die Boards zurück und löscht die Spieldaten
   const resetBoards = () => {
     setBlueBoard([]);
-    setYellowBoard([]);
     setGreenBoard([]);
+    setYellowBoard([]);
     setGrayBoard([]);
     setPictures(PictureList);
     setIsGameFinished(false);
-    setScore(0); // Punktzahl zurücksetzen
-    setEvaluation(""); // Auswertung zurücksetzen
+    setScore(0);
+    setEvaluation("");
+    deleteGame();
   };
- //navigiert zum nächsten Spiel, in dem zu der Liste der Games
+
+  // Navigiert zum nächsten Spiel, speichert die aktuellen Spieldaten
   const nextGame = () => {
-    navigate('/play/recycling/recyclebar/:id');
-    
+    saveGame();
+    navigate('/play/recycling/games');
   };
-  //Frontend ansicht
+
   return (
-    
     <>
-    <div className="Müll Sortieren Spiel">
-      <h1 style={{ fontSize: '25px', fontWeight: 'bold', color: '#BC2A6E'  }}>Müll Sortieren Spiel</h1>
-      <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>was gehört in welche Tonne?</h2>
-      
-    </div>
-      
-     <div className="Score"> {/*Anzeige des Punktestands */}
-      <p style={{ fontWeight: 'bold', color: '#70BBFF' }}>Score: {score}</p>
-    </div>
+      <div className="MüllSortierenSpiel">
+        <h1 style={{ fontSize: '25px', fontWeight: 'bold', color: '#BC2A6E' }}>Müll Sortieren Spiel</h1>
+        <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>Was gehört in welche Tonne?</h2>
+      </div>
 
-    <div className="Pictures">
-        {/* die Items die noch in der Liste sind */} 
-        {pictures.map((picture) => {
-          return <Picture url={picture.url} id={picture.id} key={picture.id} />;
-        })}
-    </div>
+      <div className="Score">
+        <p style={{ fontWeight: 'bold', color: '#70BBFF' }}>Score: {score}</p>
+      </div>
 
-    <div className="ResetButton">
-         <button 
-            onClick={resetBoards} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}>Noch mal spielen
-            </button>
-            <button
-            onClick={nextGame} style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}>Nächstes Spiel
-          </button>
-    </div>
+      <div className="Pictures">
+        {pictures.map((picture) => (
+          <Picture url={picture.url} id={picture.id} key={picture.id} />
+        ))}
+      </div>
 
-      {/* die Boards in denen die Items abgelegt werden können */}
       <div className="BoardsContainer">
         <div className="BlueBoard" ref={blueDrop}>
           {blueBoard.map((picture) => (
@@ -258,26 +356,36 @@ function DragDrop() {
           {yellowBoard.map((picture) => (
             <Picture key={picture.id} url={picture.url} id={picture.id} />
           ))}
-         
         </div>
         <div className="GrayBoard" ref={grayDrop}>
           {grayBoard.map((picture) => (
             <Picture key={picture.id} url={picture.url} id={picture.id} />
           ))}
-          </div>
+        </div>
       </div>
-      
-           {/* Display final evaluation when the game is finished */}
+
       {isGameFinished && (
         <div className="Evaluation">
-          <h3>Game Finished!</h3>
-          <p>{evaluation}</p> {/* Display evaluation */}
+          <h3>Spiel zuende!</h3>
+          <p>{evaluation}</p>
+          <div className="ResetButton">
+            <button 
+              onClick={resetBoards} 
+              style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}
+            >
+              Noch mal spielen
+            </button>
+            <button
+              onClick={nextGame} 
+              style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}
+            >
+              Nächstes Spiel
+            </button>
+          </div>
         </div>
       )}
-          
     </>
   );
 }
 
 export default DragDrop;
-
