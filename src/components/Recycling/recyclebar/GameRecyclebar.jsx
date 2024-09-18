@@ -69,7 +69,7 @@ const GameRecyclebar = () => {
   return (
     <div className="game-board">
       <h1 style={{ fontSize: '25px', fontWeight: 'bold'  }}>GameRecyclebar</h1>
-      <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>welche Gegenstand ist recyclebar oder nicht recyclebar?</h2>
+      <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>Welcher Gegenstand ist recyclebar oder nicht recyclebar?</h2>
       
       {/* <div className="score">Punkte: {score}</div>
       <div className="drop-zones">
@@ -92,7 +92,7 @@ const GameRecyclebar = () => {
                   <DragItem key={item.id} item={item} />
                 ))}
               </div>
-              <DropZone recyclable={false} onDrop={(item) => handleDrop(item, false)}>Nicht Recyclebar</DropZone>
+              <DropZone recyclable={false} onDrop={(item) => handleDrop(item, false)}>Nicht recyclebar</DropZone>
             </div>
           </div>
         
