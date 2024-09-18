@@ -18,6 +18,25 @@ const initialItems = [
   { id: 9, type: 'Karton', url: "https://th.bing.com/th/id/OIP.tmkw-mO4bi_YNFykxzuLJQHaFW?pid=ImgDet&w=175&h=112.5&c=7&dpr=1,3" , recyclable: true },
   { id: 10, type: 'Glas', url: "https://th.bing.com/th/id/OIP.GHZchj4Hgf2IPGFOdXhRtAHaE8?pid=ImgDet&w=175&h=147.58333333333334&c=7&dpr=1,3" , recyclable: true },
 ]
+
+/**
+ * GameRecyclebar Component
+ * 
+ * @author Josy
+ * @author Jeffrey Böttcher
+ * @version 1.0.0
+ * 
+ * @description
+ * Dieses Spiel fordert die Spieler dazu heraus, verschiedene Gegenstände korrekt als "recyclebar" oder "nicht recyclebar" zu kategorisieren.
+ * Der Spieler zieht Objekte in die entsprechenden Drop-Zonen und sammelt Punkte für richtige Zuordnungen. 
+ * Das Ziel des Spiels ist es, durch die korrekte Zuordnung von Objekten eine bestimmte Punktzahl zu erreichen, um das Spiel zu gewinnen.
+ * 
+ * Funktionsweise:
+ * - Die Spiel-Daten werden vom Server abgerufen und gespeichert.
+ * - Gegenstände werden per Drag & Drop in die entsprechenden Zonen "Recyclebar" oder "Nicht recyclebar" gezogen.
+ * - Bei richtiger Zuordnung wird ein Punkt vergeben, bei falscher Zuordnung ein Punkt abgezogen.
+ * - Das Spiel endet, wenn alle Gegenstände sortiert wurden, und überprüft, ob der Spieler gewonnen hat. Weiter kommt man jedoch immer
+ */
 const GameRecyclebar = () => {
   const { playerGameId, playerId, spieleId } = useParams(); // Holt die Parameter aus der URL
   const authContext = useAuth();
