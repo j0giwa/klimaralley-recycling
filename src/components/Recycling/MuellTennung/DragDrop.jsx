@@ -1,14 +1,12 @@
 import Picture from './Picture';
 import { useDrop } from 'react-dnd';
 import React, { useState,useEffect, useCallback } from 'react';
-//import "../App.css";
 import "./muellTrennung.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlayerGameByIdApiDto, updateGameApi } from "../api/GameApiService";
 import { useAuth } from "../security/AuthContext.jsx";
 
 
-//import { BrowserRouter } from 'react-router-dom';
 
 
 const PictureList = [
@@ -96,13 +94,43 @@ const PictureList = [
 
 ];
 
+
+/**
+ * DragDrop-Komponente
+ * 
+ * Autor: Mohammed
+ * Autor: Jeffrey Böttcher
+ * 
+ * Beschreibung:
+ * Diese Komponente implementiert ein Drag-and-Drop-Spiel, bei dem Benutzer Bilder in verschiedene Mülltonnen ziehen müssen, um Punkte zu sammeln. 
+ * Die Bilder repräsentieren Abfälle, die korrekt sortiert werden müssen. Das Spiel enthält vier verschiedene Boards für jede Mülltonne: Blau, Grün, Gelb und Grau.
+ * 
+ * Funktionen:
+ * - `retrieveGames`: Lädt die aktuellen Spieldaten vom Server, einschließlich Punktestand, Status des Spiels (abgeschlossen oder nicht) und Erfolg.
+ * - `saveGame`: Speichert den aktuellen Punktestand und den Status des Spiels auf dem Server.
+ * - `deleteGame`: Setzt die Spieldaten auf die Ausgangswerte zurück und löscht sie vom Server.
+ * - `useCreateDrop`: Ein Hook für die Erstellung von Drop-Bereichen, die Drag-and-Drop-Funktionalität ermöglichen.
+ * - `addImageToBoard`: Fügt ein Bild zu einem bestimmten Board hinzu, aktualisiert den Punktestand und überprüft, ob das Spiel beendet ist.
+ * - `handleGameEnd`: Bewertet das Spiel am Ende und setzt die entsprechende Bewertung auf Basis des Punktestands.
+ * - `resetBoards`: Setzt alle Boards und den Punktestand zurück und löscht die Spieldaten.
+ * - `nextGame`: Speichert die aktuellen Spieldaten und navigiert zu einer Übersicht aller Spiele.
+ * 
+ * Die Komponente verwendet React Hooks (`useState`, `useEffect`, `useCallback`) zur Verwaltung des Zustands und der Seiteneffekte.
+ * Sie implementiert Drag-and-Drop-Funktionalität mittels `react-dnd` und kommuniziert mit einem Backend-Server über API-Funktionen.
+ * 
+ * Die Benutzeroberfläche zeigt die Punktzahl, die verfügbaren Bilder und die vier Boards an. 
+ * Nach dem Ende des Spiels wird eine Bewertung angezeigt und der Benutzer hat die Möglichkeit, das Spiel zurückzusetzen oder zum nächsten Spiel zu wechseln.
+*/
+
 function DragDrop() {
 
-  const { playerGameId, spieleId, playerId } = useParams(); // Holt die Parameter aus der URL
-  const authContext = useAuth(); // Authentifizierungskontext für den Benutzernamen
+  // Hole die Parameter aus der URL
+  const { playerGameId, spieleId, playerId } = useParams();
+  const authContext = useAuth(); // Hole den Authentifizierungskontext
   const username = authContext.username;
   const navigate = useNavigate();
 
+  // Zustand für die Boards, Punktestand, Bewertung und Spieldaten
   const [blueBoard, setBlueBoard] = useState([]);
   const [greenBoard, setGreenBoard] = useState([]);
   const [yellowBoard, setYellowBoard] = useState([]);
@@ -112,75 +140,75 @@ function DragDrop() {
   const [pictures, setPictures] = useState(PictureList);
   const [isGameFinished, setIsGameFinished] = useState(false);
 
-
-// Spiel-Daten vom Server laden
-const [game, setGame] = useState({
-  points: 0,
-  playerGameId: playerGameId,
-  playerId: playerId,
-  spieleId: spieleId,
-  username: username,
-  isCompleted: false,
-  isSuccessful: false
-});
-
-useEffect(() => {
-  retrieveGames(); // Spiel-Daten beim Laden des Components abrufen
-}, [playerGameId]);
-
-// Holt die Spieldaten vom Server
-function retrieveGames() {
-  if (playerGameId) {
-    getPlayerGameByIdApiDto(playerId, spieleId)
-      .then(response => {
-        setGame(prevGame => ({
-          ...prevGame,
-          points: response.data.points,
-          isCompleted: response.data.isCompleted,
-          isSuccessful: response.data.isSuccessful
-        }));
-      })
-      .catch(error => console.log("Error fetching game data: ", error));
-  }
-}
-
-// Speichert die Spieldaten auf dem Server
-function saveGame() {
-  const updatedGame = {
-    ...game,
-    points: score,
-    isCompleted: isGameFinished,
-    isSuccessful: isGameFinished
-  };
-
-  setGame(updatedGame);
-
-  updateGameApi(playerId, spieleId, updatedGame)
-    .then(() => console.log("Game saved successfully"))
-    .catch(error => console.log(error));
-
-  console.log(updatedGame);
-}
-
- // Löscht die Spieldaten auf dem Server
- function deleteGame() {
-  const updatedGame = {
-    ...game,
+  // Zustand für die Spiel-Daten
+  const [game, setGame] = useState({
     points: 0,
+    playerGameId: playerGameId,
+    playerId: playerId,
+    spieleId: spieleId,
+    username: username,
     isCompleted: false,
     isSuccessful: false
-  };
+  });
 
-  setGame(updatedGame);
+  // Lade die Spieldaten beim Laden des Components
+  useEffect(() => {
+    retrieveGames();
+  }, [playerGameId]);
 
-  updateGameApi(playerId, spieleId, updatedGame)
-    .then(() => console.log("Game deleted successfully"))
-    .catch(error => console.log(error));
+  // Funktion zum Abrufen der Spieldaten vom Server
+  function retrieveGames() {
+    if (playerGameId) {
+      getPlayerGameByIdApiDto(playerId, spieleId)
+        .then(response => {
+          setGame(prevGame => ({
+            ...prevGame,
+            points: response.data.points,
+            isCompleted: response.data.isCompleted,
+            isSuccessful: response.data.isSuccessful
+          }));
+        })
+        .catch(error => console.log("Error fetching game data: ", error));
+    }
+  }
 
-  console.log(updatedGame);
-}
+  // Funktion zum Speichern der Spieldaten auf dem Server
+  function saveGame() {
+    const updatedGame = {
+      ...game,
+      points: score,
+      isCompleted: isGameFinished,
+      isSuccessful: isGameFinished
+    };
 
+    setGame(updatedGame);
 
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game saved successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  }
+
+  // Funktion zum Löschen der Spieldaten auf dem Server
+  function deleteGame() {
+    const updatedGame = {
+      ...game,
+      points: 0,
+      isCompleted: false,
+      isSuccessful: false
+    };
+
+    setGame(updatedGame);
+
+    updateGameApi(playerId, spieleId, updatedGame)
+      .then(() => console.log("Game deleted successfully"))
+      .catch(error => console.log(error));
+
+    console.log(updatedGame);
+  }
+
+  // Funktion zum Erstellen eines Drop-Bereichs für das Drag-and-Drop
   const useCreateDrop = useCallback((boardSetter) => {
     const [{ isOver }, dropRef] = useDrop(() => ({
       accept: 'image',
@@ -193,6 +221,7 @@ function saveGame() {
     return [dropRef, isOver];
   }, []);
 
+  // Funktion zum Hinzufügen eines Bildes zu einem Board und Punktestand aktualisieren
   const addImageToBoard = (id, boardSetter) => {
     const picture = pictures.find((picture) => id === picture.id);
 
@@ -203,6 +232,7 @@ function saveGame() {
 
     const boardId = picture.boardId;
 
+    // Funktion zum Aktualisieren des Punktestands
     const updateScore = (increment) => {
       setScore(prevScore => prevScore + increment);
     };
@@ -238,6 +268,7 @@ function saveGame() {
         return;
     }
 
+    // Aktualisiere die Liste der Bilder und überprüfe, ob das Spiel beendet ist
     setPictures(prevPictures => {
       const updatedPictures = prevPictures.filter(p => p.id !== id);
       if (updatedPictures.length === 0) {
@@ -247,12 +278,14 @@ function saveGame() {
     });
   };
 
+  // Wenn das Spiel beendet ist, führe die End-Spiel-Logik aus
   useEffect(() => {
     if (isGameFinished) {
       handleGameEnd();
     }
   }, [isGameFinished]);
 
+  // Funktion zur Bewertung am Ende des Spiels
   const handleGameEnd = () => {
     let finalEvaluation = "";
     if (score >= 130) {
@@ -263,15 +296,16 @@ function saveGame() {
       finalEvaluation = "Das kannst du besser! Versuche es nochmal.";
     }
     setEvaluation(finalEvaluation);
-    console.log("Game has ended. Final score:", score);
-    //alert(`Game finished! Your final score is: ${score}`);
+    //console.log("Final score:", score);
   };
 
+  // Erstelle die Drop-Bereiche für jedes Board
   const [blueDrop] = useCreateDrop(setBlueBoard);
   const [greenDrop] = useCreateDrop(setGreenBoard);
   const [yellowDrop] = useCreateDrop(setYellowBoard);
   const [grayDrop] = useCreateDrop(setGrayBoard);
 
+  // Setzt die Boards zurück und löscht die Spieldaten
   const resetBoards = () => {
     setBlueBoard([]);
     setGreenBoard([]);
@@ -284,6 +318,7 @@ function saveGame() {
     deleteGame();
   };
 
+  // Navigiert zum nächsten Spiel, speichert die aktuellen Spieldaten
   const nextGame = () => {
     saveGame();
     navigate('/play/recycling/games');
