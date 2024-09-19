@@ -10,7 +10,7 @@ import { getPlayerGameByIdApi, getPlayerGameByIdApiDto, updateGameApi } from "..
 
 /**
  * Autor: Gizem
- * Autor: Josy
+ * Autor: Josiane Tanga 
  * Autor: Jeffrey Böttcher
  * Version: 1.0
  * 

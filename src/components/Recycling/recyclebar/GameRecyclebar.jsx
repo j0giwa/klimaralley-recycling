@@ -22,7 +22,7 @@ const initialItems = [
 /**
  * GameRecyclebar Component
  * 
- * @author Josy
+ * @author Josiane Tanga 
  * @author Jeffrey Böttcher
  * @version 1.0.0
  * 
