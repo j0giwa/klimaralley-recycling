@@ -1,10 +1,11 @@
 import Picture from './Picture';
-import { useDrop } from 'react-dnd';
 import React, { useState,useEffect, useCallback } from 'react';
 import "./muellTrennung.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { getPlayerGameByIdApiDto, updateGameApi } from "../api/GameApiService";
 import { useAuth } from "../security/AuthContext.jsx";
+import { TouchBackend } from 'react-dnd-touch-backend';
+import { useDrag, useDrop } from 'react-dnd';
 
 
 
@@ -386,6 +387,199 @@ function DragDrop() {
       )}
     </>
   );
-}
+} export default DragDrop;
 
-export default DragDrop;
+// function DragDrop() {
+//   const { playerGameId, spieleId, playerId } = useParams();
+//   const authContext = useAuth();
+//   const username = authContext.username;
+//   const navigate = useNavigate();
+
+//   // Zustand für die Boards, Punktestand, Bewertung und Spieldaten
+//   const [blueBoard, setBlueBoard] = useState([]);
+//   const [greenBoard, setGreenBoard] = useState([]);
+//   const [yellowBoard, setYellowBoard] = useState([]);
+//   const [grayBoard, setGrayBoard] = useState([]);
+//   const [score, setScore] = useState(0);
+//   const [evaluation, setEvaluation] = useState("");
+//   const [pictures, setPictures] = useState(PictureList);
+//   const [isGameFinished, setIsGameFinished] = useState(false);
+
+//   // Zustand für die Spiel-Daten
+//   const [game, setGame] = useState({
+//     points: 0,
+//     playerGameId: playerGameId,
+//     playerId: playerId,
+//     spieleId: spieleId,
+//     username: username,
+//     isCompleted: false,
+//     isSuccessful: false
+//   });
+
+//   // Lade die Spieldaten beim Laden des Components
+//   useEffect(() => {
+//     retrieveGames();
+//   }, [playerGameId]);
+
+//   // Funktion zum Abrufen der Spieldaten vom Server
+//   function retrieveGames() {
+//     if (playerGameId) {
+//       getPlayerGameByIdApiDto(playerId, spieleId)
+//         .then(response => {
+//           setGame(prevGame => ({
+//             ...prevGame,
+//             points: response.data.points,
+//             isCompleted: response.data.isCompleted,
+//             isSuccessful: response.data.isSuccessful
+//           }));
+//         })
+//         .catch(error => console.log("Error fetching game data: ", error));
+//     }
+//   }
+
+//   // Drag-and-Drop Logik
+//   const useCreateDrop = useCallback((boardSetter) => {
+//     const [{ isOver }, dropRef] = useDrop(() => ({
+//       accept: 'image',
+//       drop: (item) => addImageToBoard(item.id, boardSetter),
+//       collect: (monitor) => ({
+//         isOver: !!monitor.isOver(),
+//       }),
+//     }), [boardSetter]);
+
+//     return [dropRef, isOver];
+//   }, []);
+
+//   const addImageToBoard = (id, boardSetter) => {
+//     const picture = pictures.find((picture) => id === picture.id);
+//     if (!picture) {
+//       console.error("Bild nicht gefunden in PictureList");
+//       return;
+//     }
+
+//     const boardId = picture.boardId;
+//     const updateScore = (increment) => setScore(prevScore => prevScore + increment);
+
+//     switch (boardId) {
+//       case 1: setBlueBoard(board => [...board, picture]); updateScore(10); break;
+//       case 2: setGreenBoard(board => [...board, picture]); updateScore(10); break;
+//       case 3: setYellowBoard(board => [...board, picture]); updateScore(10); break;
+//       case 4: setGrayBoard(board => [...board, picture]); updateScore(10); break;
+//       default: console.error("Das Bild hat keine gültige boardId"); updateScore(-5); return;
+//     }
+
+//     setPictures(prevPictures => {
+//       const updatedPictures = prevPictures.filter(p => p.id !== id);
+//       if (updatedPictures.length === 0) {
+//         setIsGameFinished(true);
+//       }
+//       return updatedPictures;
+//     });
+//   };
+
+//   useEffect(() => {
+//     if (isGameFinished) {
+//       handleGameEnd();
+//     }
+//   }, [isGameFinished]);
+
+//   const handleGameEnd = () => {
+//     let finalEvaluation = "";
+//     if (score >= 130) {
+//       finalEvaluation = "Herausragend! Du hast ALLES korrekt sortiert!";
+//     } else if (score >= 100) {
+//       finalEvaluation = "Gut gemacht! Du hast das meiste richtig zugeordnet!";
+//     } else {
+//       finalEvaluation = "Das kannst du besser! Versuche es nochmal.";
+//     }
+//     setEvaluation(finalEvaluation);
+//   };
+
+//   const [blueDrop] = useCreateDrop(setBlueBoard);
+//   const [greenDrop] = useCreateDrop(setGreenBoard);
+//   const [yellowDrop] = useCreateDrop(setYellowBoard);
+//   const [grayDrop] = useCreateDrop(setGrayBoard);
+
+//   const resetBoards = () => {
+//     setBlueBoard([]);
+//     setGreenBoard([]);
+//     setYellowBoard([]);
+//     setGrayBoard([]);
+//     setPictures(PictureList);
+//     setIsGameFinished(false);
+//     setScore(0);
+//     setEvaluation("");
+//     deleteGame();
+//   };
+
+//   const nextGame = () => {
+//     saveGame();
+//     navigate('/play/recycling/games');
+//   };
+
+//   return (
+//     <>
+//       <div className="MüllSortierenSpiel">
+//         <h1 style={{ fontSize: '25px', fontWeight: 'bold', color: '#BC2A6E' }}>Müll Sortieren Spiel</h1>
+//         <h2 style={{ fontSize: '15px', fontWeight: 'bold' }}>Was gehört in welche Tonne?</h2>
+//       </div>
+
+//       <div className="Score">
+//         <p style={{ fontWeight: 'bold', color: '#70BBFF' }}>Score: {score}</p>
+//       </div>
+
+//       <div className="Pictures">
+//         {pictures.map((picture) => (
+//           <Picture url={picture.url} id={picture.id} key={picture.id} />
+//         ))}
+//       </div>
+
+//       <div className="BoardsContainer">
+//         <div className="BlueBoard" ref={blueDrop}>
+//           {blueBoard.map((picture) => (
+//             <Picture key={picture.id} url={picture.url} id={picture.id} />
+//           ))}
+//         </div>
+//         <div className="GreenBoard" ref={greenDrop}>
+//           {greenBoard.map((picture) => (
+//             <Picture key={picture.id} url={picture.url} id={picture.id} />
+//           ))}
+//         </div>
+//         <div className="YellowBoard" ref={yellowDrop}>
+//           {yellowBoard.map((picture) => (
+//             <Picture key={picture.id} url={picture.url} id={picture.id} />
+//           ))}
+//         </div>
+//         <div className="GrayBoard" ref={grayDrop}>
+//           {grayBoard.map((picture) => (
+//             <Picture key={picture.id} url={picture.url} id={picture.id} />
+//           ))}
+//         </div>
+//       </div>
+
+//       {isGameFinished && (
+//         <div className="Evaluation">
+//           <h3>Spiel zuende!</h3>
+//           <p>{evaluation}</p>
+//           <div className="ResetButton">
+//             <button 
+//               onClick={resetBoards} 
+//               style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px' }}
+//             >
+//               Noch mal spielen
+//             </button>
+//             <button
+//               onClick={nextGame} 
+//               style={{ backgroundColor: '#1683de', color: 'white', padding: '10px 16px', borderRadius: '8px', marginLeft: '10px' }}
+//             >
+//               Nächstes Spiel
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </>
+//   );
+// }
+
+
+// export default DragDrop;

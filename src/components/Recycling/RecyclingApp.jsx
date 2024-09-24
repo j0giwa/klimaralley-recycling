@@ -15,6 +15,7 @@ import DragDrop from './MuellTennung/DragDrop.jsx'
 import GameRecyclebar from './recyclebar/GameRecyclebar.jsx'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { TouchBackend } from 'react-dnd-touch-backend';
 import React, { useRef, useState } from 'react'
 import MemoryGame from './memory/MemoryGame.jsx'
 import AdminGameInfoTextManager from './adminDashBoard/AdminGameInfoTextManager.jsx'
@@ -41,16 +42,6 @@ export function AuthenticatedRoute({ children }) {
     return <Navigate to="/play/recycling/login" />
 }
 
-// const [backend, setBackend] = useState(HTML5Backend);
-
-// useEffect(() => {
-//   // Überprüfe, ob der Benutzer auf einem Touchscreen-Gerät ist
-//   if (window.matchMedia('(pointer: coarse)').matches) {
-//     setBackend(TouchBackend);
-//   } else {
-//     setBackend(HTML5Backend);
-//   }
-// }, []);
 
 
 
@@ -69,7 +60,11 @@ export default function RecyclingApp() {
     return (
 
         <div className="RecyclingApp">
-            {/* AuthProvider ist ein Context Provider, der den Authentifizierungszustand für alle untergeordneten Komponenten bereitstellt */}
+            {/* AuthProvider ist ein Context Provider, der den Authentifizierungszustand für alle untergeordneten Komponenten bereitstellt 
+            
+            Für bessere veranschaulichung und präsentation der App wurde die Authentifizierung rausgenommen.
+            
+            */}
             <AuthProvider>
                 <BrowserRouter>
                     <HeaderComponent></HeaderComponent>
@@ -92,11 +87,21 @@ export default function RecyclingApp() {
 
                         <Route path='/play/recycling/quiz/:playerGameId/:spieleId/:playerId' element={<Quiz></Quiz>}></Route>
 
+
+                        {/* Touchable fehlt */}
+
                         <Route path='/play/recycling/muellSortieren/:playerGameId/:spieleId/:playerId' element={
                             <DndProvider backend={HTML5Backend}>
                                 <DragDrop />
                             </DndProvider>
                         } />
+
+                        {/* <Route path='/play/recycling/muellSortieren/:playerGameId/:spieleId/:playerId' element={
+                            <DndProvider backend={TouchBackend}>
+                                <DragDrop />
+                            </DndProvider>
+                        } /> */}
+
 
                         <Route path='/play/recycling/recyclebar/:playerGameId/:spieleId/:playerId' element={
                             <DndProvider backend={HTML5Backend}>
@@ -104,15 +109,12 @@ export default function RecyclingApp() {
                             </DndProvider>
                         } />
 
-                        {/* <Route path='/play/recycling/muellSortieren/:playerGameId/:spieleId/:playerId' element={
-                            <DndProvider backend={backend}>
-                                <DragDrop />
-                            </DndProvider>
-                        } /> */}
+
 
                         <Route path='/play/recycling/memory/:playerGameId/:spieleId/:playerId' element={<MemoryGame></MemoryGame>}></Route>
 
 
+                        {/* Anfang des Admin Dashboards, nicht fertig gestellt */}
                         <Route path='/play/recycling/admin/dashboard/infotext' element={<AdminGameInfoTextManager></AdminGameInfoTextManager>}></Route>
 
 
